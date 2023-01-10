@@ -1,0 +1,35 @@
+<div class="clr-row">
+  <div class="clr-col-lg-5 clr-col-md-8 clr-col-12">
+    <div class="card m-0">
+      <div class="card-block">
+        <div *ngIf="false" class="alert alert-danger" role="alert">
+          <div class="alert-items">
+            <div class="alert-item static">
+              <div class="alert-icon-wrapper">
+                <cds-icon class="alert-icon" shape="exclamation-circle"></cds-icon>
+              </div>
+              <span class="alert-text">
+<!--              {{error.errorMessage}}-->
+          </span>
+            </div>
+          </div>
+        </div>
+        <form clrForm>
+          <clr-input-container>
+            <label>Name</label>
+            <input clrInput type="text" name="example" formControlName="name"/>
+            <clr-control-error>Error message that appears after focus is lost and control is invalid</clr-control-error>
+          </clr-input-container>
+          <clr-input-container>
+            <label>Description</label>
+            <input clrInput type="text" name="example" formControlName="description"/>
+            <clr-control-error>Error message that appears after focus is lost and control is invalid</clr-control-error>
+          </clr-input-container>
+        </form>
+      </div>
+      <div class="card-footer">
+        <button class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

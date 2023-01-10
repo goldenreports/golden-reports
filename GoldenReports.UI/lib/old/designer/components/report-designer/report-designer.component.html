@@ -1,0 +1,24 @@
+<clr-tabs>
+  <clr-tab>
+    <button clrTabLink>Designer</button>
+    <clr-tab-content>
+      <section class="container">
+        <gr-report-designer-explorer></gr-report-designer-explorer>
+        <gr-layout-editor [template]="report?.template" [styles]="report?.styles"></gr-layout-editor>
+        <gr-properties-panel></gr-properties-panel>
+      </section>
+    </clr-tab-content>
+  </clr-tab>
+  <clr-tab>
+    <button clrTabLink>Code</button>
+    <clr-tab-content>
+      <div class="editor" grEditor [(ngModel)]="reportCode"></div>
+    </clr-tab-content>
+  </clr-tab>
+  <clr-tab>
+    <button clrTabLink>Preview</button>
+    <clr-tab-content *clrIfActive>
+      <gr-report-viewer [report]="report"></gr-report-viewer>
+    </clr-tab-content>
+  </clr-tab>
+</clr-tabs>

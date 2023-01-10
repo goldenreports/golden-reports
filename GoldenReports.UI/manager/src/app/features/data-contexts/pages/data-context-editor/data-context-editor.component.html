@@ -1,0 +1,20 @@
+<form clrForm
+      *ngIf="vm$ | async as vm"
+      [formGroup]="dataContextForm"
+      stateFormBinding="dataContext"
+      [class.with-error]="!!vm.error">
+  <app-error-message *ngIf="vm.error" [error]="vm.error"></app-error-message>
+  <clr-input-container>
+    <label>Context Name</label>
+    <input clrInput type="text" name="example" formControlName="name"/>
+    <clr-control-error *clrIfError="'required'">Name is required</clr-control-error>
+  </clr-input-container>
+  <div class="schema-editor" grEditor formControlName="schema"></div>
+  <div class="actions">
+    <button class="btn btn-primary"
+            [clrLoading]="vm.saving"
+            [disabled]="!vm.canSave"
+            (click)="saveDataContext(vm.dataContext?.id, dataContextForm.value)">Save
+    </button>
+  </div>
+</form>

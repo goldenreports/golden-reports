@@ -1,0 +1,26 @@
+:host {
+  main {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    .app-content {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
+
+      .subnav {
+        flex: 0 0 1.85rem;
+
+        .nav {
+          box-shadow: none;
+
+          .nav-item-close {
+            border: none;
+            background: none;
+          }
+        }
+      }
+    }
+  }
+}

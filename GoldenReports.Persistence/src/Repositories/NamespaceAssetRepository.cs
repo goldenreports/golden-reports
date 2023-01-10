@@ -1,0 +1,28 @@
+﻿using GoldenReports.Application.Abstractions.Persistence;
+using GoldenReports.Domain.Assets;
+using Microsoft.EntityFrameworkCore;
+
+namespace GoldenReports.Persistence.Repositories;
+
+public class NamespaceAssetRepository : Repository<NamespaceAsset>, INamespaceAssetRepository
+{
+    private readonly GoldenReportsDbContext dataContext;
+
+    public NamespaceAssetRepository(GoldenReportsDbContext dataContext) : base(dataContext)
+    {
+        this.dataContext = dataContext;
+    }
+
+    public async Task<bool> CheckNameAvailability(Guid namespaceId, string name,
+        CancellationToken cancellationToken = default)
+    {
+        var nameExists = await this.dataContext.DataContexts.AnyAsync(
+            x =>
+                x.NamespaceId == namespaceId &&
+                x.Name == name,
+            cancellationToken
+        );
+
+        return !nameExists;
+    }
+}

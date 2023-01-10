@@ -1,0 +1,18 @@
+<div class="card">
+  <div class="card-block">
+    <clr-tabs>
+      <clr-tab>
+        <button clrTabLink>Elements</button>
+        <clr-tab-content *clrIfActive="true">
+          <gr-elements-store class="tree"></gr-elements-store>
+        </clr-tab-content>
+      </clr-tab>
+      <clr-tab>
+        <button clrTabLink>Content</button>
+        <clr-tab-content *clrIfActive>
+          <gr-report-content-explorer class="tree"></gr-report-content-explorer>
+        </clr-tab-content>
+      </clr-tab>
+    </clr-tabs>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="card">
+  <h6 class="card-header">Header</h6>
+  <div class="card-block">
+    <clr-accordion [clrAccordionMultiPanel]="true">
+      <clr-accordion-panel [clrAccordionPanelOpen]="true">
+        <clr-accordion-title>Item 1</clr-accordion-title>
+        <clr-accordion-content *clrIfExpanded="true">Content 1</clr-accordion-content>
+      </clr-accordion-panel>
+
+      <clr-accordion-panel [clrAccordionPanelOpen]="true">
+        <clr-accordion-title>Item 2</clr-accordion-title>
+        <clr-accordion-content *clrIfExpanded>Content 2</clr-accordion-content>
+      </clr-accordion-panel>
+
+      <clr-accordion-panel [clrAccordionPanelOpen]="true">
+        <clr-accordion-title>Item 3</clr-accordion-title>
+        <clr-accordion-content *clrIfExpanded>Content 3</clr-accordion-content>
+      </clr-accordion-panel>
+    </clr-accordion>
+  </div>
+</div>

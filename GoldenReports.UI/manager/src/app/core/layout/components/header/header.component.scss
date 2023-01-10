@@ -1,0 +1,11 @@
+:host {
+  @media screen and (max-width: 992px) {
+    .branding {
+      min-width: 0;
+
+      .title {
+        display: none;
+      }
+    }
+  }
+}

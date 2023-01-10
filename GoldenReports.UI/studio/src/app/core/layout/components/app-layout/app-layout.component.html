@@ -1,0 +1,28 @@
+<main class="main-container">
+  <app-header></app-header>
+  <div class="content-container">
+    <app-side-nav></app-side-nav>
+    <div class="app-content">
+      <nav class="subnav">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link active" href="#" aria-current="page">Report1</a>
+            <button class="nav-item-close"><cds-icon class="nav-icon" shape="times"></cds-icon></button>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Report2</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Report3</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Report4</a>
+          </li>
+        </ul>
+      </nav>
+      <div class="content-area">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</main>

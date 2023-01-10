@@ -1,0 +1,36 @@
+:host {
+  display: block;
+  overflow: hidden;
+
+  clr-tabs {
+    display: grid;
+    height: 100%;
+    grid-template-rows: auto minmax(0, 1fr);
+
+    .container {
+      height: 100%;
+      display: grid;
+      grid-template-columns: auto 1rem 1fr 1rem auto;
+      grid-template-rows: minmax(0, 1fr);
+      padding-top: 1rem;
+
+      gr-report-designer-explorer {
+        grid-column: 1;
+      }
+
+      gr-layout-editor {
+        grid-column: 3;
+      }
+
+      gr-properties-panel {
+        grid-column: 5;
+      }
+    }
+
+    .editor {
+      height: 100%;
+      overflow: auto;
+      display: grid;
+    }
+  }
+}

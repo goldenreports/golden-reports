@@ -1,0 +1,22 @@
+:host {
+  display: flex;
+
+  .card {
+    margin: 0;
+
+    .card-block {
+      height: 100%;
+
+      clr-tabs {
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr);
+        height: 100%;
+
+        .tree {
+          height: 100%;
+          overflow: auto;
+        }
+      }
+    }
+  }
+}

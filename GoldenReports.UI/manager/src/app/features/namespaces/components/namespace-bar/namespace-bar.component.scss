@@ -1,0 +1,38 @@
+:host {
+  .namespace-bar {
+    display: flex;
+
+    .namespace {
+      display: flex;
+      align-items: center;
+      margin-left: 0.5rem;
+      overflow: hidden;
+      //text-overflow: ellipsis;
+
+      h5 {
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &.current {
+          color: var(--clr-color-neutral-600);
+        }
+
+        a {
+          &:visited {
+            color: var(--clr-link-color);
+          }
+
+          &:hover {
+            color: var(--clr-link-visited-color-hover);
+          }
+        }
+
+        .separator {
+          padding: 0 0.1rem;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+import { ReportSize, Size } from '../models';
+
+export class ReportSizes {
+  public static readonly [ReportSize.A0]: Size = { width: '841mm', height: '1189mm' };
+  public static readonly [ReportSize.A1]: Size = { width: '594mm', height: '841mm' };
+  public static readonly [ReportSize.A2]: Size = { width: '420mm', height: '594mm' };
+  public static readonly [ReportSize.A3]: Size = { width: '297mm', height: '420mm' };
+  public static readonly [ReportSize.A4]: Size = { width: '210mm', height: '297mm' };
+  public static readonly [ReportSize.A5]: Size = { width: '148mm', height: '210mm' };
+  public static readonly [ReportSize.A6]: Size = { width: '105mm', height: '148mm' };
+  public static readonly [ReportSize.A7]: Size = { width: '74mm', height: '105mm' };
+  public static readonly [ReportSize.A8]: Size = { width: '52mm', height: '74mm' };
+  public static readonly [ReportSize.A9]: Size = { width: '37mm', height: '52mm' };
+  public static readonly [ReportSize.A10]: Size = { width: '26mm', height: '37mm' };
+  public static readonly [ReportSize.B0]: Size = { width: '1000mm', height: '1414mm' };
+  public static readonly [ReportSize.B1]: Size = { width: '707mm', height: '1000mm' };
+  public static readonly [ReportSize.B2]: Size = { width: '500mm', height: '707mm' };
+  public static readonly [ReportSize.B3]: Size = { width: '353mm', height: '500mm' };
+  public static readonly [ReportSize.B4]: Size = { width: '250mm', height: '353mm' };
+  public static readonly [ReportSize.B5]: Size = { width: '176mm', height: '250mm' };
+  public static readonly [ReportSize.B6]: Size = { width: '125mm', height: '176mm' };
+  public static readonly [ReportSize.B7]: Size = { width: '88mm', height: '125mm' };
+  public static readonly [ReportSize.B8]: Size = { width: '62mm', height: '88mm' };
+  public static readonly [ReportSize.B9]: Size = { width: '44mm', height: '62mm' };
+  public static readonly [ReportSize.B10]: Size = { width: '31mm', height: '44mm' };
+  public static readonly [ReportSize.C0]: Size = { width: '917mm', height: '1297mm' };
+  public static readonly [ReportSize.C1]: Size = { width: '648mm', height: '917mm' };
+  public static readonly [ReportSize.C2]: Size = { width: '458mm', height: '648mm' };
+  public static readonly [ReportSize.C3]: Size = { width: '324mm', height: '458mm' };
+  public static readonly [ReportSize.C4]: Size = { width: '229mm', height: '324mm' };
+  public static readonly [ReportSize.C5]: Size = { width: '162mm', height: '229mm' };
+  public static readonly [ReportSize.C6]: Size = { width: '114mm', height: '162mm' };
+  public static readonly [ReportSize.C7]: Size = { width: '81mm', height: '114mm' };
+  public static readonly [ReportSize.C8]: Size = { width: '57mm', height: '81mm' };
+  public static readonly [ReportSize.C9]: Size = { width: '40mm', height: '57mm' };
+  public static readonly [ReportSize.C10]: Size = { width: '28mm', height: '40mm' };
+  public static readonly [ReportSize.HalfLetter]: Size = { width: '140mm', height: '216mm' };
+  public static readonly [ReportSize.GovernmentLetter]: Size = { width: '203mm', height: '254mm' };
+  public static readonly [ReportSize.Letter]: Size = { width: '216mm', height: '279mm' };
+  public static readonly [ReportSize.JuniorLegal]: Size = { width: '127mm', height: '203mm' };
+  public static readonly [ReportSize.GovernmentLegal]: Size = { width: '216mm', height: '330mm' };
+  public static readonly [ReportSize.Legal]: Size = { width: '216mm', height: '356mm' };
+  public static readonly [ReportSize.Ledger]: Size = { width: '279mm', height: '432mm' };
+}

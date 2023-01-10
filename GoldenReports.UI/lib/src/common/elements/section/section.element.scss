@@ -1,0 +1,55 @@
+:host {
+  &:not(:first-of-type):nth-child(even) {
+    margin: -1px 0;
+  }
+
+  &:last-of-type:nth-child(even) {
+    margin-bottom: 0;
+  }
+
+  .page-section {
+    display: grid;
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+
+    .btn.delete {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: none;
+    }
+
+    &.design {
+      border: 1px dashed #333;
+      min-height: 50px;
+
+      .btn.delete {
+        display: inline-block;
+      }
+
+      &.drop-active {
+        border-color: var(--clr-color-on-neutral-200);
+        background-color: var(--clr-color-neutral-200);
+      }
+
+      &.drop-ready {
+        border-color: var(--clr-color-on-action-200);
+        background-color: var(--clr-color-action-200);
+        .section-name {
+          color: var(--clr-color-on-action-200);
+        }
+      }
+    }
+
+    .section-name {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      margin: 0;
+      text-align: center;
+    }
+  }
+}

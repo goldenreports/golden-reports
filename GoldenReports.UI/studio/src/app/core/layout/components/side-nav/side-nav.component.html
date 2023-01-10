@@ -1,0 +1,26 @@
+<section class="side-nav">
+  <nav>
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a class="nav-link" [class.active]="active" href="#" (click)="active = !active"><cds-icon class="nav-icon" shape="folder"></cds-icon></a>
+      </li>
+    </ul>
+  </nav>
+  <div *ngIf="active" class="nav-context">
+    <clr-tree>
+      <clr-tree-node *ngFor="let directory of rootDirectory" [(clrExpanded)]="directory.expanded">
+        <cds-icon [attr.shape]="directory.icon"></cds-icon>
+        {{directory.name}}
+        <clr-tree-node *ngFor="let file of directory.files">
+          <button
+            (click)="openFile(directory.name, file.name)"
+            class="clr-treenode-link"
+            [class.active]="file.active">
+            <cds-icon [attr.shape]="file.icon"></cds-icon>
+            {{file.name}}
+          </button>
+        </clr-tree-node>
+      </clr-tree-node>
+    </clr-tree>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+<section class="namespace-bar">
+  <button class="btn btn-icon btn-link" (click)="pinCurrentNamespace()">
+    <cds-icon shape="star"></cds-icon>
+  </button>
+  <div class="namespace">
+    <h5 *ngFor="let namespace of namespaces;let last=last" [class.current]="last">
+      <ng-container *ngIf="!last;else currentNamespaceTemplate">
+        <a routerLink="/namespaces/{{namespace?.id}}">{{namespace?.name}}</a><span class="separator">.</span>
+      </ng-container>
+      <ng-template #currentNamespaceTemplate>
+        {{namespace?.name}}
+      </ng-template>
+    </h5>
+  </div>
+</section>

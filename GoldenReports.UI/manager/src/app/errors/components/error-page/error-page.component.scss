@@ -1,0 +1,21 @@
+:host {
+  .content-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+      font-size: 5rem;
+    }
+
+    p {
+      font-weight: 100;
+      font-size: 1.2rem;
+    }
+
+    button {
+      margin: 2rem 0;
+    }
+  }
+}

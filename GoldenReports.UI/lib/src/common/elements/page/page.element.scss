@@ -1,0 +1,30 @@
+:host {
+  position: relative;
+
+  .margin-border {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .page {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+
+    ::slotted(gr-section) {
+      flex: 1 1 auto;
+
+      &.auto {
+        flex: 0 0 auto;
+      }
+
+      &.fix {
+        flex-grow: 0;
+        flex-shrink: 0;
+      }
+    }
+  }
+}

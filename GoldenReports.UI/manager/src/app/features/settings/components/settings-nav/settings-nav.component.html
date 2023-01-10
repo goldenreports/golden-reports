@@ -1,0 +1,18 @@
+<clr-vertical-nav>
+  <a clrVerticalNavLink routerLinkActive="active" routerLink="/settings/user">
+    <cds-icon shape="user" clrVerticalNavIcon></cds-icon>
+    User
+  </a>
+  <clr-vertical-nav-group
+    routerLinkActive="active">
+    <cds-icon shape="shield" clrVerticalNavIcon></cds-icon>
+    Security
+    <clr-vertical-nav-group-children>
+      <a clrVerticalNavLink
+         routerLink="/settings/permissions"
+         routerLinkActive="active">
+        Permissions
+      </a>
+    </clr-vertical-nav-group-children>
+  </clr-vertical-nav-group>
+</clr-vertical-nav>

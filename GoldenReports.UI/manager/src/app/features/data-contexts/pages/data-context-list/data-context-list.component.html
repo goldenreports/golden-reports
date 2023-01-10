@@ -1,0 +1,19 @@
+<button class="btn btn-sm" routerLink="./new">Add Data Context</button>
+
+<ng-container *ngIf="vm$ | async as vm">
+  <app-error-message *ngIf="vm.error" [error]="vm.error"></app-error-message>
+  <clr-datagrid [clrDgLoading]="vm.loading">
+    <clr-dg-column>Name</clr-dg-column>
+    <clr-dg-column>Creation Date</clr-dg-column>
+    <clr-dg-column>Modification Date</clr-dg-column>
+
+    <clr-dg-row *ngFor="let dataContext of vm.dataContexts">
+      <clr-dg-cell><a routerLink="./{{dataContext.id}}">{{dataContext.name}}</a></clr-dg-cell>
+      <clr-dg-cell>{{dataContext.creationDate | date: 'short'}}</clr-dg-cell>
+      <clr-dg-cell>{{dataContext.modificationDate | date: 'short'}}</clr-dg-cell>
+    </clr-dg-row>
+
+    <clr-dg-footer>{{vm.dataContexts.length}} data context<span
+      *ngIf="vm.dataContexts.length === 0 || vm.dataContexts.length > 1">s</span></clr-dg-footer>
+  </clr-datagrid>
+</ng-container>

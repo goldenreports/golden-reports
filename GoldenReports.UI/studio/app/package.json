@@ -1,0 +1,10 @@
+{
+  "name": "golden-reports-studio",
+  "version": "0.0.0",
+  "main": "main.js",
+  "author": "Mariano Santoro",
+  "description": "Golden Reports Studio",
+  "private": true,
+  "dependencies": {
+  }
+}

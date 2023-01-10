@@ -1,0 +1,7 @@
+<ng-container *ngIf="vm$ | async as vm">
+  <app-namespace-bar [namespaces]="vm.namespaces"></app-namespace-bar>
+  <app-error-message *ngIf="vm.error" [error]="vm.error"></app-error-message>
+</ng-container>
+<div class="content">
+  <router-outlet></router-outlet>
+</div>

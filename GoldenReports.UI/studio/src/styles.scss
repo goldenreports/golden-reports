@@ -1,0 +1,99 @@
+.loading-container:not(.dev) {
+  position: absolute;
+  z-index: 99999999;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #11111f;
+  transition: opacity 1s;
+
+  img {
+    width: 25%;
+  }
+
+  p {
+    font-size: 1rem!important;
+    color: #c99700!important;
+  }
+
+  &.animation-ended.hidden {
+    opacity: 0;
+
+    &.transition-ended {
+      display: none;
+    }
+  }
+}
+
+.loading-container.dev {
+  display: none;
+}
+
+.app-logo {
+  background-image: url("assets/icons/icon.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  padding: 0 1rem;
+  width: 32px;
+  height: 32px;
+
+  &.watermark {
+    filter: grayscale(100%);
+    opacity: 0.3;
+    background-size: 25% 25%;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.d-flex {
+  display: flex!important;
+}
+
+.m-0 {
+  margin: 0!important;
+}
+
+.p-0 {
+  padding: 0!important;
+}
+
+a {
+  text-decoration: none;
+}
+
+.clr-form-control.no-label {
+  &>.clr-control-label {
+    display: none;
+  }
+  &>.clr-control-container {
+    padding-left: 0;
+  }
+}
+
+:root {
+  --clr-color-action-50: #F9F3E0;
+  --clr-color-action-100: #EFE0B3;
+  --clr-color-action-200: #E4CB80;
+  --clr-color-action-300: #D9B64D;
+  --clr-color-action-400: #D1A726;
+  --clr-color-action-500: #C99700;
+  --clr-color-action-600: #C38F00;
+  --clr-color-action-700: #BC8400;
+  --clr-color-action-800: #B57A00;
+  --clr-color-action-900: #A96900;
+  --clr-color-action-1000: #A36000;
+
+  --clr-header-bg-color: #11111f;
+
+  --clr-global-selection-color: var(--clr-color-action-50);
+
+  --clr-link-visited-color: var(--clr-color-action-800);
+  --clr-link-visited-color-hover: var(--clr-color-action-1000);
+  --clr-link-active-color: var(--clr-color-action-400);
+}

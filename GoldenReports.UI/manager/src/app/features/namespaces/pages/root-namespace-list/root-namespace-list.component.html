@@ -1,0 +1,13 @@
+<button class="btn btn-sm" (click)="beginNamespaceCreation()">Add Namespace</button>
+
+<ng-container *ngIf="vm$ | async as vm">
+  <app-error-message *ngIf="vm.error && !vm.showingNewNamespaceModal" [error]="vm.error"></app-error-message>
+  <app-namespaces-table [namespaces]="vm.namespaces" [loading]="vm.loading"></app-namespaces-table>
+  <app-namespace-form-modal
+    *ngIf="vm.showingNewNamespaceModal"
+    [saving]="vm.saving"
+    [error]="vm.error"
+    (save)="saveNamespace($event)"
+    (close)="cancelNamespaceCreation()"
+  ></app-namespace-form-modal>
+</ng-container>

@@ -1,0 +1,32 @@
+<ng-container *ngIf="vm$ | async as vm">
+  <app-error-message *ngIf="vm.error" [error]="vm.error"></app-error-message>
+  <form clrForm [formGroup]="dataSourceForm" stateFormBinding="dataSource">
+    <clr-input-container *ngIf="vm.isNewDataSource">
+      <label>Code</label>
+      <input clrInput type="text" name="example" formControlName="code"/>
+      <clr-control-error *clrIfError="'required'">Code is required</clr-control-error>
+    </clr-input-container>
+    <h4 class="card-title">{{vm.dataSource?.code}}</h4>
+    <clr-input-container>
+      <label>Name</label>
+      <input clrInput type="text" name="example" formControlName="name"/>
+      <clr-control-error *clrIfError="'required'">Name is required</clr-control-error>
+    </clr-input-container>
+    <clr-input-container>
+      <label>Description</label>
+      <input clrInput type="text" name="example" formControlName="description"/>
+    </clr-input-container>
+    <clr-textarea-container>
+      <label>Connection String</label>
+      <textarea clrTextarea name="connectionString" formControlName="connectionString"></textarea>
+      <clr-control-error *clrIfError="'required'">Connection string is required</clr-control-error>
+    </clr-textarea-container>
+  </form>
+  <div class="actions">
+    <button class="btn btn-primary"
+            [clrLoading]="vm.saving || vm.loading"
+            [disabled]="!vm.canSave"
+            (click)="saveDataSource(vm.dataSource?.id, dataSourceForm.value)">Save
+    </button>
+  </div>
+</ng-container>

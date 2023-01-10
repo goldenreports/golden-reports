@@ -1,0 +1,16 @@
+<clr-datagrid [clrDgLoading]="loading">
+  <clr-dg-column>Name</clr-dg-column>
+  <clr-dg-column>Description</clr-dg-column>
+  <clr-dg-column>Creation Date</clr-dg-column>
+  <clr-dg-column>Modification Date</clr-dg-column>
+
+  <clr-dg-row *ngFor="let namespace of namespaces">
+    <clr-dg-cell><a routerLink="/namespaces/{{namespace.id}}">{{namespace.name}}</a></clr-dg-cell>
+    <clr-dg-cell>{{namespace.description}}</clr-dg-cell>
+    <clr-dg-cell>{{namespace.creationDate | date: 'short'}}</clr-dg-cell>
+    <clr-dg-cell>{{namespace.modificationDate | date: 'short'}}</clr-dg-cell>
+  </clr-dg-row>
+
+  <clr-dg-footer>{{namespaces.length}} namespace<span
+    *ngIf="namespaces.length === 0 || namespaces.length > 1">s</span></clr-dg-footer>
+</clr-datagrid>
