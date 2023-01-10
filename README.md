@@ -1,1 +1,1 @@
-![Golden Reports logo](/art/highres/customcolor/full/customcolor_logo_customcolor_background.png "Golden Reports logo")
+# Golden Reports
