@@ -41,7 +41,7 @@ public class ConfigureSwaggerGenOptions : IConfigureOptions<SwaggerGenOptions>
             License = new OpenApiLicense
             {
                 Name = "Apache 2.0",
-                Url = new Uri("https://github.com/santoro-mariano/golden-reports/blob/main/LICENSE")
+                Url = new Uri("https://github.com/golden-reports/community/blob/main/LICENSE")
             }
         };
     }
