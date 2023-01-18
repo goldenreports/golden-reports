@@ -22,6 +22,17 @@ builder.Services
 
 builder.Services.AddControllers()
     .AddJsonOptions(opts => opts.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+builder.Services.AddCors(opts =>
+{
+    opts.AddDefaultPolicy(policy =>
+    {
+        var corsSettings = builder.Configuration
+            .GetSection($"{nameof(AppSettings.Security)}:{nameof(SecuritySettings.Cors)}")
+            .Get<CorsSettings>();
+        
+        policy.WithOrigins(corsSettings?.AllowedOrigins ?? Array.Empty<string>());
+    });
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services
     .AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerGenOptions>()
@@ -84,6 +95,8 @@ builder.Services
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
+app.UseCors();
+
 var appSettings = builder.Configuration.Get<AppSettings>();
 if (appSettings?.Swagger.Enabled == true)
 {
@@ -102,22 +115,22 @@ if (appSettings?.Swagger.Enabled == true)
         {
             opts.OAuthClientId(swaggerSettings.ClientId);
         }
-            
+
         if (swaggerSettings.UsePkce)
         {
             opts.OAuthUsePkce();
         }
-            
+
         if (swaggerSettings.ClientSecret != null)
         {
             opts.OAuthClientSecret(swaggerSettings.ClientSecret);
         }
-            
+
         opts.OAuthAppName("Golden Reports API");
         opts.OAuthScopeSeparator(" ");
     });
 }
-    
+
 app.UseGlobalExceptionHandler();
 
 app.UseHttpsRedirection();
