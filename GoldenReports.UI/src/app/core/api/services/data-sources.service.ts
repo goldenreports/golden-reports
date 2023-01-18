@@ -27,7 +27,7 @@ export class DataSourcesService extends BaseService {
   /**
    * Path part for operation getDataSources
    */
-  static readonly GetDataSourcesPath = '/api/data-sources';
+  static readonly GetDataSourcesPath = '/data-sources';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -36,14 +36,14 @@ export class DataSourcesService extends BaseService {
    * This method doesn't expect any request body.
    */
   getDataSources$Response(params?: {
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<StrictHttpResponse<Array<DataSourceDto>>> {
 
     const rb = new RequestBuilder(this.rootUrl, DataSourcesService.GetDataSourcesPath, 'get');
     if (params) {
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
     }
 
     return this.http.request(rb.build({
@@ -65,7 +65,7 @@ export class DataSourcesService extends BaseService {
    * This method doesn't expect any request body.
    */
   getDataSources(params?: {
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<Array<DataSourceDto>> {
@@ -78,7 +78,7 @@ export class DataSourcesService extends BaseService {
   /**
    * Path part for operation createDataSource
    */
-  static readonly CreateDataSourcePath = '/api/data-sources';
+  static readonly CreateDataSourcePath = '/data-sources';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -87,7 +87,7 @@ export class DataSourcesService extends BaseService {
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
   createDataSource$Response(params?: {
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
     body?: CreateDataSourceDto
   }
@@ -95,7 +95,7 @@ export class DataSourcesService extends BaseService {
 
     const rb = new RequestBuilder(this.rootUrl, DataSourcesService.CreateDataSourcePath, 'post');
     if (params) {
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
       rb.body(params.body, 'application/*+json');
     }
 
@@ -118,7 +118,7 @@ export class DataSourcesService extends BaseService {
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
   createDataSource(params?: {
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
     body?: CreateDataSourceDto
   }
@@ -132,7 +132,7 @@ export class DataSourcesService extends BaseService {
   /**
    * Path part for operation getDataSourceById
    */
-  static readonly GetDataSourceByIdPath = '/api/data-sources/{dataSourceId}';
+  static readonly GetDataSourceByIdPath = '/data-sources/{dataSourceId}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -142,7 +142,7 @@ export class DataSourcesService extends BaseService {
    */
   getDataSourceById$Response(params: {
     dataSourceId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<StrictHttpResponse<DataSourceDto>> {
@@ -150,7 +150,7 @@ export class DataSourcesService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, DataSourcesService.GetDataSourceByIdPath, 'get');
     if (params) {
       rb.path('dataSourceId', params.dataSourceId, {"style":"simple"});
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
     }
 
     return this.http.request(rb.build({
@@ -173,7 +173,7 @@ export class DataSourcesService extends BaseService {
    */
   getDataSourceById(params: {
     dataSourceId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<DataSourceDto> {
@@ -186,7 +186,7 @@ export class DataSourcesService extends BaseService {
   /**
    * Path part for operation updateDataSource
    */
-  static readonly UpdateDataSourcePath = '/api/data-sources/{dataSourceId}';
+  static readonly UpdateDataSourcePath = '/data-sources/{dataSourceId}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -196,7 +196,7 @@ export class DataSourcesService extends BaseService {
    */
   updateDataSource$Response(params: {
     dataSourceId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
     body?: UpdateDataSourceDto
   }
@@ -205,7 +205,7 @@ export class DataSourcesService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, DataSourcesService.UpdateDataSourcePath, 'put');
     if (params) {
       rb.path('dataSourceId', params.dataSourceId, {"style":"simple"});
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
       rb.body(params.body, 'application/*+json');
     }
 
@@ -229,7 +229,7 @@ export class DataSourcesService extends BaseService {
    */
   updateDataSource(params: {
     dataSourceId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
     body?: UpdateDataSourceDto
   }
@@ -243,7 +243,7 @@ export class DataSourcesService extends BaseService {
   /**
    * Path part for operation deleteDataSource
    */
-  static readonly DeleteDataSourcePath = '/api/data-sources/{dataSourceId}';
+  static readonly DeleteDataSourcePath = '/data-sources/{dataSourceId}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -253,7 +253,7 @@ export class DataSourcesService extends BaseService {
    */
   deleteDataSource$Response(params: {
     dataSourceId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<StrictHttpResponse<void>> {
@@ -261,7 +261,7 @@ export class DataSourcesService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, DataSourcesService.DeleteDataSourcePath, 'delete');
     if (params) {
       rb.path('dataSourceId', params.dataSourceId, {"style":"simple"});
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
     }
 
     return this.http.request(rb.build({
@@ -284,7 +284,7 @@ export class DataSourcesService extends BaseService {
    */
   deleteDataSource(params: {
     dataSourceId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<void> {

@@ -32,7 +32,7 @@ export class NamespacesService extends BaseService {
   /**
    * Path part for operation getRootNamespaces
    */
-  static readonly GetRootNamespacesPath = '/api/namespaces';
+  static readonly GetRootNamespacesPath = '/namespaces';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -41,14 +41,14 @@ export class NamespacesService extends BaseService {
    * This method doesn't expect any request body.
    */
   getRootNamespaces$Response(params?: {
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<StrictHttpResponse<Array<NamespaceDto>>> {
 
     const rb = new RequestBuilder(this.rootUrl, NamespacesService.GetRootNamespacesPath, 'get');
     if (params) {
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
     }
 
     return this.http.request(rb.build({
@@ -70,7 +70,7 @@ export class NamespacesService extends BaseService {
    * This method doesn't expect any request body.
    */
   getRootNamespaces(params?: {
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<Array<NamespaceDto>> {
@@ -83,7 +83,7 @@ export class NamespacesService extends BaseService {
   /**
    * Path part for operation createNamespace
    */
-  static readonly CreateNamespacePath = '/api/namespaces';
+  static readonly CreateNamespacePath = '/namespaces';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -92,7 +92,7 @@ export class NamespacesService extends BaseService {
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
   createNamespace$Response(params?: {
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
     body?: CreateNamespaceDto
   }
@@ -100,7 +100,7 @@ export class NamespacesService extends BaseService {
 
     const rb = new RequestBuilder(this.rootUrl, NamespacesService.CreateNamespacePath, 'post');
     if (params) {
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
       rb.body(params.body, 'application/*+json');
     }
 
@@ -123,7 +123,7 @@ export class NamespacesService extends BaseService {
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
   createNamespace(params?: {
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
     body?: CreateNamespaceDto
   }
@@ -137,7 +137,7 @@ export class NamespacesService extends BaseService {
   /**
    * Path part for operation getNamespace
    */
-  static readonly GetNamespacePath = '/api/namespaces/{namespaceId}';
+  static readonly GetNamespacePath = '/namespaces/{namespaceId}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -147,7 +147,7 @@ export class NamespacesService extends BaseService {
    */
   getNamespace$Response(params: {
     namespaceId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<StrictHttpResponse<NamespaceDto>> {
@@ -155,7 +155,7 @@ export class NamespacesService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, NamespacesService.GetNamespacePath, 'get');
     if (params) {
       rb.path('namespaceId', params.namespaceId, {"style":"simple"});
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
     }
 
     return this.http.request(rb.build({
@@ -178,7 +178,7 @@ export class NamespacesService extends BaseService {
    */
   getNamespace(params: {
     namespaceId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<NamespaceDto> {
@@ -191,7 +191,7 @@ export class NamespacesService extends BaseService {
   /**
    * Path part for operation updateNamespace
    */
-  static readonly UpdateNamespacePath = '/api/namespaces/{namespaceId}';
+  static readonly UpdateNamespacePath = '/namespaces/{namespaceId}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -201,7 +201,7 @@ export class NamespacesService extends BaseService {
    */
   updateNamespace$Response(params: {
     namespaceId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
     body?: UpdateNamespaceDto
   }
@@ -210,7 +210,7 @@ export class NamespacesService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, NamespacesService.UpdateNamespacePath, 'put');
     if (params) {
       rb.path('namespaceId', params.namespaceId, {"style":"simple"});
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
       rb.body(params.body, 'application/*+json');
     }
 
@@ -234,7 +234,7 @@ export class NamespacesService extends BaseService {
    */
   updateNamespace(params: {
     namespaceId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
     body?: UpdateNamespaceDto
   }
@@ -248,7 +248,7 @@ export class NamespacesService extends BaseService {
   /**
    * Path part for operation deleteNamespace
    */
-  static readonly DeleteNamespacePath = '/api/namespaces/{namespaceId}';
+  static readonly DeleteNamespacePath = '/namespaces/{namespaceId}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -258,7 +258,7 @@ export class NamespacesService extends BaseService {
    */
   deleteNamespace$Response(params: {
     namespaceId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<StrictHttpResponse<void>> {
@@ -266,7 +266,7 @@ export class NamespacesService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, NamespacesService.DeleteNamespacePath, 'delete');
     if (params) {
       rb.path('namespaceId', params.namespaceId, {"style":"simple"});
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
     }
 
     return this.http.request(rb.build({
@@ -289,7 +289,7 @@ export class NamespacesService extends BaseService {
    */
   deleteNamespace(params: {
     namespaceId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<void> {
@@ -302,7 +302,7 @@ export class NamespacesService extends BaseService {
   /**
    * Path part for operation getAncestors
    */
-  static readonly GetAncestorsPath = '/api/namespaces/{namespaceId}/ancestors';
+  static readonly GetAncestorsPath = '/namespaces/{namespaceId}/ancestors';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -312,7 +312,7 @@ export class NamespacesService extends BaseService {
    */
   getAncestors$Response(params: {
     namespaceId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<StrictHttpResponse<Array<NamespaceDto>>> {
@@ -320,7 +320,7 @@ export class NamespacesService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, NamespacesService.GetAncestorsPath, 'get');
     if (params) {
       rb.path('namespaceId', params.namespaceId, {"style":"simple"});
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
     }
 
     return this.http.request(rb.build({
@@ -343,7 +343,7 @@ export class NamespacesService extends BaseService {
    */
   getAncestors(params: {
     namespaceId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<Array<NamespaceDto>> {
@@ -356,7 +356,7 @@ export class NamespacesService extends BaseService {
   /**
    * Path part for operation getInnerNamespaces
    */
-  static readonly GetInnerNamespacesPath = '/api/namespaces/{namespaceId}/namespaces';
+  static readonly GetInnerNamespacesPath = '/namespaces/{namespaceId}/namespaces';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -366,7 +366,7 @@ export class NamespacesService extends BaseService {
    */
   getInnerNamespaces$Response(params: {
     namespaceId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<StrictHttpResponse<Array<NamespaceDto>>> {
@@ -374,7 +374,7 @@ export class NamespacesService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, NamespacesService.GetInnerNamespacesPath, 'get');
     if (params) {
       rb.path('namespaceId', params.namespaceId, {"style":"simple"});
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
     }
 
     return this.http.request(rb.build({
@@ -397,7 +397,7 @@ export class NamespacesService extends BaseService {
    */
   getInnerNamespaces(params: {
     namespaceId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<Array<NamespaceDto>> {
@@ -410,7 +410,7 @@ export class NamespacesService extends BaseService {
   /**
    * Path part for operation getNamespaceDataSources
    */
-  static readonly GetNamespaceDataSourcesPath = '/api/namespaces/{namespaceId}/data-sources';
+  static readonly GetNamespaceDataSourcesPath = '/namespaces/{namespaceId}/data-sources';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -420,7 +420,7 @@ export class NamespacesService extends BaseService {
    */
   getNamespaceDataSources$Response(params: {
     namespaceId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<StrictHttpResponse<Array<DataSourceDto>>> {
@@ -428,7 +428,7 @@ export class NamespacesService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, NamespacesService.GetNamespaceDataSourcesPath, 'get');
     if (params) {
       rb.path('namespaceId', params.namespaceId, {"style":"simple"});
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
     }
 
     return this.http.request(rb.build({
@@ -451,7 +451,7 @@ export class NamespacesService extends BaseService {
    */
   getNamespaceDataSources(params: {
     namespaceId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<Array<DataSourceDto>> {
@@ -464,7 +464,7 @@ export class NamespacesService extends BaseService {
   /**
    * Path part for operation getNamespaceDataContexts
    */
-  static readonly GetNamespaceDataContextsPath = '/api/namespaces/{namespaceId}/data-contexts';
+  static readonly GetNamespaceDataContextsPath = '/namespaces/{namespaceId}/data-contexts';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -474,7 +474,7 @@ export class NamespacesService extends BaseService {
    */
   getNamespaceDataContexts$Response(params: {
     namespaceId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<StrictHttpResponse<Array<DataContextDto>>> {
@@ -482,7 +482,7 @@ export class NamespacesService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, NamespacesService.GetNamespaceDataContextsPath, 'get');
     if (params) {
       rb.path('namespaceId', params.namespaceId, {"style":"simple"});
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
     }
 
     return this.http.request(rb.build({
@@ -505,7 +505,7 @@ export class NamespacesService extends BaseService {
    */
   getNamespaceDataContexts(params: {
     namespaceId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<Array<DataContextDto>> {
@@ -518,7 +518,7 @@ export class NamespacesService extends BaseService {
   /**
    * Path part for operation getNamespaceAssets
    */
-  static readonly GetNamespaceAssetsPath = '/api/namespaces/{namespaceId}/assets';
+  static readonly GetNamespaceAssetsPath = '/namespaces/{namespaceId}/assets';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -528,7 +528,7 @@ export class NamespacesService extends BaseService {
    */
   getNamespaceAssets$Response(params: {
     namespaceId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<StrictHttpResponse<Array<AssetDto>>> {
@@ -536,7 +536,7 @@ export class NamespacesService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, NamespacesService.GetNamespaceAssetsPath, 'get');
     if (params) {
       rb.path('namespaceId', params.namespaceId, {"style":"simple"});
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
     }
 
     return this.http.request(rb.build({
@@ -559,7 +559,7 @@ export class NamespacesService extends BaseService {
    */
   getNamespaceAssets(params: {
     namespaceId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<Array<AssetDto>> {
@@ -572,7 +572,7 @@ export class NamespacesService extends BaseService {
   /**
    * Path part for operation addNamespaceAsset
    */
-  static readonly AddNamespaceAssetPath = '/api/namespaces/{namespaceId}/assets';
+  static readonly AddNamespaceAssetPath = '/namespaces/{namespaceId}/assets';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -582,7 +582,7 @@ export class NamespacesService extends BaseService {
    */
   addNamespaceAsset$Response(params: {
     namespaceId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
     body?: UpsertAssetDto
   }
@@ -591,7 +591,7 @@ export class NamespacesService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, NamespacesService.AddNamespaceAssetPath, 'post');
     if (params) {
       rb.path('namespaceId', params.namespaceId, {"style":"simple"});
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
       rb.body(params.body, 'application/*+json');
     }
 
@@ -615,7 +615,7 @@ export class NamespacesService extends BaseService {
    */
   addNamespaceAsset(params: {
     namespaceId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
     body?: UpsertAssetDto
   }
@@ -629,7 +629,7 @@ export class NamespacesService extends BaseService {
   /**
    * Path part for operation getNamespaceReports
    */
-  static readonly GetNamespaceReportsPath = '/api/namespaces/{namespaceId}/reports';
+  static readonly GetNamespaceReportsPath = '/namespaces/{namespaceId}/reports';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -639,7 +639,7 @@ export class NamespacesService extends BaseService {
    */
   getNamespaceReports$Response(params: {
     namespaceId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<StrictHttpResponse<Array<ReportListItemDto>>> {
@@ -647,7 +647,7 @@ export class NamespacesService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, NamespacesService.GetNamespaceReportsPath, 'get');
     if (params) {
       rb.path('namespaceId', params.namespaceId, {"style":"simple"});
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
     }
 
     return this.http.request(rb.build({
@@ -670,7 +670,7 @@ export class NamespacesService extends BaseService {
    */
   getNamespaceReports(params: {
     namespaceId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<Array<ReportListItemDto>> {
@@ -683,7 +683,7 @@ export class NamespacesService extends BaseService {
   /**
    * Path part for operation getNamespaceAsset
    */
-  static readonly GetNamespaceAssetPath = '/api/namespaces/assets/{assetId}';
+  static readonly GetNamespaceAssetPath = '/namespaces/assets/{assetId}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -693,7 +693,7 @@ export class NamespacesService extends BaseService {
    */
   getNamespaceAsset$Response(params: {
     assetId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<StrictHttpResponse<AssetDto>> {
@@ -701,7 +701,7 @@ export class NamespacesService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, NamespacesService.GetNamespaceAssetPath, 'get');
     if (params) {
       rb.path('assetId', params.assetId, {"style":"simple"});
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
     }
 
     return this.http.request(rb.build({
@@ -724,7 +724,7 @@ export class NamespacesService extends BaseService {
    */
   getNamespaceAsset(params: {
     assetId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<AssetDto> {
@@ -737,7 +737,7 @@ export class NamespacesService extends BaseService {
   /**
    * Path part for operation updateNamespaceAsset
    */
-  static readonly UpdateNamespaceAssetPath = '/api/namespaces/assets/{assetId}';
+  static readonly UpdateNamespaceAssetPath = '/namespaces/assets/{assetId}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -747,7 +747,7 @@ export class NamespacesService extends BaseService {
    */
   updateNamespaceAsset$Response(params: {
     assetId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
     body?: UpsertAssetDto
   }
@@ -756,7 +756,7 @@ export class NamespacesService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, NamespacesService.UpdateNamespaceAssetPath, 'put');
     if (params) {
       rb.path('assetId', params.assetId, {"style":"simple"});
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
       rb.body(params.body, 'application/*+json');
     }
 
@@ -780,7 +780,7 @@ export class NamespacesService extends BaseService {
    */
   updateNamespaceAsset(params: {
     assetId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
     body?: UpsertAssetDto
   }
@@ -794,7 +794,7 @@ export class NamespacesService extends BaseService {
   /**
    * Path part for operation deleteNamespaceAsset
    */
-  static readonly DeleteNamespaceAssetPath = '/api/namespaces/assets/{assetId}';
+  static readonly DeleteNamespaceAssetPath = '/namespaces/assets/{assetId}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -804,7 +804,7 @@ export class NamespacesService extends BaseService {
    */
   deleteNamespaceAsset$Response(params: {
     assetId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<StrictHttpResponse<void>> {
@@ -812,7 +812,7 @@ export class NamespacesService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, NamespacesService.DeleteNamespaceAssetPath, 'delete');
     if (params) {
       rb.path('assetId', params.assetId, {"style":"simple"});
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
     }
 
     return this.http.request(rb.build({
@@ -835,7 +835,7 @@ export class NamespacesService extends BaseService {
    */
   deleteNamespaceAsset(params: {
     assetId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<void> {

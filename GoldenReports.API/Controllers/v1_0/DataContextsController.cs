@@ -11,7 +11,7 @@ namespace GoldenReports.API.Controllers.v1_0;
 
 [Authorize]
 [ApiController]
-[Route("api/data-contexts")]
+[Route("data-contexts")]
 [ApiVersion("1.0")]
 public class DataContextsController : ControllerBase
 {

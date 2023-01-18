@@ -14,7 +14,7 @@ namespace GoldenReports.API.Controllers.v1_0;
 
 [Authorize]
 [ApiController]
-[Route("api/reports")]
+[Route("reports")]
 [ApiVersion("1.0")]
 public class ReportsController : ControllerBase
 {

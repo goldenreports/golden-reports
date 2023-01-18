@@ -30,7 +30,7 @@ export class ReportsService extends BaseService {
   /**
    * Path part for operation getReports
    */
-  static readonly GetReportsPath = '/api/reports';
+  static readonly GetReportsPath = '/reports';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -39,14 +39,14 @@ export class ReportsService extends BaseService {
    * This method doesn't expect any request body.
    */
   getReports$Response(params?: {
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<StrictHttpResponse<Array<ReportListItemDto>>> {
 
     const rb = new RequestBuilder(this.rootUrl, ReportsService.GetReportsPath, 'get');
     if (params) {
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
     }
 
     return this.http.request(rb.build({
@@ -68,7 +68,7 @@ export class ReportsService extends BaseService {
    * This method doesn't expect any request body.
    */
   getReports(params?: {
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<Array<ReportListItemDto>> {
@@ -81,7 +81,7 @@ export class ReportsService extends BaseService {
   /**
    * Path part for operation createReport
    */
-  static readonly CreateReportPath = '/api/reports';
+  static readonly CreateReportPath = '/reports';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -90,7 +90,7 @@ export class ReportsService extends BaseService {
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
   createReport$Response(params?: {
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
     body?: CreateReportDto
   }
@@ -98,7 +98,7 @@ export class ReportsService extends BaseService {
 
     const rb = new RequestBuilder(this.rootUrl, ReportsService.CreateReportPath, 'post');
     if (params) {
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
       rb.body(params.body, 'application/*+json');
     }
 
@@ -121,7 +121,7 @@ export class ReportsService extends BaseService {
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
   createReport(params?: {
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
     body?: CreateReportDto
   }
@@ -135,7 +135,7 @@ export class ReportsService extends BaseService {
   /**
    * Path part for operation getReportById
    */
-  static readonly GetReportByIdPath = '/api/reports/{reportId}';
+  static readonly GetReportByIdPath = '/reports/{reportId}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -145,7 +145,7 @@ export class ReportsService extends BaseService {
    */
   getReportById$Response(params: {
     reportId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<StrictHttpResponse<ReportDto>> {
@@ -153,7 +153,7 @@ export class ReportsService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, ReportsService.GetReportByIdPath, 'get');
     if (params) {
       rb.path('reportId', params.reportId, {"style":"simple"});
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
     }
 
     return this.http.request(rb.build({
@@ -176,7 +176,7 @@ export class ReportsService extends BaseService {
    */
   getReportById(params: {
     reportId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<ReportDto> {
@@ -189,7 +189,7 @@ export class ReportsService extends BaseService {
   /**
    * Path part for operation updateReport
    */
-  static readonly UpdateReportPath = '/api/reports/{reportId}';
+  static readonly UpdateReportPath = '/reports/{reportId}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -199,7 +199,7 @@ export class ReportsService extends BaseService {
    */
   updateReport$Response(params: {
     reportId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
     body?: UpdateReportDto
   }
@@ -208,7 +208,7 @@ export class ReportsService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, ReportsService.UpdateReportPath, 'put');
     if (params) {
       rb.path('reportId', params.reportId, {"style":"simple"});
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
       rb.body(params.body, 'application/*+json');
     }
 
@@ -232,7 +232,7 @@ export class ReportsService extends BaseService {
    */
   updateReport(params: {
     reportId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
     body?: UpdateReportDto
   }
@@ -246,7 +246,7 @@ export class ReportsService extends BaseService {
   /**
    * Path part for operation deleteReport
    */
-  static readonly DeleteReportPath = '/api/reports/{reportId}';
+  static readonly DeleteReportPath = '/reports/{reportId}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -256,7 +256,7 @@ export class ReportsService extends BaseService {
    */
   deleteReport$Response(params: {
     reportId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<StrictHttpResponse<void>> {
@@ -264,7 +264,7 @@ export class ReportsService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, ReportsService.DeleteReportPath, 'delete');
     if (params) {
       rb.path('reportId', params.reportId, {"style":"simple"});
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
     }
 
     return this.http.request(rb.build({
@@ -287,7 +287,7 @@ export class ReportsService extends BaseService {
    */
   deleteReport(params: {
     reportId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<void> {
@@ -300,7 +300,7 @@ export class ReportsService extends BaseService {
   /**
    * Path part for operation addReportAsset
    */
-  static readonly AddReportAssetPath = '/api/reports/{reportId}/assets';
+  static readonly AddReportAssetPath = '/reports/{reportId}/assets';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -311,7 +311,7 @@ export class ReportsService extends BaseService {
   addReportAsset$Response(params: {
     namespaceId?: string;
     reportId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
     body?: UpsertAssetDto
   }
@@ -321,7 +321,7 @@ export class ReportsService extends BaseService {
     if (params) {
       rb.query('namespaceId', params.namespaceId, {"style":"form"});
       rb.path('reportId', params.reportId, {"style":"simple"});
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
       rb.body(params.body, 'application/*+json');
     }
 
@@ -346,7 +346,7 @@ export class ReportsService extends BaseService {
   addReportAsset(params: {
     namespaceId?: string;
     reportId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
     body?: UpsertAssetDto
   }
@@ -360,7 +360,7 @@ export class ReportsService extends BaseService {
   /**
    * Path part for operation getReportAsset
    */
-  static readonly GetReportAssetPath = '/api/reports/assets/{assetId}';
+  static readonly GetReportAssetPath = '/reports/assets/{assetId}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -370,7 +370,7 @@ export class ReportsService extends BaseService {
    */
   getReportAsset$Response(params: {
     assetId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<StrictHttpResponse<AssetDto>> {
@@ -378,7 +378,7 @@ export class ReportsService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, ReportsService.GetReportAssetPath, 'get');
     if (params) {
       rb.path('assetId', params.assetId, {"style":"simple"});
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
     }
 
     return this.http.request(rb.build({
@@ -401,7 +401,7 @@ export class ReportsService extends BaseService {
    */
   getReportAsset(params: {
     assetId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<AssetDto> {
@@ -414,7 +414,7 @@ export class ReportsService extends BaseService {
   /**
    * Path part for operation updateReportAsset
    */
-  static readonly UpdateReportAssetPath = '/api/reports/assets/{assetId}';
+  static readonly UpdateReportAssetPath = '/reports/assets/{assetId}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -424,7 +424,7 @@ export class ReportsService extends BaseService {
    */
   updateReportAsset$Response(params: {
     assetId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
     body?: UpsertAssetDto
   }
@@ -433,7 +433,7 @@ export class ReportsService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, ReportsService.UpdateReportAssetPath, 'put');
     if (params) {
       rb.path('assetId', params.assetId, {"style":"simple"});
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
       rb.body(params.body, 'application/*+json');
     }
 
@@ -457,7 +457,7 @@ export class ReportsService extends BaseService {
    */
   updateReportAsset(params: {
     assetId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
     body?: UpsertAssetDto
   }
@@ -471,7 +471,7 @@ export class ReportsService extends BaseService {
   /**
    * Path part for operation deleteReportAsset
    */
-  static readonly DeleteReportAssetPath = '/api/reports/assets/{assetId}';
+  static readonly DeleteReportAssetPath = '/reports/assets/{assetId}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -481,7 +481,7 @@ export class ReportsService extends BaseService {
    */
   deleteReportAsset$Response(params: {
     assetId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<StrictHttpResponse<void>> {
@@ -489,7 +489,7 @@ export class ReportsService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, ReportsService.DeleteReportAssetPath, 'delete');
     if (params) {
       rb.path('assetId', params.assetId, {"style":"simple"});
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
     }
 
     return this.http.request(rb.build({
@@ -512,7 +512,7 @@ export class ReportsService extends BaseService {
    */
   deleteReportAsset(params: {
     assetId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<void> {

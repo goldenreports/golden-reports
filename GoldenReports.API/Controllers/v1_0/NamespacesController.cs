@@ -20,7 +20,7 @@ namespace GoldenReports.API.Controllers.v1_0;
 
 [Authorize]
 [ApiController]
-[Route("api/namespaces")]
+[Route("namespaces")]
 [ApiVersion("1.0")]
 public class NamespacesController : ControllerBase
 {

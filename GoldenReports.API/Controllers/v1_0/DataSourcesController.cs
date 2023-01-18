@@ -11,7 +11,7 @@ namespace GoldenReports.API.Controllers.v1_0;
 
 [Authorize]
 [ApiController]
-[Route("api/data-sources")]
+[Route("data-sources")]
 [ApiVersion("1.0")]
 public class DataSourcesController : ControllerBase
 {

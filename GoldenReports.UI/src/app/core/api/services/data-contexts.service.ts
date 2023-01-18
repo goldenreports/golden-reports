@@ -27,7 +27,7 @@ export class DataContextsService extends BaseService {
   /**
    * Path part for operation getDataContexts
    */
-  static readonly GetDataContextsPath = '/api/data-contexts';
+  static readonly GetDataContextsPath = '/data-contexts';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -36,14 +36,14 @@ export class DataContextsService extends BaseService {
    * This method doesn't expect any request body.
    */
   getDataContexts$Response(params?: {
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<StrictHttpResponse<Array<DataContextDto>>> {
 
     const rb = new RequestBuilder(this.rootUrl, DataContextsService.GetDataContextsPath, 'get');
     if (params) {
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
     }
 
     return this.http.request(rb.build({
@@ -65,7 +65,7 @@ export class DataContextsService extends BaseService {
    * This method doesn't expect any request body.
    */
   getDataContexts(params?: {
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<Array<DataContextDto>> {
@@ -78,7 +78,7 @@ export class DataContextsService extends BaseService {
   /**
    * Path part for operation createDataContext
    */
-  static readonly CreateDataContextPath = '/api/data-contexts';
+  static readonly CreateDataContextPath = '/data-contexts';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -87,7 +87,7 @@ export class DataContextsService extends BaseService {
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
   createDataContext$Response(params?: {
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
     body?: CreateDataContextDto
   }
@@ -95,7 +95,7 @@ export class DataContextsService extends BaseService {
 
     const rb = new RequestBuilder(this.rootUrl, DataContextsService.CreateDataContextPath, 'post');
     if (params) {
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
       rb.body(params.body, 'application/*+json');
     }
 
@@ -118,7 +118,7 @@ export class DataContextsService extends BaseService {
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
   createDataContext(params?: {
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
     body?: CreateDataContextDto
   }
@@ -132,7 +132,7 @@ export class DataContextsService extends BaseService {
   /**
    * Path part for operation getDataContextById
    */
-  static readonly GetDataContextByIdPath = '/api/data-contexts/{contextId}';
+  static readonly GetDataContextByIdPath = '/data-contexts/{contextId}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -142,7 +142,7 @@ export class DataContextsService extends BaseService {
    */
   getDataContextById$Response(params: {
     contextId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<StrictHttpResponse<DataContextDto>> {
@@ -150,7 +150,7 @@ export class DataContextsService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, DataContextsService.GetDataContextByIdPath, 'get');
     if (params) {
       rb.path('contextId', params.contextId, {"style":"simple"});
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
     }
 
     return this.http.request(rb.build({
@@ -173,7 +173,7 @@ export class DataContextsService extends BaseService {
    */
   getDataContextById(params: {
     contextId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<DataContextDto> {
@@ -186,7 +186,7 @@ export class DataContextsService extends BaseService {
   /**
    * Path part for operation updateDataContext
    */
-  static readonly UpdateDataContextPath = '/api/data-contexts/{contextId}';
+  static readonly UpdateDataContextPath = '/data-contexts/{contextId}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -196,7 +196,7 @@ export class DataContextsService extends BaseService {
    */
   updateDataContext$Response(params: {
     contextId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
     body?: UpdateDataContextDto
   }
@@ -205,7 +205,7 @@ export class DataContextsService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, DataContextsService.UpdateDataContextPath, 'put');
     if (params) {
       rb.path('contextId', params.contextId, {"style":"simple"});
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
       rb.body(params.body, 'application/*+json');
     }
 
@@ -229,7 +229,7 @@ export class DataContextsService extends BaseService {
    */
   updateDataContext(params: {
     contextId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
     body?: UpdateDataContextDto
   }
@@ -243,7 +243,7 @@ export class DataContextsService extends BaseService {
   /**
    * Path part for operation deleteDataContext
    */
-  static readonly DeleteDataContextPath = '/api/data-contexts/{contextId}';
+  static readonly DeleteDataContextPath = '/data-contexts/{contextId}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -253,7 +253,7 @@ export class DataContextsService extends BaseService {
    */
   deleteDataContext$Response(params: {
     contextId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<StrictHttpResponse<void>> {
@@ -261,7 +261,7 @@ export class DataContextsService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, DataContextsService.DeleteDataContextPath, 'delete');
     if (params) {
       rb.path('contextId', params.contextId, {"style":"simple"});
-      rb.header('X-Version', params['X-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
     }
 
     return this.http.request(rb.build({
@@ -284,7 +284,7 @@ export class DataContextsService extends BaseService {
    */
   deleteDataContext(params: {
     contextId: string;
-    'X-Version'?: string;
+    'x-Version'?: string;
     context?: HttpContext
   }
 ): Observable<void> {
