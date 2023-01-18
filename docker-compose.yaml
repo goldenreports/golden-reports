@@ -1,13 +1,23 @@
 version: "3.7"
 
 services:
+  proxy:
+    container_name: goldenreports-proxy
+    image: goldenreports/dev-proxy
+    build:
+      context: ./proxy
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - manager
+      - api
+
   manager:
     container_name: goldenreports-manager
     image: goldenreports/manager
     build:
-      context: ./GoldenReports.UI/manager
-    ports:
-      - 80:80
+      context: ./GoldenReports.UI
     env_file: .env
     depends_on:
       - api
@@ -25,7 +35,7 @@ services:
       - postgres
 
   postgres:
-    container_name: goldenreports-postgres
+    container_name: goldenreports-db
     image: postgres:13-alpine
     ports:
       - 5433:5432
@@ -37,9 +47,10 @@ services:
       - "-c"
       - "max_connections=500"
     volumes:
-      - goldenreports_postgres_data:/var/lib/postgresql/data/
+      - postgres_data:/var/lib/postgresql/data/
 
 volumes:
-  goldenreports_postgres_data:
+  postgres_data:
     driver: local
+  
 

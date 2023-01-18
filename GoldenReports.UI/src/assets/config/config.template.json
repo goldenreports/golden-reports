@@ -1,0 +1,18 @@
+{
+  "auth": {
+    "issuer": "${AUTH_ISSUER}",
+    "clientId": "${AUTH_CLIENT_ID}",
+    "responseType": "code",
+    "redirectUri": "${MANAGER_URL}",
+    "silentRefreshRedirectUri": "${MANAGER_URL}/silent-refresh.html",
+    "scope": "openid profile email offline_access",
+    "useSilentRefresh": true,
+    "showDebugInformation": true,
+    "clearHashAfterLogin": false,
+    "disableAtHashCheck": true,
+    "nonceStateSeparator": "semicolon"
+  },
+  "api": {
+    "rootUrl": "${API_URL}"
+  }
+}
