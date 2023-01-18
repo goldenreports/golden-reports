@@ -30,7 +30,9 @@ builder.Services.AddCors(opts =>
             .GetSection($"{nameof(AppSettings.Security)}:{nameof(SecuritySettings.Cors)}")
             .Get<CorsSettings>();
         
-        policy.WithOrigins(corsSettings?.AllowedOrigins ?? Array.Empty<string>());
+        policy.WithOrigins(corsSettings?.AllowedOrigins ?? Array.Empty<string>())
+            .AllowAnyMethod()
+            .AllowAnyHeader();
     });
 });
 builder.Services.AddEndpointsApiExplorer();
