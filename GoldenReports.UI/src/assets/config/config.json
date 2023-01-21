@@ -1,7 +1,7 @@
 {
   "auth": {
     "issuer": "https://accounts.santoromariano.com/realms/golden-reports",
-    "clientId": "manager",
+    "clientId": "manager-dev",
     "responseType": "code",
     "redirectUri": "https://localhost:4200/",
     "silentRefreshRedirectUri": "https://localhost:4200/silent-refresh.html",

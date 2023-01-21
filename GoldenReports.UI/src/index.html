@@ -9,25 +9,5 @@
 </head>
 <body>
   <app-root></app-root>
-  <div id="loading_container" class="loading-container">
-    <img id="loading_image" src="assets/logo_animation.gif">
-    <p>Loading...</p>
-  </div>
-  <script>
-    function startAnimationCounter() {
-      setTimeout(() => loadingContainer.classList.add('animation-ended'), 4000);
-    }
-
-    const loadingContainer = document.getElementById('loading_container');
-    const loadingImage = document.getElementById('loading_image');
-
-    loadingContainer.addEventListener('transitionend', () => loadingContainer.classList.add('transition-ended'));
-
-    if(loadingImage.complete) {
-      startAnimationCounter();
-    } else {
-      loadingImage.addEventListener('load', () => startAnimationCounter());
-    }
-  </script>
 </body>
 </html>

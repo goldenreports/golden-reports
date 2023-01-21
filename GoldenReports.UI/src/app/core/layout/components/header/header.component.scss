@@ -1,10 +1,24 @@
 :host {
+  .app-logo {
+    background-image: url("/assets/logo.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-origin: content-box;
+    width: 144px;
+    height: 40px;
+  }
+
   @media screen and (max-width: 992px) {
     .branding {
       min-width: 0;
 
-      .title {
-        display: none;
+      .app-logo {
+        content: " ";
+        background-image: url("/assets/icon.svg");
+        background-repeat: no-repeat;
+        background-position: center center;
+        margin-right: 1rem;
+        width: 56px;
       }
     }
   }
