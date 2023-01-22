@@ -18,10 +18,10 @@ const routes: Routes = [
         path: 'namespaces',
         loadChildren: () => import('@features/namespaces/namespaces.module').then(x => x.NamespacesModule)
       },
-      // {
-      //   path: 'settings',
-      //   loadChildren: () => import('@features/settings/settings.module').then(x => x.SettingsModule)
-      // },
+      {
+        path: 'settings',
+        loadChildren: () => import('@features/settings/settings.module').then(x => x.SettingsModule)
+      },
       {
         path: '**',
         redirectTo: '/errors/not-found'

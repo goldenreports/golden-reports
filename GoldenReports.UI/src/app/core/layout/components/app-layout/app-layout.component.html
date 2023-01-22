@@ -9,6 +9,15 @@
     <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
       <li nz-menu-item nzMatchRouter><a routerLink="/dashboard">Dashboard</a></li>
       <li nz-menu-item nzMatchRouter><a routerLink="/namespaces">Content</a></li>
+      <li class="separator"></li>
+      <li nz-submenu nzPlacement="bottomRight" [nzTitle]="userName$ | async" nzIcon="user">
+        <ul>
+          <li nz-menu-item><a routerLink="/settings">Settings</a></li>
+          <li nz-menu-item (click)="logout()">Logout</li>
+<!--          <hr />-->
+<!--          <li nz-menu-item>About</li>-->
+        </ul>
+      </li>
     </ul>
   </nz-header>
   <router-outlet></router-outlet>

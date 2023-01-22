@@ -1,11 +1,36 @@
-<nz-layout class="page-layout">
+<nz-layout class="page-layout" *ngIf="vm$ | async as vm">
   <nz-sider nzWidth="200px" nzTheme="light">
     <ul nz-menu nzMode="inline" class="sider-menu">
-      <li nz-menu-item nzMatchRouter><a routerLink="./namespaces">Namespaces</a></li>
-      <li nz-menu-item nzMatchRouter><a routerLink="./data-sources">Data Sources</a></li>
-      <li nz-menu-item nzMatchRouter><a routerLink="./data-contexts">Data Contexts</a></li>
-      <li nz-menu-item nzMatchRouter><a routerLink="./reports">Reports</a></li>
-      <li nz-menu-item nzMatchRouter><a routerLink="./metadata">Metadata</a></li>
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="./namespaces">
+          <span nz-icon nzType="appstore" nzTheme="outline"></span>
+          <span>Namespaces</span>
+        </a>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="./data-sources">
+          <span nz-icon nzType="database" nzTheme="outline"></span>
+          <span>Data Sources</span>
+        </a>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="./data-contexts">
+          <span nz-icon nzType="deployment-unit" nzTheme="outline"></span>
+          <span>Data Contexts</span>
+        </a>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="./reports">
+          <span nz-icon nzType="book" nzTheme="outline"></span>
+          <span>Reports</span>
+        </a>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="./metadata">
+          <span nz-icon nzType="setting" nzTheme="outline"></span>
+          <span>Metadata</span>
+        </a>
+      </li>
     </ul>
   </nz-sider>
   <nz-layout class="inner-layout">
@@ -13,21 +38,29 @@
       <nz-breadcrumb-item>
         <a routerLink="/namespaces"> <span nz-icon nzType="global"></span></a>
       </nz-breadcrumb-item>
-      <nz-breadcrumb-item>My Company</nz-breadcrumb-item>
-      <nz-breadcrumb-item>Namespace 1</nz-breadcrumb-item>
-      <nz-breadcrumb-item>
-        <nz-space [nzSplit]="spaceSplit">
-          <ng-template #spaceSplit>
-            <nz-divider nzType="vertical"></nz-divider>
-          </ng-template>
+      <ng-container *ngFor="let ns of vm.namespaces;let last">
+        <nz-breadcrumb-item *ngIf="last; else linkedCrumb">
+          <nz-space [nzSplit]="spaceSplit">
+            <ng-template #spaceSplit>
+              <nz-divider nzType="vertical"></nz-divider>
+            </ng-template>
 
-          <div *nzSpaceItem>Namespace 2</div>
-          <button *nzSpaceItem nz-button nzType="text">
-            <span nz-icon nzType="star" nzTheme="outline"></span>
-          </button>
-        </nz-space>
-      </nz-breadcrumb-item>
+            <div *nzSpaceItem>{{ns.name}}</div>
+            <button *nzSpaceItem nz-button nzType="text">
+              <span nz-icon nzType="star" nzTheme="outline"></span>
+            </button>
+          </nz-space>
+        </nz-breadcrumb-item>
+        <ng-template #linkedCrumb>
+          <nz-breadcrumb-item>{{ns.name}}</nz-breadcrumb-item>
+        </ng-template>
+      </ng-container>
+
+      <nz-breadcrumb-item>Namespace 1</nz-breadcrumb-item>
+
     </nz-breadcrumb>
-    <nz-content><router-outlet></router-outlet></nz-content>
+    <nz-content>
+      <router-outlet></router-outlet>
+    </nz-content>
   </nz-layout>
 </nz-layout>

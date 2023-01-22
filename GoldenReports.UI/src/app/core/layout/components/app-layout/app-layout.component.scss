@@ -43,7 +43,12 @@ nz-header {
 }
 
 .header-menu {
+  display: flex;
   line-height: 64px;
+
+  .separator {
+    width: 100%;
+  }
 }
 
 .sider-menu {
