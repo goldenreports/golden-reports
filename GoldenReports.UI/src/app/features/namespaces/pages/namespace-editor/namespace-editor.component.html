@@ -1,0 +1,33 @@
+<nz-layout class="page-layout">
+  <nz-sider nzWidth="200px" nzTheme="light">
+    <ul nz-menu nzMode="inline" class="sider-menu">
+      <li nz-menu-item nzSelected>Namespaces</li>
+      <li nz-menu-item>Data Sources</li>
+      <li nz-menu-item>Data Contexts</li>
+      <li nz-menu-item>Reports</li>
+      <li nz-menu-item>Metadata</li>
+    </ul>
+  </nz-sider>
+  <nz-layout class="inner-layout">
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a routerLink="/namespaces"> <span nz-icon nzType="global"></span></a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>My Company</nz-breadcrumb-item>
+      <nz-breadcrumb-item>Namespace 1</nz-breadcrumb-item>
+      <nz-breadcrumb-item>
+        <nz-space [nzSplit]="spaceSplit">
+          <ng-template #spaceSplit>
+            <nz-divider nzType="vertical"></nz-divider>
+          </ng-template>
+
+          <div *nzSpaceItem>Namespace 2</div>
+          <button *nzSpaceItem nz-button nzType="text">
+            <span nz-icon nzType="star" nzTheme="outline"></span>
+          </button>
+        </nz-space>
+      </nz-breadcrumb-item>
+    </nz-breadcrumb>
+    <nz-content><router-outlet></router-outlet></nz-content>
+  </nz-layout>
+</nz-layout>
