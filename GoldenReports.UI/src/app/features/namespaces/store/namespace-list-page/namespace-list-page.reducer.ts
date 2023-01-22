@@ -14,7 +14,7 @@ export interface NamespaceListPageState {
   saving: boolean;
 }
 
-export const initialState: NamespaceListPageState = {
+const initialState: NamespaceListPageState = {
   isOpen: false,
   loading: false,
   showingNewNamespaceModal: false,

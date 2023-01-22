@@ -16,7 +16,7 @@ export class NamespaceListPageEffects {
   }
 
   getChildren$ = createEffect(() => combineLatest([
-    this.store.select(NamespaceEditorPageSelectors.getNamespaceId),
+    this.store.select(NamespaceEditorPageSelectors.getNamespaceName),
     this.store.select(NamespaceListPageSelectors.getIsOpenFlag)
   ]).pipe(
     filter(([namespaceId, isOpen]) => !!namespaceId && isOpen),
@@ -25,7 +25,7 @@ export class NamespaceListPageEffects {
 
   createChildNamespace$ = createEffect(() => this.actions$.pipe(
     ofType(namespaceListPageActions.childNamespaceSubmitted),
-    withLatestFrom(this.store.select(NamespaceEditorPageSelectors.getNamespaceId)),
+    withLatestFrom(this.store.select(NamespaceEditorPageSelectors.getNamespaceName)),
     map(([payload, namespaceId]) => namespaceActions.creationRequested({
       newNamespace: {
         ...payload.namespace,

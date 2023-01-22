@@ -14,7 +14,7 @@ export interface NamespaceMetadataPageState {
   hasValidData: boolean;
 }
 
-export const initialState: NamespaceMetadataPageState = {
+const initialState: NamespaceMetadataPageState = {
   isOpen: false,
   saving: false,
   formReady: false,

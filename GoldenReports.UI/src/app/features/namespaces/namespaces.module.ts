@@ -14,6 +14,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 
 import { NamespacesRoutingModule } from './namespaces-routing.module';
 import { MetadataEditorComponent, NamespaceEditorComponent, NamespaceListComponent } from './pages';
+import { BreadcrumbComponent } from './components';
 import { namespaceFeatureReducer, namespaceFeatureStateKey } from './store';
 import { NamespaceEditorPageEffects } from './store/namespace-editor-page';
 import { NamespaceListPageEffects } from './store/namespace-list-page';
@@ -23,7 +24,8 @@ import { NamespaceMetadataPageEffects } from './store/namespace-metadata-page';
   declarations: [
     NamespaceListComponent,
     NamespaceEditorComponent,
-    MetadataEditorComponent
+    MetadataEditorComponent,
+    BreadcrumbComponent
   ],
   imports: [
     CommonModule,

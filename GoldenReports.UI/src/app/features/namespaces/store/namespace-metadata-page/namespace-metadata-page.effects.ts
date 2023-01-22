@@ -26,7 +26,7 @@ export class NamespaceMetadataPageEffects {
 
   updateMetadata$ = createEffect(() => this.actions$.pipe(
     ofType(namespaceMetadataPageActions.metadataChangesSubmitted),
-    withLatestFrom(this.store.select(NamespaceEditorPageSelectors.getNamespaceId)),
+    withLatestFrom(this.store.select(NamespaceEditorPageSelectors.getNamespaceName)),
     map(([payload, namespaceId]) => namespaceActions.updateRequested({ namespaceId, namespace: payload.namespace }))
   ));
 

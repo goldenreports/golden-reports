@@ -11,7 +11,7 @@ export interface NamespaceEditorPageState {
   error?: ErrorDto;
 }
 
-export const initialState: NamespaceEditorPageState = {
+const initialState: NamespaceEditorPageState = {
   loading: false
 };
 

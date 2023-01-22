@@ -1,22 +1,23 @@
-<nz-table #basicTable [nzData]="[]" nzSize="middle">
+<nz-table *ngIf="vm$ | async as vm" [nzData]="vm.children" [nzLoading]="vm.loading" nzSize="middle">
   <thead>
   <tr>
     <th>Name</th>
-    <th>Age</th>
-    <th>Address</th>
-    <th>Action</th>
+    <th>Description</th>
+    <th>Creation Date</th>
+    <th>Modification Date</th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let data of []">
-<!--    <td>{{data.name}}</td>-->
-<!--    <td>{{data.age}}</td>-->
-<!--    <td>{{data.address}}</td>-->
-<!--    <td>-->
-<!--      <a>Action 一 {{data.name}}</a>-->
-<!--      <nz-divider nzType="vertical"></nz-divider>-->
-<!--      <a>Delete</a>-->
-<!--    </td>-->
+  <tr *ngFor="let namespace of vm.children">
+    <td><a routerLink="/namespaces/{{namespace.name}}">{{namespace.name}}</a></td>
+    <td>{{namespace.description}}</td>
+    <td>{{namespace.creationDate}}</td>
+    <td>{{namespace.modificationDate}}</td>
+    <td>
+      <a routerLink="/namespaces/{{namespace.name}}/metadata">Edit</a>
+      <nz-divider nzType="vertical"></nz-divider>
+      <a>Delete</a>
+    </td>
   </tr>
   </tbody>
 </nz-table>

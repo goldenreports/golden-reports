@@ -11,10 +11,10 @@ export class NamespaceEditorPageSelectors {
 
   public static readonly getLoadingFlag = createSelector(NamespaceEditorPageSelectors.getState, state => state.loading);
 
-  public static readonly getNamespaceId = createSelector(RouterSelectors.getParams, params => params?.['namespaceId']);
+  public static readonly getNamespaceName = createSelector(RouterSelectors.getParams, params => params?.['namespaceName']);
 
   public static readonly getNamespaces = createSelector(
-    NamespaceEditorPageSelectors.getNamespaceId,
+    NamespaceEditorPageSelectors.getNamespaceName,
     NamespaceSelectors.getEntities,
     (namespaceId, allNamespaces) => {
       const namespaces = [];

@@ -12,7 +12,7 @@ export class NamespaceEditorPageEffects {
   constructor(private readonly actions$: Actions, private readonly store: Store) {
   }
 
-  selectedNamespaceChanged$ = createEffect(() => this.store.select(NamespaceEditorPageSelectors.getNamespaceId).pipe(
+  selectedNamespaceChanged$ = createEffect(() => this.store.select(NamespaceEditorPageSelectors.getNamespaceName).pipe(
     distinctUntilChanged((previousNamespaceId, currentNamespaceId) => previousNamespaceId === currentNamespaceId),
     map((namespaceId) => namespaceEditorPageActions.namespaceSelectionChanged({ namespaceId }))
   ));
