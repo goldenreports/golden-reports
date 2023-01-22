@@ -7,8 +7,8 @@
       </a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
-      <li nz-menu-item routerLink="/dashboard" [nzMatchRouter]="true">Dashboard</li>
-      <li nz-menu-item routerLink="/namespaces" [nzMatchRouter]="true">Content</li>
+      <li nz-menu-item nzMatchRouter><a routerLink="/dashboard">Dashboard</a></li>
+      <li nz-menu-item nzMatchRouter><a routerLink="/namespaces">Content</a></li>
     </ul>
   </nz-header>
   <router-outlet></router-outlet>

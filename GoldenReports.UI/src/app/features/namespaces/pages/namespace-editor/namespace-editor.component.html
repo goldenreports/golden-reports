@@ -1,11 +1,11 @@
 <nz-layout class="page-layout">
   <nz-sider nzWidth="200px" nzTheme="light">
     <ul nz-menu nzMode="inline" class="sider-menu">
-      <li nz-menu-item nzSelected>Namespaces</li>
-      <li nz-menu-item>Data Sources</li>
-      <li nz-menu-item>Data Contexts</li>
-      <li nz-menu-item>Reports</li>
-      <li nz-menu-item>Metadata</li>
+      <li nz-menu-item nzMatchRouter><a routerLink="./namespaces">Namespaces</a></li>
+      <li nz-menu-item nzMatchRouter><a routerLink="./data-sources">Data Sources</a></li>
+      <li nz-menu-item nzMatchRouter><a routerLink="./data-contexts">Data Contexts</a></li>
+      <li nz-menu-item nzMatchRouter><a routerLink="./reports">Reports</a></li>
+      <li nz-menu-item nzMatchRouter><a routerLink="./metadata">Metadata</a></li>
     </ul>
   </nz-sider>
   <nz-layout class="inner-layout">

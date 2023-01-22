@@ -10,12 +10,13 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzTableModule } from 'ng-zorro-antd/table';
 
 import { NamespacesRoutingModule } from './namespaces-routing.module';
-import { NamespaceEditorComponent, NamespaceListComponent } from './pages';
+import { MetadataEditorComponent, NamespaceEditorComponent, NamespaceListComponent } from './pages';
 
 @NgModule({
   declarations: [
     NamespaceListComponent,
-    NamespaceEditorComponent
+    NamespaceEditorComponent,
+    MetadataEditorComponent
   ],
   imports: [
     CommonModule,
