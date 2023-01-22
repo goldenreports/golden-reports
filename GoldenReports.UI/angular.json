@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist",
+            "outputPath": "dist/golden-reports-manager/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -28,10 +28,15 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/silent-refresh.html",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              },
               "src/manifest.webmanifest"
             ],
             "styles": [
+              "src/theme.less",
               "src/styles.scss"
             ],
             "scripts": [],
@@ -43,8 +48,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "5mb",
-                  "maximumError": "10mb"
+                  "maximumWarning": "500kb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -72,11 +77,7 @@
               "browserTarget": "golden-reports-manager:build:production"
             },
             "development": {
-              "browserTarget": "golden-reports-manager:build:development",
-              "ssl": true,
-              "sslKey": "ssl/localhost.key",
-              "sslCert": "ssl/localhost.crt",
-              "proxyConfig": "proxy.conf.js"
+              "browserTarget": "golden-reports-manager:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -99,7 +100,6 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/silent-refresh.html",
               "src/manifest.webmanifest"
             ],
             "styles": [
@@ -107,6 +107,60 @@
             ],
             "scripts": []
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/golden-reports-manager/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json",
+            "inlineStyleLanguage": "scss"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media"
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "golden-reports-manager:build:development",
+              "serverTarget": "golden-reports-manager:server:development"
+            },
+            "production": {
+              "browserTarget": "golden-reports-manager:build:production",
+              "serverTarget": "golden-reports-manager:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "golden-reports-manager:build:production",
+              "serverTarget": "golden-reports-manager:server:production"
+            },
+            "development": {
+              "browserTarget": "golden-reports-manager:build:development",
+              "serverTarget": "golden-reports-manager:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }

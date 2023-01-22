@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 
 import { AppLayoutComponent } from '@core/layout';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
-  { path: 'errors', loadChildren: () => import('@errors/errors.module').then(x => x.ErrorsModule) },
-  { path: 'auth', loadChildren: () => import('@features/auth/auth.module').then(x => x.AuthModule) },
+  // { path: 'errors', loadChildren: () => import('@errors/errors.module').then(x => x.ErrorsModule) },
   {
     path: '',
     component: AppLayoutComponent,
@@ -15,14 +14,14 @@ const routes: Routes = [
         path: 'dashboard',
         loadChildren: () => import('@features/dashboard/dashboard.module').then(x => x.DashboardModule)
       },
-      {
-        path: 'namespaces',
-        loadChildren: () => import('@features/namespaces/namespaces.module').then(x => x.NamespacesModule)
-      },
-      {
-        path: 'settings',
-        loadChildren: () => import('@features/settings/settings.module').then(x => x.SettingsModule)
-      },
+      // {
+      //   path: 'namespaces',
+      //   loadChildren: () => import('@features/namespaces/namespaces.module').then(x => x.NamespacesModule)
+      // },
+      // {
+      //   path: 'settings',
+      //   loadChildren: () => import('@features/settings/settings.module').then(x => x.SettingsModule)
+      // },
       {
         path: '**',
         redirectTo: '/errors/not-found'
@@ -32,7 +31,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    initialNavigation: 'enabledBlocking'
+})],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

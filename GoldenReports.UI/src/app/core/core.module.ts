@@ -1,103 +1,32 @@
-import { forwardRef, isDevMode, ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import {
-  ClarityIcons,
-  cogIcon,
-  dataClusterIcon,
-  fileGroupIcon, fileSettingsIcon,
-  internetOfThingsIcon,
-  namespaceIcon,
-  objectsIcon,
-  organizationIcon,
-  plusIcon,
-  shieldIcon,
-  starIcon,
-  storageIcon,
-  userIcon
-} from '@cds/core/icon';
-import { ClrDropdownModule, ClrLayoutModule } from '@clr/angular';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { OAuthModule, OAuthService, OAuthStorage } from 'angular-oauth2-oidc';
+import { RouterModule } from '@angular/router';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
-import { AppLayoutComponent, HeaderComponent } from './layout';
-import { ApiModule } from './api';
-import { appReducers } from './store';
-import { AppRouterStateSerializer, RouterStateKey } from './store/router';
-import { NamespaceEffects } from './store/namespace';
-import { DataSourceEffects } from './store/data-source';
-import { DataContextEffects } from './store/data-context';
-import { ReportEffects } from './store/report';
-import { AuthInterceptorService, AuthService } from './auth';
-import { AuthEffects } from './store/auth';
-import { appInitializer } from './app-initializer';
+import { IconsProviderModule } from './icons-provider.module';
+import { AppLayoutComponent } from './layout';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 
 @NgModule({
   declarations: [
-    AppLayoutComponent,
-    HeaderComponent
+    AppLayoutComponent
   ],
   imports: [
     CommonModule,
-    RouterOutlet,
-    RouterLink,
-    ClrLayoutModule,
-    RouterLinkActive,
-    HttpClientModule,
-    ApiModule.forRoot({}),
-    OAuthModule.forRoot(),
-    StoreModule.forRoot(appReducers, {
-      runtimeChecks: {
-        strictStateSerializability: true,
-        strictActionSerializability: true,
-        strictActionImmutability: true,
-        strictActionTypeUniqueness: true,
-        strictStateImmutability: true
-      }
-    }),
-    EffectsModule.forRoot([AuthEffects, NamespaceEffects, DataSourceEffects, DataContextEffects, ReportEffects]),
-    StoreRouterConnectingModule.forRoot({ stateKey: RouterStateKey, serializer: AppRouterStateSerializer }),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    ClrDropdownModule,
+    RouterModule,
+    IconsProviderModule,
+    NzLayoutModule,
+    NzMenuModule,
+    NzBreadCrumbModule,
+    NzButtonModule,
+    NzSpaceModule,
+    NzDividerModule
   ]
 })
 export class CoreModule {
 
-  static forRoot(): ModuleWithProviders<CoreModule> {
-    return {
-      ngModule: CoreModule,
-      providers: [
-        appInitializer,
-        { provide: OAuthStorage, useFactory: () => localStorage },
-        { provide: OAuthService, useExisting: AuthService },
-        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
-      ]
-    };
-  }
-
-  constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
-    if (parentModule) {
-      throw new Error('CoreModule is already loaded. Import it in the AppModule only');
-    }
-
-    ClarityIcons.addIcons(
-      storageIcon,
-      dataClusterIcon,
-      plusIcon,
-      namespaceIcon,
-      internetOfThingsIcon,
-      cogIcon,
-      userIcon,
-      shieldIcon,
-      fileGroupIcon,
-      organizationIcon,
-      objectsIcon,
-      starIcon,
-      fileSettingsIcon
-    );
-  }
 }

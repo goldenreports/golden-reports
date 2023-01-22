@@ -1,7 +1,7 @@
 {
-  "name": "golden-reports-manager",
-  "short_name": "golden-reports-manager",
-  "theme_color": "#1976d2",
+  "name": "Golden Reports Manager",
+  "short_name": "Golden Reports Manager",
+  "theme_color": "#11111F",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "./",

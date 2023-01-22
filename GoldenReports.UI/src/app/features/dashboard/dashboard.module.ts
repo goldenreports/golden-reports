@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ClrDatagridModule, ClrDropdownModule, ClrIconModule, ClrTooltipModule } from '@clr/angular';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './pages';
@@ -11,11 +10,7 @@ import { DashboardComponent } from './pages';
   ],
   imports: [
     CommonModule,
-    DashboardRoutingModule,
-    ClrDatagridModule,
-    ClrIconModule,
-    ClrDropdownModule,
-    ClrTooltipModule
+    DashboardRoutingModule
   ]
 })
 export class DashboardModule {}
