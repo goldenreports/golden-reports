@@ -5,20 +5,38 @@ import { RouterSelectors } from '@core/store/router';
 import { NamespaceEditorVm } from '@features/namespaces/models';
 import { selectNamespaceFeature } from '@features/namespaces/store';
 import { NamespaceEditorPageStateKey } from './namespace-editor-page.reducer';
+import { NamespaceDto } from '@core/api';
 
 export class NamespaceEditorPageSelectors {
   public static readonly getState = createSelector(selectNamespaceFeature, state => state[NamespaceEditorPageStateKey]);
 
-  public static readonly getLoadingFlag = createSelector(NamespaceEditorPageSelectors.getState, state => state.loading);
+  public static readonly getLoadedFlag = createSelector(NamespaceEditorPageSelectors.getState, state => state.loaded);
 
-  public static readonly getNamespaceName = createSelector(RouterSelectors.getParams, params => params?.['namespaceName']);
+  public static readonly getLoadingPathFlag = createSelector(NamespaceEditorPageSelectors.getState, state => state.loadingPath);
+
+  public static readonly getNamespaceId = createSelector(RouterSelectors.getParams, params => params?.['namespaceId']);
+
+  public static readonly getIsRootFlag = createSelector(NamespaceEditorPageSelectors.getNamespaceId, namespaceId => namespaceId === 'global');
+
+  public static readonly getNamespace = createSelector(
+    NamespaceEditorPageSelectors.getNamespaceId,
+    NamespaceEditorPageSelectors.getIsRootFlag,
+    NamespaceSelectors.getRoot,
+    NamespaceSelectors.getEntities,
+    (namespaceId, isRoot, root, namespaces) => {
+      return (isRoot ? root : namespaces[namespaceId]) as NamespaceDto | undefined;
+    });
 
   public static readonly getNamespaces = createSelector(
-    NamespaceEditorPageSelectors.getNamespaceName,
+    NamespaceEditorPageSelectors.getNamespace,
     NamespaceSelectors.getEntities,
-    (namespaceId, allNamespaces) => {
+    (namespace, allNamespaces) => {
+      if(!namespace) {
+        return  [];
+      }
+
       const namespaces = [];
-      let currentNamespaceId = namespaceId;
+      let currentNamespaceId: string | null | undefined = namespace.id;
 
       while (currentNamespaceId && allNamespaces[currentNamespaceId]) {
         namespaces.unshift(allNamespaces[currentNamespaceId]);
@@ -29,15 +47,14 @@ export class NamespaceEditorPageSelectors {
     }
   );
 
-  public static readonly getNamespace = createSelector(NamespaceEditorPageSelectors.getNamespaces,
-    (namespaces) => namespaces?.length > 0 ? namespaces[namespaces.length - 1] : null);
-
   public static readonly getError = createSelector(NamespaceEditorPageSelectors.getState, state => state?.error);
 
   public static readonly getViewModel = createSelector(
     NamespaceEditorPageSelectors.getNamespaces,
     NamespaceEditorPageSelectors.getError,
-    (namespaces, error) => ({
+    NamespaceEditorPageSelectors.getIsRootFlag,
+    (namespaces, error, isRoot) => ({
+      isRoot,
       namespaces,
       error
     } as NamespaceEditorVm));

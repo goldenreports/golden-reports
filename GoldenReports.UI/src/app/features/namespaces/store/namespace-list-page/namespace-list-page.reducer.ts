@@ -38,7 +38,10 @@ export const namespaceListPageReducer = createReducer(
       loading: false
     }
   }),
-  on(namespaceActions.childrenFetched, namespaceActions.childrenFetchFailed, (state) => {
+  on(namespaceActions.childrenFetched,
+    namespaceActions.childrenFetchFailed,
+    namespaceActions.rootNamespaceFetchFailed,
+    namespaceActions.namespaceFetchFailed, (state) => {
     return {
       ...state,
       loading: false

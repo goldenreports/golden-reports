@@ -3,7 +3,10 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { AppState } from '@core/store';
-import { NamespaceEditorPageSelectors } from '@features/namespaces/store/namespace-editor-page';
+import {
+  namespaceEditorPageActions,
+  NamespaceEditorPageSelectors
+} from '@features/namespaces/store/namespace-editor-page';
 import { NamespaceEditorVm } from '@features/namespaces/models';
 
 @Component({
@@ -17,6 +20,7 @@ export class NamespaceEditorComponent {
   }
 
   public ngOnInit(): void {
+    this.store.dispatch(namespaceEditorPageActions.loaded());
     this.vm$ = this.store.select(NamespaceEditorPageSelectors.getViewModel);
   }
 }

@@ -14,4 +14,6 @@ export class NamespaceSelectors {
   public static readonly getAll = createSelector(NamespaceSelectors.getState, NamespaceSelectors.builtInSelectors.selectAll);
 
   public static readonly getTotal = createSelector(NamespaceSelectors.getState, NamespaceSelectors.builtInSelectors.selectTotal);
+
+  public static readonly getRoot = createSelector(NamespaceSelectors.getState, (state) => state.root);
 }

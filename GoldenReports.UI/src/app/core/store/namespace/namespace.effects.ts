@@ -14,13 +14,14 @@ export class NamespaceEffects {
     private readonly actions$: Actions,
     private readonly store: Store,
     private readonly namespacesService: NamespacesService) {
+    console.log('namespace effects created');
   }
 
   getRootNamespaces$ = createEffect(() => this.actions$.pipe(
-    ofType(namespaceActions.rootNamespacesRequested),
-    switchMap(() => this.namespacesService.getRootNamespaces().pipe(
-      map(namespaces => namespaceActions.rootNamespacesFetched({ namespaces })),
-      catchError((resp: HttpErrorResponse) => of(namespaceActions.rootNamespacesFetchFailed({ error: resp.error })))
+    ofType(namespaceActions.rootNamespaceRequested),
+    switchMap(() => this.namespacesService.getRootNamespace().pipe(
+      map(namespace => namespaceActions.rootNamespaceFetched({ namespace })),
+      catchError((resp: HttpErrorResponse) => of(namespaceActions.rootNamespaceFetchFailed({ error: resp.error })))
     ))
   ));
 

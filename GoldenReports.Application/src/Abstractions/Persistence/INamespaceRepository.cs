@@ -4,7 +4,7 @@ namespace GoldenReports.Application.Abstractions.Persistence;
 
 public interface INamespaceRepository : IRepository<Namespace>
 {
-    IAsyncEnumerable<Namespace> GetRootNamespaces();
+    Task<Namespace> GetRootNamespace(CancellationToken cancellationToken = default);
 
     public Task<bool> CheckNameAvailability(Guid? parentId, string name,
         CancellationToken cancellationToken = default);

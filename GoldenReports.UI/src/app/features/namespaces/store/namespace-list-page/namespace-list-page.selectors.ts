@@ -3,8 +3,9 @@ import { createSelector } from '@ngrx/store';
 import { selectNamespaceFeature } from '@features/namespaces/store';
 import { NamespaceListPageStateKey } from './namespace-list-page.reducer';
 import { RouterSelectors } from '@core/store/router';
-import { NamespaceSelectors } from '@core/store/namespace';
 import { NamespaceListVm } from '@features/namespaces/models/namespace-list.vm';
+import { NamespaceEditorPageSelectors } from '@features/namespaces/store/namespace-editor-page';
+import { NamespaceSelectors } from '@core/store/namespace';
 
 export class NamespaceListPageSelectors {
   public static readonly getState = createSelector(selectNamespaceFeature, state => state[NamespaceListPageStateKey]);
@@ -16,9 +17,9 @@ export class NamespaceListPageSelectors {
   public static readonly getError = createSelector(NamespaceListPageSelectors.getState, state => state?.error);
 
   public static readonly getChildren = createSelector(
+    NamespaceEditorPageSelectors.getNamespace,
     NamespaceSelectors.getAll,
-    RouterSelectors.getParam('namespaceId'),
-    (namespaces, namespaceId) => namespaces?.filter(x => x.parentId === namespaceId));
+    (namespace, allNamespaces) => namespace ? allNamespaces?.filter(x => x.parentId === namespace.id) : []);
 
   public static readonly getShowingNewNamespaceModalFlag = createSelector(NamespaceListPageSelectors.getState, state => state?.showingNewNamespaceModal);
 

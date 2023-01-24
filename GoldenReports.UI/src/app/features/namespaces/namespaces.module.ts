@@ -19,6 +19,7 @@ import { namespaceFeatureReducer, namespaceFeatureStateKey } from './store';
 import { NamespaceEditorPageEffects } from './store/namespace-editor-page';
 import { NamespaceListPageEffects } from './store/namespace-list-page';
 import { NamespaceMetadataPageEffects } from './store/namespace-metadata-page';
+import { SharedModule } from '@shared';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { NamespaceMetadataPageEffects } from './store/namespace-metadata-page';
       NamespaceListPageEffects,
       NamespaceMetadataPageEffects
     ]),
+    SharedModule,
   ]
 })
 export class NamespacesModule {}

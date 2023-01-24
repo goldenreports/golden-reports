@@ -2,5 +2,5 @@
 
 public record CreateNamespaceDto : UpdateNamespaceDto
 {
-    public Guid? ParentId { get; init; }
+    public Guid ParentId { get; init; }
 }

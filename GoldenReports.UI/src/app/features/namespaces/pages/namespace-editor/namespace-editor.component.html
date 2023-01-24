@@ -3,38 +3,39 @@
     <ul nz-menu nzMode="inline" class="sider-menu">
       <li nz-menu-item nzMatchRouter>
         <a routerLink="./namespaces">
-          <span nz-icon nzType="appstore" nzTheme="outline"></span>
+          <span nz-icon nzType="appstore"></span>
           <span>Namespaces</span>
         </a>
       </li>
       <li nz-menu-item nzMatchRouter>
         <a routerLink="./data-sources">
-          <span nz-icon nzType="database" nzTheme="outline"></span>
+          <span nz-icon nzType="database"></span>
           <span>Data Sources</span>
         </a>
       </li>
       <li nz-menu-item nzMatchRouter>
         <a routerLink="./data-contexts">
-          <span nz-icon nzType="deployment-unit" nzTheme="outline"></span>
+          <span nz-icon nzType="deployment-unit"></span>
           <span>Data Contexts</span>
         </a>
       </li>
       <li nz-menu-item nzMatchRouter>
         <a routerLink="./reports">
-          <span nz-icon nzType="book" nzTheme="outline"></span>
+          <span nz-icon nzType="book"></span>
           <span>Reports</span>
         </a>
       </li>
-      <li nz-menu-item nzMatchRouter>
+      <li nz-menu-item nzMatchRouter *ngIf="!vm.isRoot">
         <a routerLink="./metadata">
-          <span nz-icon nzType="setting" nzTheme="outline"></span>
+          <span nz-icon nzType="setting"></span>
           <span>Metadata</span>
         </a>
       </li>
     </ul>
   </nz-sider>
   <nz-layout class="inner-layout">
-    <app-breadcrumb></app-breadcrumb>
+    <app-breadcrumb [namespaces]="vm.namespaces"></app-breadcrumb>
+    <app-error-message [error]="vm.error"></app-error-message>
     <nz-content>
       <router-outlet></router-outlet>
     </nz-content>

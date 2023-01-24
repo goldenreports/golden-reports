@@ -7,6 +7,7 @@ import { namespaceActions } from '@core/store/namespace/namespace.actions';
 export const NamespaceStateKey = "namespaces";
 
 export interface NamespaceState extends EntityState<NamespaceDto> {
+  root?: NamespaceDto;
 }
 
 export const adapter = createEntityAdapter<NamespaceDto>();
@@ -15,8 +16,11 @@ export const initialState: NamespaceState = adapter.getInitialState();
 
 export const namespaceReducer = createReducer(
   initialState,
-  on(namespaceActions.rootNamespacesFetched, (state, { namespaces }) => {
-    return adapter.addMany(namespaces, state);
+  on(namespaceActions.rootNamespaceFetched, (state, { namespace }) => {
+    return {
+      ...adapter.upsertOne(namespace, state),
+      root: namespace
+    };
   }),
   on(namespaceActions.namespaceFetched, (state, { namespace, ancestors }) => {
     return adapter.upsertMany(ancestors ?? [], adapter.addOne(namespace, state));

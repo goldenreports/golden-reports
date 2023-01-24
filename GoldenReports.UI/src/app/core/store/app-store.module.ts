@@ -12,8 +12,6 @@ import { DataSourceEffects } from './data-source';
 import { DataContextEffects } from './data-context';
 import { ReportEffects } from './report';
 
-
-
 @NgModule({
   imports: [
     StoreModule.forRoot(appReducers, {

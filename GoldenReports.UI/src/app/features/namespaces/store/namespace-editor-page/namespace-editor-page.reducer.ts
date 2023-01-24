@@ -7,32 +7,44 @@ import { namespaceEditorPageActions } from './namespace-editor-page.actions';
 export const NamespaceEditorPageStateKey = "namespaceEditorPage";
 
 export interface NamespaceEditorPageState {
-  loading: boolean;
+  loaded: boolean;
+  loadingPath: boolean;
   error?: ErrorDto;
 }
 
 const initialState: NamespaceEditorPageState = {
-  loading: false
+  loaded: false,
+  loadingPath: false
 };
 
 export const namespaceEditorPageReducer = createReducer(
   initialState,
+  on(namespaceEditorPageActions.loaded, (state) => {
+    return {
+      ...state,
+      loaded: true,
+      error: undefined
+    }
+  }),
   on(namespaceEditorPageActions.namespaceSelectionChanged, (state, { namespaceId }) => {
     return {
       ...state,
-      loading: !!namespaceId
+      loadingPath: !!namespaceId,
+      error: undefined
     };
   }),
   on(namespaceActions.namespaceFetched, (state) => {
     return {
       ...state,
-      loading: false
+      loadingPath: false
     };
   }),
-  on(namespaceActions.namespaceFetchFailed, (state, { error }) => {
+  on(namespaceActions.rootNamespaceFetchFailed,
+     namespaceActions.namespaceFetchFailed,
+    (state, { error }) => {
     return {
       ...state,
-      loading: false,
+      loadingPath: false,
       error
     };
   })

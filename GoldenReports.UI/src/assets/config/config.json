@@ -13,6 +13,6 @@
     "nonceStateSeparator": "semicolon"
   },
   "api": {
-    "rootUrl": "https://localhost:4200"
+    "rootUrl": "https://localhost:4200/api"
   }
 }

@@ -39,20 +39,13 @@ internal class CreateNamespaceHandler : IRequestHandler<CreateNamespace, Namespa
 
         var newNamespace = this.mapper.Map<Namespace>(request.Namespace);
 
-        if (request.Namespace.ParentId.HasValue)
+        var parent = await this.namespaceRepository.GetNamespaceWithInnerNamespaces(request.Namespace.ParentId, cancellationToken);
+        if (parent == null)
         {
-            var parent = await this.namespaceRepository.GetNamespaceWithInnerNamespaces(request.Namespace.ParentId.Value, cancellationToken);
-            if (parent == null)
-            {
-                throw new NotFoundException(nameof(Namespace), $"Id = {request.Namespace.ParentId}");
-            }
+            throw new NotFoundException(nameof(Namespace), $"Id = {request.Namespace.ParentId}");
+        }
             
-            parent.Namespaces.Add(newNamespace);
-        }
-        else
-        {
-            await this.namespaceRepository.Add(newNamespace, cancellationToken);
-        }
+        parent.Namespaces.Add(newNamespace);
 
         await this.unitOfWork.CommitChanges(cancellationToken);
         return this.mapper.Map<NamespaceDto>(newNamespace);

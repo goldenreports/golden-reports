@@ -31,14 +31,14 @@ public class NamespacesController : ControllerBase
         this.mediator = mediator;
     }
 
-    [HttpGet(Name = nameof(NamespacesController.GetRootNamespaces))]
+    [HttpGet("root", Name = nameof(NamespacesController.GetRootNamespace))]
     [Produces(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesDefaultResponseType(typeof(ErrorDto))]
-    public async Task<ActionResult<IEnumerable<NamespaceDto>>> GetRootNamespaces()
+    public async Task<ActionResult<NamespaceDto>> GetRootNamespace()
     {
-        var rootNamespaces = await this.mediator.Send(new GetRootNamespaces());
-        return this.Ok(rootNamespaces);
+        var rootNamespace = await this.mediator.Send(new GetRootNamespace());
+        return this.Ok(rootNamespace);
     }
     
     [HttpGet("{namespaceId:guid}", Name = nameof(NamespacesController.GetNamespace))]

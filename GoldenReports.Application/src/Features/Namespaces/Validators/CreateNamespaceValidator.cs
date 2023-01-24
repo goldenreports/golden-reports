@@ -11,6 +11,9 @@ public class CreateNamespaceValidator : AbstractValidator<CreateNamespace>
     {
         this.RuleFor(x => x.Namespace).NotNull().DependentRules(() =>
         {
+            this.RuleFor(x => x.Namespace.ParentId)
+                .NotEmpty();
+            
             this.RuleFor(x => x.Namespace.Name)
                 .NotEmpty()
                 .MaximumLength(StringSizes.ExtraSmall)

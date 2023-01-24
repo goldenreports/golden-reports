@@ -30,78 +30,25 @@ export class NamespacesService extends BaseService {
   }
 
   /**
-   * Path part for operation getRootNamespaces
+   * Path part for operation getRootNamespace
    */
-  static readonly GetRootNamespacesPath = '/namespaces';
+  static readonly GetRootNamespacePath = '/namespaces/root';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getRootNamespaces()` instead.
+   * To access only the response body, use `getRootNamespace()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getRootNamespaces$Response(params?: {
+  getRootNamespace$Response(params?: {
     'x-Version'?: string;
     context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<NamespaceDto>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, NamespacesService.GetRootNamespacesPath, 'get');
-    if (params) {
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<NamespaceDto>>;
-      })
-    );
-  }
-
-  /**
-   * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `getRootNamespaces$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getRootNamespaces(params?: {
-    'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<Array<NamespaceDto>> {
-
-    return this.getRootNamespaces$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<NamespaceDto>>) => r.body as Array<NamespaceDto>)
-    );
-  }
-
-  /**
-   * Path part for operation createNamespace
-   */
-  static readonly CreateNamespacePath = '/namespaces';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `createNamespace()` instead.
-   *
-   * This method sends `application/*+json` and handles request body of type `application/*+json`.
-   */
-  createNamespace$Response(params?: {
-    'x-Version'?: string;
-    context?: HttpContext
-    body?: CreateNamespaceDto
   }
 ): Observable<StrictHttpResponse<NamespaceDto>> {
 
-    const rb = new RequestBuilder(this.rootUrl, NamespacesService.CreateNamespacePath, 'post');
+    const rb = new RequestBuilder(this.rootUrl, NamespacesService.GetRootNamespacePath, 'get');
     if (params) {
       rb.header('x-Version', params['x-Version'], {"style":"simple"});
-      rb.body(params.body, 'application/*+json');
     }
 
     return this.http.request(rb.build({
@@ -118,18 +65,17 @@ export class NamespacesService extends BaseService {
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `createNamespace$Response()` instead.
+   * To access the full response (for headers, for example), `getRootNamespace$Response()` instead.
    *
-   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   * This method doesn't expect any request body.
    */
-  createNamespace(params?: {
+  getRootNamespace(params?: {
     'x-Version'?: string;
     context?: HttpContext
-    body?: CreateNamespaceDto
   }
 ): Observable<NamespaceDto> {
 
-    return this.createNamespace$Response(params).pipe(
+    return this.getRootNamespace$Response(params).pipe(
       map((r: StrictHttpResponse<NamespaceDto>) => r.body as NamespaceDto)
     );
   }
@@ -296,6 +242,60 @@ export class NamespacesService extends BaseService {
 
     return this.deleteNamespace$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation createNamespace
+   */
+  static readonly CreateNamespacePath = '/namespaces';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `createNamespace()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  createNamespace$Response(params?: {
+    'x-Version'?: string;
+    context?: HttpContext
+    body?: CreateNamespaceDto
+  }
+): Observable<StrictHttpResponse<NamespaceDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, NamespacesService.CreateNamespacePath, 'post');
+    if (params) {
+      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.body(params.body, 'application/*+json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<NamespaceDto>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `createNamespace$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  createNamespace(params?: {
+    'x-Version'?: string;
+    context?: HttpContext
+    body?: CreateNamespaceDto
+  }
+): Observable<NamespaceDto> {
+
+    return this.createNamespace$Response(params).pipe(
+      map((r: StrictHttpResponse<NamespaceDto>) => r.body as NamespaceDto)
     );
   }
 

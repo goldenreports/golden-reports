@@ -16,16 +16,16 @@ export class NamespaceListPageEffects {
   }
 
   getChildren$ = createEffect(() => combineLatest([
-    this.store.select(NamespaceEditorPageSelectors.getNamespaceName),
+    this.store.select(NamespaceEditorPageSelectors.getNamespace),
     this.store.select(NamespaceListPageSelectors.getIsOpenFlag)
   ]).pipe(
-    filter(([namespaceId, isOpen]) => !!namespaceId && isOpen),
-    map(([namespaceId]) => namespaceActions.childrenRequested({ parentNamespaceId: namespaceId }))
+    filter(([namespace, isOpen]) => !!namespace && isOpen),
+    map(([namespace]) => namespaceActions.childrenRequested({ parentNamespaceId: namespace!.id! }))
   ));
 
   createChildNamespace$ = createEffect(() => this.actions$.pipe(
     ofType(namespaceListPageActions.childNamespaceSubmitted),
-    withLatestFrom(this.store.select(NamespaceEditorPageSelectors.getNamespaceName)),
+    withLatestFrom(this.store.select(NamespaceEditorPageSelectors.getNamespaceId)),
     map(([payload, namespaceId]) => namespaceActions.creationRequested({
       newNamespace: {
         ...payload.namespace,

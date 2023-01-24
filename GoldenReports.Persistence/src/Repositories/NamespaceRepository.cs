@@ -13,13 +13,9 @@ public class NamespaceRepository : Repository<Namespace>, INamespaceRepository
         this.dataContext = dataContext;
     }
 
-    public IAsyncEnumerable<Namespace> GetRootNamespaces()
+    public Task<Namespace> GetRootNamespace(CancellationToken cancellationToken = default)
     {
-        return this.dataContext.Namespaces
-            .Where(x => !x.ParentId.HasValue)
-            .OrderByDescending(x => x.ModificationDate)
-            .AsNoTracking()
-            .AsAsyncEnumerable();
+        return this.dataContext.Namespaces.SingleAsync(x => !x.ParentId.HasValue, cancellationToken);
     }
 
     public async Task<bool> CheckNameAvailability(Guid? parentId, string name,

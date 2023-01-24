@@ -5,9 +5,9 @@ import { CreateNamespaceDto, ErrorDto, NamespaceDto, UpdateNamespaceDto } from '
 export const namespaceActions = createActionGroup({
   source: 'Namespace',
   events: {
-    'Root Namespaces Requested': emptyProps(),
-    'Root Namespaces Fetched': props<{ namespaces: Array<NamespaceDto> }>(),
-    'Root Namespaces Fetch Failed': props<{ error: ErrorDto }>(),
+    'Root Namespace Requested': emptyProps(),
+    'Root Namespace Fetched': props<{ namespace: NamespaceDto }>(),
+    'Root Namespace Fetch Failed': props<{ error: ErrorDto }>(),
     'Namespace Requested': props<{ namespaceId: string, includeAncestors?: boolean }>(),
     'Namespace Fetched': props<{ namespace: NamespaceDto, ancestors?: Array<NamespaceDto> }>(),
     'Namespace Fetch failed': props<{ error: ErrorDto }>(),

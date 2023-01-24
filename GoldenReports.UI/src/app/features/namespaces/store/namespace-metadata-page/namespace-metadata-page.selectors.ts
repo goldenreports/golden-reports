@@ -20,13 +20,13 @@ export class NamespaceMetadataPageSelectors {
 
   public static readonly getCanSaveFlag = createSelector(
     NamespaceMetadataPageSelectors.getSavingFlag,
-    NamespaceEditorPageSelectors.getLoadingFlag,
+    NamespaceEditorPageSelectors.getLoadingPathFlag,
     NamespaceMetadataPageSelectors.getFormValidFlag,
     (saving, loading, formValid) => !saving && !loading && formValid
   );
 
   public static readonly getViewModel = createSelector(
-    NamespaceEditorPageSelectors.getLoadingFlag,
+    NamespaceEditorPageSelectors.getLoadingPathFlag,
     NamespaceMetadataPageSelectors.getError,
     NamespaceMetadataPageSelectors.getSavingFlag,
     NamespaceMetadataPageSelectors.getCanSaveFlag,

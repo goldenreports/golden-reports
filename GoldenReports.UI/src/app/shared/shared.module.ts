@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
 
 import { StateFormBindingDirective } from './directives';
 import { ErrorMessageComponent } from './components';
@@ -10,7 +11,8 @@ import { ErrorMessageComponent } from './components';
     ErrorMessageComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    NzAlertModule
   ],
   exports: [
     StateFormBindingDirective,

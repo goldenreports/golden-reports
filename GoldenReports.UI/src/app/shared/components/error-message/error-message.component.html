@@ -1,1 +1,7 @@
-{{error.errorMessage}}
+<nz-alert
+  *ngIf="error"
+  nzType="error"
+  [nzMessage]="errorMessage"
+  [nzDescription]="errorDescription"
+  nzShowIcon
+></nz-alert>

@@ -10,13 +10,18 @@
       <li nz-menu-item nzMatchRouter><a routerLink="/dashboard">Dashboard</a></li>
       <li nz-menu-item nzMatchRouter><a routerLink="/namespaces">Content</a></li>
       <li class="separator"></li>
-      <li nz-submenu nzPlacement="bottomRight" [nzTitle]="userName$ | async" nzIcon="user">
-        <ul>
-          <li nz-menu-item><a routerLink="/settings">Settings</a></li>
-          <li nz-menu-item (click)="logout()">Logout</li>
-<!--          <hr />-->
-<!--          <li nz-menu-item>About</li>-->
-        </ul>
+      <li nz-menu-item>
+        <a nz-dropdown [nzDropdownMenu]="menu">
+          <span nz-icon nzType="user"></span>
+          {{userName$ | async}}
+          <span nz-icon nzType="down"></span>
+        </a>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item routerLink="/settings">Settings</li>
+            <li nz-menu-item (click)="logout()">Logout</li>
+          </ul>
+        </nz-dropdown-menu>
       </li>
     </ul>
   </nz-header>

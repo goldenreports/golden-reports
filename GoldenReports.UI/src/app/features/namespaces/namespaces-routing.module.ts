@@ -6,7 +6,7 @@ import { MetadataEditorComponent, NamespaceEditorComponent, NamespaceListCompone
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'global' },
   {
-    path: ':namespaceName', children: [
+    path: ':namespaceId', children: [
       {
         path: '',
         component: NamespaceEditorComponent,

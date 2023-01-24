@@ -21,7 +21,7 @@ function appInitializerFactory(injector: Injector) : () => Promise<void> {
       injector.get<Store<AppState>>(Store<AppState>));
 
     initializeApi(configService,
-      injector.get<ApiConfiguration>(ApiConfiguration))
+      injector.get<ApiConfiguration>(ApiConfiguration));
   };
 }
 
