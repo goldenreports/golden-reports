@@ -1,5 +1,6 @@
 <ng-container *ngIf="vm$ | async as vm">
   <app-error-message [error]="vm.error"></app-error-message>
+  <a nz-button nzType="primary" routerLink="./new">Add New Data Source</a>
   <nz-table [nzData]="vm.dataSources" [nzLoading]="vm.loading" nzSize="middle">
     <thead>
     <tr>
