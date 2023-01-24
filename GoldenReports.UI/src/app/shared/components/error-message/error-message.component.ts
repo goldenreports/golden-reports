@@ -10,7 +10,7 @@ export class ErrorMessageComponent {
   @Input() public error!: ErrorDto | string | undefined | null;
 
   public get errorMessage(): string {
-    return typeof(this.error) === 'string'? '' : this.error?.errorCode?.toString() ?? '';
+    return typeof(this.error) === 'string'? '' : `Error code: ${this.error?.errorCode?.toString()}` ?? '';
   }
 
   public get errorDescription(): string {
