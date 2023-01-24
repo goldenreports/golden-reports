@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { dataSourceActions } from '@core/store/data-source';
 import { catchError, exhaustMap, mergeMap, of, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -16,7 +15,10 @@ export class ReportEffects {
 
   getNamespaceReports$ = createEffect(() => this.actions$.pipe(
     ofType(reportActions.namespaceReportsRequested),
-    switchMap(payload => this.namespacesService.getNamespaceReports({ namespaceId: payload.namespaceId }).pipe(
+    switchMap(({ namespaceId }) => (
+      namespaceId === 'global' ?
+        this.namespacesService.getRootNamespaceReports() :
+        this.namespacesService.getNamespaceReports({ namespaceId })).pipe(
       map(reports => reportActions.namespaceReportsFetched({ reports })),
       catchError((resp: HttpErrorResponse) => of(reportActions.namespaceReportsFetchFailed({ error: resp.error })))
     ))
@@ -40,7 +42,7 @@ export class ReportEffects {
 
   updateReport$ = createEffect(() => this.actions$.pipe(
     ofType(reportActions.updateRequested),
-    switchMap(payload => this.reportsService.updateReport({reportId: payload.reportId, body: payload.report }).pipe(
+    switchMap(payload => this.reportsService.updateReport({ reportId: payload.reportId, body: payload.report }).pipe(
       map(report => reportActions.reportUpdated({ report })),
       catchError((resp: HttpErrorResponse) => of(reportActions.updateFailed({ error: resp.error })))
     ))

@@ -16,7 +16,7 @@ public class NamespaceAssetRepository : Repository<NamespaceAsset>, INamespaceAs
     public async Task<bool> CheckNameAvailability(Guid namespaceId, string name,
         CancellationToken cancellationToken = default)
     {
-        var nameExists = await this.dataContext.DataContexts.AnyAsync(
+        var nameExists = await this.dataContext.NamespaceAssets.AnyAsync(
             x =>
                 x.NamespaceId == namespaceId &&
                 x.Name == name,
@@ -24,5 +24,13 @@ public class NamespaceAssetRepository : Repository<NamespaceAsset>, INamespaceAs
         );
 
         return !nameExists;
+    }
+
+    public IAsyncEnumerable<NamespaceAsset> GetRootNamespaceAssets()
+    {
+        return this.dataContext.NamespaceAssets
+            .Where(x => x.Namespace.ParentId == null)
+            .AsNoTracking()
+            .AsAsyncEnumerable();
     }
 }

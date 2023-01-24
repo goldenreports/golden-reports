@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { catchError, exhaustMap, mergeMap, of, switchMap } from 'rxjs';
+import { catchError, exhaustMap, filter, mergeMap, of, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { DataSourcesService, NamespacesService } from '@core/api';
@@ -19,7 +19,11 @@ export class DataSourceEffects {
 
   getNamespaceDataSources$ = createEffect(() => this.actions$.pipe(
     ofType(dataSourceActions.namespaceDataSourcesRequested),
-    switchMap(payload => this.namespacesService.getNamespaceDataSources({ namespaceId: payload.namespaceId }).pipe(
+    switchMap(({ namespaceId }) => (
+      namespaceId === 'global' ?
+        this.namespacesService.getRootNamespaceDataSources() :
+        this.namespacesService.getNamespaceDataSources({ namespaceId })
+    ).pipe(
       map(dataSources => dataSourceActions.namespaceDataSourcesFetched({ dataSources })),
       catchError((resp: HttpErrorResponse) => of(dataSourceActions.namespaceDataSourcesFetchFailed({ error: resp.error })))
     ))
@@ -35,7 +39,10 @@ export class DataSourceEffects {
 
   updateDataSource$ = createEffect(() => this.actions$.pipe(
     ofType(dataSourceActions.updateRequested),
-    switchMap(payload => this.dataSourcesService.updateDataSource({dataSourceId: payload.dataSourceId, body: payload.dataSource }).pipe(
+    switchMap(payload => this.dataSourcesService.updateDataSource({
+      dataSourceId: payload.dataSourceId,
+      body: payload.dataSource
+    }).pipe(
       map(dataSource => dataSourceActions.dataSourceUpdated({ dataSource })),
       catchError((resp: HttpErrorResponse) => of(dataSourceActions.updateFailed({ error: resp.error })))
     ))

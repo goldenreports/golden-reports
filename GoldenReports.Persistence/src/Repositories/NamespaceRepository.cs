@@ -18,6 +18,14 @@ public class NamespaceRepository : Repository<Namespace>, INamespaceRepository
         return this.dataContext.Namespaces.SingleAsync(x => !x.ParentId.HasValue, cancellationToken);
     }
 
+    public IAsyncEnumerable<Namespace> GetRootNamespaceChildren()
+    {
+        return this.dataContext.Namespaces
+            .Where(x => x.Parent != null && x.Parent.ParentId == null)
+            .AsNoTracking()
+            .AsAsyncEnumerable();
+    }
+
     public async Task<bool> CheckNameAvailability(Guid? parentId, string name,
         CancellationToken cancellationToken = default)
     {

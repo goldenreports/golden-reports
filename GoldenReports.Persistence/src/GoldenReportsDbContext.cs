@@ -1,4 +1,5 @@
-﻿using GoldenReports.Domain.Common;
+﻿using GoldenReports.Domain.Assets;
+using GoldenReports.Domain.Common;
 using GoldenReports.Domain.Data;
 using GoldenReports.Domain.Namespaces;
 using GoldenReports.Domain.Reports;
@@ -17,6 +18,10 @@ public class GoldenReportsDbContext : DbContext
     public DbSet<DataSource> DataSources { get; set; }
 
     public DbSet<DataContext> DataContexts { get; set; }
+    
+    public DbSet<ReportDefinition> Reports { get; set; }
+    
+    public DbSet<NamespaceAsset> NamespaceAssets { get; set; }
 
     public override int SaveChanges()
     {

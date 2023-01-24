@@ -16,7 +16,11 @@ export class DataContextEffects {
 
   fetchNamespaceDataContexts$ = createEffect(() => this.actions$.pipe(
     ofType(dataContextActions.namespaceDataContextsRequested),
-    switchMap(x => this.namespacesService.getNamespaceDataContexts({ namespaceId: x.namespaceId }).pipe(
+    switchMap(({ namespaceId }) => (
+      namespaceId === 'global' ?
+        this.namespacesService.getRootNamespaceDataContexts() :
+        this.namespacesService.getNamespaceDataContexts({ namespaceId })
+    ).pipe(
       map(dataContexts => dataContextActions.namespaceDataContextsFetched({ dataContexts })),
       catchError((resp: HttpErrorResponse) => of(dataContextActions.namespaceDataContextsFetchFailed({ error: resp.error })))
     ))

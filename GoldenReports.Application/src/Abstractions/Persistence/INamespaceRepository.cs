@@ -6,10 +6,12 @@ public interface INamespaceRepository : IRepository<Namespace>
 {
     Task<Namespace> GetRootNamespace(CancellationToken cancellationToken = default);
 
-    public Task<bool> CheckNameAvailability(Guid? parentId, string name,
+    IAsyncEnumerable<Namespace> GetRootNamespaceChildren();
+
+    Task<bool> CheckNameAvailability(Guid? parentId, string name,
         CancellationToken cancellationToken = default);
     
-    public Task<bool> CheckNameChange(Guid namespaceId, string name,
+    Task<bool> CheckNameChange(Guid namespaceId, string name,
         CancellationToken cancellationToken = default);
 
     Task<Namespace?> GetNamespaceWithInnerNamespaces(Guid namespaceId, CancellationToken cancellationToken = default);

@@ -41,6 +41,56 @@ public class NamespacesController : ControllerBase
         return this.Ok(rootNamespace);
     }
     
+    [HttpGet("root/namespaces", Name = nameof(NamespacesController.GetRootInnerNamespaces))]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesDefaultResponseType(typeof(ErrorDto))]
+    public async Task<ActionResult<IEnumerable<NamespaceDto>>> GetRootInnerNamespaces()
+    {
+        var rootNamespaces = await this.mediator.Send(new GetRootInnerNamespaces());
+        return this.Ok(rootNamespaces);
+    }
+    
+    [HttpGet("root/data-sources", Name = nameof(NamespacesController.GetRootNamespaceDataSources))]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesDefaultResponseType(typeof(ErrorDto))]
+    public async Task<ActionResult<IEnumerable<DataSourceDto>>> GetRootNamespaceDataSources()
+    {
+        var dataSources = await this.mediator.Send(new GetRootNamespaceDataSources());
+        return this.Ok(dataSources);
+    }
+    
+    [HttpGet("root/data-contexts", Name = nameof(NamespacesController.GetRootNamespaceDataContexts))]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesDefaultResponseType(typeof(ErrorDto))]
+    public async Task<ActionResult<IEnumerable<DataContextDto>>> GetRootNamespaceDataContexts()
+    {
+        var dataContexts = await this.mediator.Send(new GetRootNamespaceDataContexts());
+        return this.Ok(dataContexts);
+    }
+    
+    [HttpGet("root/assets", Name = nameof(NamespacesController.GetRootNamespaceAssets))]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesDefaultResponseType(typeof(ErrorDto))]
+    public async Task<ActionResult<IEnumerable<AssetDto>>> GetRootNamespaceAssets()
+    {
+        var assets = await this.mediator.Send(new GetRootNamespaceAssets());
+        return this.Ok(assets);
+    }
+    
+    [HttpGet("root/reports", Name = nameof(NamespacesController.GetRootNamespaceReports))]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesDefaultResponseType(typeof(ErrorDto))]
+    public async Task<ActionResult<IEnumerable<ReportListItemDto>>> GetRootNamespaceReports()
+    {
+        var reports = await this.mediator.Send(new GetRootNamespaceReports());
+        return this.Ok(reports);
+    }
+    
     [HttpGet("{namespaceId:guid}", Name = nameof(NamespacesController.GetNamespace))]
     [Produces(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -50,37 +100,7 @@ public class NamespacesController : ControllerBase
         var foundNamespace = await this.mediator.Send(new GetNamespaceById(namespaceId));
         return this.Ok(foundNamespace);
     }
-    
-    [HttpPost(Name = nameof(NamespacesController.CreateNamespace))]
-    [Produces(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesDefaultResponseType(typeof(ErrorDto))]
-    public async Task<ActionResult<NamespaceDto>> CreateNamespace([FromBody]CreateNamespaceDto newNamespace)
-    {
-        var createdNamespace = await this.mediator.Send(new CreateNamespace(newNamespace));
-        return this.Ok(createdNamespace);
-    }
-    
-    [HttpPut("{namespaceId:guid}", Name = nameof(NamespacesController.UpdateNamespace))]
-    [Produces(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesDefaultResponseType(typeof(ErrorDto))]
-    public async Task<ActionResult<NamespaceDto>> UpdateNamespace(Guid namespaceId, [FromBody]UpdateNamespaceDto modifiedNamespace)
-    {
-        var updatedNamespace = await this.mediator.Send(new UpdateNamespace(namespaceId, modifiedNamespace));
-        return this.Ok(updatedNamespace);
-    }
-    
-    [HttpDelete("{namespaceId:guid}", Name = nameof(NamespacesController.DeleteNamespace))]
-    [Produces(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesDefaultResponseType(typeof(ErrorDto))]
-    public async Task<ActionResult> DeleteNamespace(Guid namespaceId)
-    {
-        await this.mediator.Send(new DeleteNamespace(namespaceId));
-        return this.NoContent();
-    }
-    
+
     [HttpGet("{namespaceId:guid}/ancestors", Name = nameof(NamespacesController.GetAncestors))]
     [Produces(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -130,7 +150,7 @@ public class NamespacesController : ControllerBase
         var assets = await this.mediator.Send(new GetNamespaceAssetsByNamespaceId(namespaceId));
         return this.Ok(assets);
     }
-    
+
     [HttpGet("{namespaceId:guid}/reports", Name = nameof(NamespacesController.GetNamespaceReports))]
     [Produces(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -139,6 +159,36 @@ public class NamespacesController : ControllerBase
     {
         var reports = await this.mediator.Send(new GetReportsByNamespaceId(namespaceId));
         return this.Ok(reports);
+    }
+    
+    [HttpPost(Name = nameof(NamespacesController.CreateNamespace))]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesDefaultResponseType(typeof(ErrorDto))]
+    public async Task<ActionResult<NamespaceDto>> CreateNamespace([FromBody]CreateNamespaceDto newNamespace)
+    {
+        var createdNamespace = await this.mediator.Send(new CreateNamespace(newNamespace));
+        return this.Ok(createdNamespace);
+    }
+    
+    [HttpPut("{namespaceId:guid}", Name = nameof(NamespacesController.UpdateNamespace))]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesDefaultResponseType(typeof(ErrorDto))]
+    public async Task<ActionResult<NamespaceDto>> UpdateNamespace(Guid namespaceId, [FromBody]UpdateNamespaceDto modifiedNamespace)
+    {
+        var updatedNamespace = await this.mediator.Send(new UpdateNamespace(namespaceId, modifiedNamespace));
+        return this.Ok(updatedNamespace);
+    }
+    
+    [HttpDelete("{namespaceId:guid}", Name = nameof(NamespacesController.DeleteNamespace))]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesDefaultResponseType(typeof(ErrorDto))]
+    public async Task<ActionResult> DeleteNamespace(Guid namespaceId)
+    {
+        await this.mediator.Send(new DeleteNamespace(namespaceId));
+        return this.NoContent();
     }
     
     [HttpPost("{namespaceId:guid}/assets", Name = nameof(NamespacesController.AddNamespaceAsset))]

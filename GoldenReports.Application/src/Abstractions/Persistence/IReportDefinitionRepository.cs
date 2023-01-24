@@ -4,4 +4,5 @@ namespace GoldenReports.Application.Abstractions.Persistence;
 
 public interface IReportDefinitionRepository : IRepository<ReportDefinition>
 {
+    IAsyncEnumerable<ReportDefinition> GetRootNamespaceReports();
 }

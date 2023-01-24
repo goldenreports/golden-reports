@@ -43,4 +43,12 @@ public class DataSourceRepository : Repository<DataSource>, IDataSourceRepositor
 
         return !nameExists;
     }
+
+    public IAsyncEnumerable<DataSource> GetRootNamespaceDataSources()
+    {
+        return this.dataContext.DataSources
+            .Where(x => x.Namespace.ParentId == null)
+            .AsNoTracking()
+            .AsAsyncEnumerable();
+    }
 }
