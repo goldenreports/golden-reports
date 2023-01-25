@@ -1,7 +1,7 @@
 import { isDevMode, NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { NavigationActionTiming, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { appReducers } from './app-store';
@@ -24,7 +24,11 @@ import { ReportEffects } from './report';
       }
     }),
     EffectsModule.forRoot([AuthEffects, NamespaceEffects, DataSourceEffects, DataContextEffects, ReportEffects]),
-    StoreRouterConnectingModule.forRoot({ stateKey: RouterStateKey, serializer: AppRouterStateSerializer }),
+    StoreRouterConnectingModule.forRoot({
+      stateKey: RouterStateKey,
+      serializer: AppRouterStateSerializer,
+      navigationActionTiming: NavigationActionTiming.PostActivation
+    }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ]
 })

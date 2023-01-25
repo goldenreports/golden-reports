@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { filter, map, withLatestFrom } from 'rxjs/operators';
+import { combineLatest } from 'rxjs';
 
 import { AppState } from '@core/store';
 import { namespaceActions } from '@core/store/namespace';
 import { NamespaceEditorPageSelectors } from '@features/namespaces/store/namespace-editor-page';
 import { namespaceListPageActions } from './namespace-list-page.actions';
 import { NamespaceListPageSelectors } from './namespace-list-page.selectors';
-import { combineLatest } from 'rxjs';
 
 @Injectable()
 export class NamespaceListPageEffects {
@@ -16,11 +16,11 @@ export class NamespaceListPageEffects {
   }
 
   getChildren$ = createEffect(() => combineLatest([
-    this.store.select(NamespaceEditorPageSelectors.getNamespace),
+    this.store.select(NamespaceEditorPageSelectors.getNamespaceId),
     this.store.select(NamespaceListPageSelectors.getIsOpenFlag)
   ]).pipe(
-    filter(([namespace, isOpen]) => !!namespace && isOpen),
-    map(([namespace]) => namespaceActions.childrenRequested({ parentNamespaceId: namespace!.id! }))
+    filter(([namespaceId, isOpen]) => !!namespaceId && isOpen),
+    map(([namespaceId]) => namespaceActions.childrenRequested({ parentNamespaceId: namespaceId }))
   ));
 
   createChildNamespace$ = createEffect(() => this.actions$.pipe(

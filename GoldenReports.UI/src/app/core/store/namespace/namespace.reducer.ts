@@ -23,7 +23,16 @@ export const namespaceReducer = createReducer(
     };
   }),
   on(namespaceActions.namespaceFetched, (state, { namespace, ancestors }) => {
-    return adapter.upsertMany(ancestors ?? [], adapter.addOne(namespace, state));
+    const newState = adapter.upsertMany(ancestors ?? [], adapter.addOne(namespace, state));
+    let rootNamespace = newState.root;
+    if(!rootNamespace) {
+      rootNamespace = !namespace.parentId ? namespace : ancestors?.find(x => !x.parentId);
+    }
+
+    return {
+      ...newState,
+      root: rootNamespace
+    };
   }),
   on(namespaceActions.childrenFetched, (state, { children }) => {
     return adapter.upsertMany(children, state);

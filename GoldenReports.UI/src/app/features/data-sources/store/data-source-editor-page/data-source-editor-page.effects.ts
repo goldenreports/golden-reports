@@ -9,6 +9,7 @@ import { RouterSelectors } from '@core/store/router';
 import { dataSourceActions } from '@core/store/data-source';
 import { dataSourceEditorPageActions } from './data-source-editor-page.actions';
 import { formActions } from '@shared/store';
+import { NamespaceEditorPageSelectors } from '@features/namespaces/store/namespace-editor-page';
 
 @Injectable()
 export class DataSourceEditorPageEffects {
@@ -29,12 +30,12 @@ export class DataSourceEditorPageEffects {
 
   submitDataSource$ = createEffect(() => this.actions$.pipe(
     ofType(dataSourceEditorPageActions.newDataSourceSubmitted),
-    withLatestFrom(this.store.select(RouterSelectors.getParam('namespaceId'))),
+    withLatestFrom(this.store.select(NamespaceEditorPageSelectors.getNamespaceId)),
     map(([x, namespaceId]) => dataSourceActions.creationRequested({
       ...x,
       newDataSource: {
         ...x.newDataSource,
-        namespaceId
+        namespaceId: namespaceId
       }
     }))
   ));

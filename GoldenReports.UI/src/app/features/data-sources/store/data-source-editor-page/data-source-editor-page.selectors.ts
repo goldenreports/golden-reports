@@ -5,12 +5,18 @@ import { DataSourceSelectors } from '@core/store/data-source';
 import { selectDataSourceFeature } from '@features/data-sources/store';
 import { DataSourceEditorVm } from '@features/data-sources/models';
 import { RouterSelectors } from '@core/store/router';
+import { NamespaceEditorPageSelectors } from '@features/namespaces/store/namespace-editor-page';
 
 
 export class DataSourceEditorPageSelectors {
   public static readonly getState = createSelector(selectDataSourceFeature, state => state[DataSourceEditorPageStateKey]);
 
   public static readonly getLoadingFlag = createSelector(DataSourceEditorPageSelectors.getState, state => state?.loading);
+
+  public static readonly getCombinedLoadingFlag = createSelector(
+    DataSourceEditorPageSelectors.getLoadingFlag,
+    NamespaceEditorPageSelectors.getLoadingPathFlag,
+    (localLoading, parentLoading) => localLoading && parentLoading);
 
   public static readonly getDataSource = createSelector(
     DataSourceSelectors.getEntities,

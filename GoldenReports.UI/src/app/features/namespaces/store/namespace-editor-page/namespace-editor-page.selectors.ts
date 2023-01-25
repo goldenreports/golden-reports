@@ -14,18 +14,16 @@ export class NamespaceEditorPageSelectors {
 
   public static readonly getLoadingPathFlag = createSelector(NamespaceEditorPageSelectors.getState, state => state.loadingPath);
 
-  public static readonly getNamespaceId = createSelector(RouterSelectors.getParams, params => params?.['namespaceId']);
-
-  public static readonly getIsRootFlag = createSelector(NamespaceEditorPageSelectors.getNamespaceId, namespaceId => namespaceId === 'global');
+  public static readonly getNamespaceId = createSelector(RouterSelectors.getParams, params => params?.['namespaceId'] as string);
 
   public static readonly getNamespace = createSelector(
     NamespaceEditorPageSelectors.getNamespaceId,
-    NamespaceEditorPageSelectors.getIsRootFlag,
-    NamespaceSelectors.getRoot,
     NamespaceSelectors.getEntities,
-    (namespaceId, isRoot, root, namespaces) => {
-      return (isRoot ? root : namespaces[namespaceId]) as NamespaceDto | undefined;
+    (namespaceId, namespaces) => {
+      return !!namespaceId ? namespaces[namespaceId] : undefined;
     });
+
+  public static readonly getIsRootFlag = createSelector(NamespaceEditorPageSelectors.getNamespace, namespace => !namespace?.parentId);
 
   public static readonly getNamespaces = createSelector(
     NamespaceEditorPageSelectors.getNamespace,
@@ -53,7 +51,9 @@ export class NamespaceEditorPageSelectors {
     NamespaceEditorPageSelectors.getNamespaces,
     NamespaceEditorPageSelectors.getError,
     NamespaceEditorPageSelectors.getIsRootFlag,
-    (namespaces, error, isRoot) => ({
+    NamespaceEditorPageSelectors.getLoadingPathFlag,
+    (namespaces, error, isRoot, loading) => ({
+      loading,
       isRoot,
       namespaces,
       error

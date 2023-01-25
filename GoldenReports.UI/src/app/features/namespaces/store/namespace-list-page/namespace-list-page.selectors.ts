@@ -17,9 +17,9 @@ export class NamespaceListPageSelectors {
   public static readonly getError = createSelector(NamespaceListPageSelectors.getState, state => state?.error);
 
   public static readonly getChildren = createSelector(
-    NamespaceEditorPageSelectors.getNamespace,
+    NamespaceEditorPageSelectors.getNamespaceId,
     NamespaceSelectors.getAll,
-    (namespace, allNamespaces) => namespace ? allNamespaces?.filter(x => x.parentId === namespace.id) : []);
+    (namespaceId, allNamespaces) => namespaceId ? allNamespaces?.filter(x => x.parentId === namespaceId) : []);
 
   public static readonly getShowingNewNamespaceModalFlag = createSelector(NamespaceListPageSelectors.getState, state => state?.showingNewNamespaceModal);
 

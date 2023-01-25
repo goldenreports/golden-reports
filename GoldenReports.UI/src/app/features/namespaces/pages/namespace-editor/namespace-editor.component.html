@@ -34,7 +34,7 @@
     </ul>
   </nz-sider>
   <nz-layout class="inner-layout">
-    <app-breadcrumb [namespaces]="vm.namespaces"></app-breadcrumb>
+    <app-breadcrumb [namespaces]="vm.namespaces" [loading]="vm.loading"></app-breadcrumb>
     <app-error-message [error]="vm.error"></app-error-message>
     <nz-content>
       <router-outlet></router-outlet>

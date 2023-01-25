@@ -14,6 +14,10 @@ public class BadRequestException : ApplicationException
         BadRequestException.GetMessage(entityName, errors.ToArray()))
     {
     }
+    
+    public BadRequestException(string entityName, string message) : base($"{entityName}: {message}")
+    {
+    }
 
     private static string GetMessage(string entityName, params ValidationFailure[] errors)
     {

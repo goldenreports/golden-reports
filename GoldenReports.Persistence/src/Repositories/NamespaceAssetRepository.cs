@@ -25,12 +25,4 @@ public class NamespaceAssetRepository : Repository<NamespaceAsset>, INamespaceAs
 
         return !nameExists;
     }
-
-    public IAsyncEnumerable<NamespaceAsset> GetRootNamespaceAssets()
-    {
-        return this.dataContext.NamespaceAssets
-            .Where(x => x.Namespace.ParentId == null)
-            .AsNoTracking()
-            .AsAsyncEnumerable();
-    }
 }

@@ -11,6 +11,4 @@ public interface IDataSourceRepository : IRepository<DataSource>
     
     Task<bool> CheckNameChange(Guid dataSourceId, string name,
         CancellationToken cancellationToken = default);
-
-    IAsyncEnumerable<DataSource> GetRootNamespaceDataSources();
 }

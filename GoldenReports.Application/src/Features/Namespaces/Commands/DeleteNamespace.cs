@@ -25,6 +25,11 @@ internal class DeleteNamespaceHandler : IRequestHandler<DeleteNamespace>
         {
             throw new NotFoundException(nameof(Namespace), $"Id = {request.NamespaceId}");
         }
+
+        if (namespaceToRemove.ParentId == null)
+        {
+            throw new BadRequestException(nameof(Namespace), "Root namespace can not be deleted");
+        }
         
         this.namespaceRepository.Remove(namespaceToRemove);
         await this.unitOfWork.CommitChanges(cancellationToken);

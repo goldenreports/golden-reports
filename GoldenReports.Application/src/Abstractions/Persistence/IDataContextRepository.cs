@@ -9,6 +9,4 @@ public interface IDataContextRepository : IRepository<DataContext>
     
     Task<bool> CheckNameChange(Guid dataContextId, string name,
         CancellationToken cancellationToken = default);
-
-    IAsyncEnumerable<DataContext> GetRootNamespaceDataContexts();
 }

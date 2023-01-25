@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using FluentValidation.Results;
 using GoldenReports.Application.Abstractions.Persistence;
 using GoldenReports.Application.DTOs.Namespaces;
 using GoldenReports.Application.Exceptions;
@@ -41,6 +42,11 @@ internal class UpdateNamespaceHandler : IRequestHandler<UpdateNamespace, Namespa
         if (existingNamespace == null)
         {
             throw new NotFoundException(nameof(Namespace), $"Id = {request.NamespaceId}");
+        }
+
+        if (existingNamespace.ParentId == null)
+        {
+            throw new BadRequestException(nameof(Namespace), "Root namespace can not be edited");
         }
 
         this.mapper.Map(request.Namespace, existingNamespace);

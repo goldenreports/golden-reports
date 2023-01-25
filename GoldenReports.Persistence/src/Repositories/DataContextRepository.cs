@@ -36,12 +36,4 @@ public class DataContextRepository : Repository<DataContext>, IDataContextReposi
 
         return !nameExists;
     }
-
-    public IAsyncEnumerable<DataContext> GetRootNamespaceDataContexts()
-    {
-        return this.dataContext.DataContexts
-            .Where(x => x.Namespace.ParentId == null)
-            .AsNoTracking()
-            .AsAsyncEnumerable();
-    }
 }

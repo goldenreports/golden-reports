@@ -6,8 +6,6 @@ public interface INamespaceRepository : IRepository<Namespace>
 {
     Task<Namespace> GetRootNamespace(CancellationToken cancellationToken = default);
 
-    IAsyncEnumerable<Namespace> GetRootNamespaceChildren();
-
     Task<bool> CheckNameAvailability(Guid? parentId, string name,
         CancellationToken cancellationToken = default);
     

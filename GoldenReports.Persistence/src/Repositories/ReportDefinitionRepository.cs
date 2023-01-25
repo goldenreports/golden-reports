@@ -12,12 +12,4 @@ public class ReportDefinitionRepository : Repository<ReportDefinition>, IReportD
     {
         this.dataContext = dataContext;
     }
-
-    public IAsyncEnumerable<ReportDefinition> GetRootNamespaceReports()
-    {
-        return this.dataContext.Reports
-            .Where(x => x.Namespace.ParentId == null)
-            .AsNoTracking()
-            .AsAsyncEnumerable();
-    }
 }

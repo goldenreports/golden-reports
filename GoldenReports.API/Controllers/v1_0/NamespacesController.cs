@@ -41,56 +41,6 @@ public class NamespacesController : ControllerBase
         return this.Ok(rootNamespace);
     }
     
-    [HttpGet("root/namespaces", Name = nameof(NamespacesController.GetRootInnerNamespaces))]
-    [Produces(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesDefaultResponseType(typeof(ErrorDto))]
-    public async Task<ActionResult<IEnumerable<NamespaceDto>>> GetRootInnerNamespaces()
-    {
-        var rootNamespaces = await this.mediator.Send(new GetRootInnerNamespaces());
-        return this.Ok(rootNamespaces);
-    }
-    
-    [HttpGet("root/data-sources", Name = nameof(NamespacesController.GetRootNamespaceDataSources))]
-    [Produces(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesDefaultResponseType(typeof(ErrorDto))]
-    public async Task<ActionResult<IEnumerable<DataSourceDto>>> GetRootNamespaceDataSources()
-    {
-        var dataSources = await this.mediator.Send(new GetRootNamespaceDataSources());
-        return this.Ok(dataSources);
-    }
-    
-    [HttpGet("root/data-contexts", Name = nameof(NamespacesController.GetRootNamespaceDataContexts))]
-    [Produces(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesDefaultResponseType(typeof(ErrorDto))]
-    public async Task<ActionResult<IEnumerable<DataContextDto>>> GetRootNamespaceDataContexts()
-    {
-        var dataContexts = await this.mediator.Send(new GetRootNamespaceDataContexts());
-        return this.Ok(dataContexts);
-    }
-    
-    [HttpGet("root/assets", Name = nameof(NamespacesController.GetRootNamespaceAssets))]
-    [Produces(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesDefaultResponseType(typeof(ErrorDto))]
-    public async Task<ActionResult<IEnumerable<AssetDto>>> GetRootNamespaceAssets()
-    {
-        var assets = await this.mediator.Send(new GetRootNamespaceAssets());
-        return this.Ok(assets);
-    }
-    
-    [HttpGet("root/reports", Name = nameof(NamespacesController.GetRootNamespaceReports))]
-    [Produces(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesDefaultResponseType(typeof(ErrorDto))]
-    public async Task<ActionResult<IEnumerable<ReportListItemDto>>> GetRootNamespaceReports()
-    {
-        var reports = await this.mediator.Send(new GetRootNamespaceReports());
-        return this.Ok(reports);
-    }
-    
     [HttpGet("{namespaceId:guid}", Name = nameof(NamespacesController.GetNamespace))]
     [Produces(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]

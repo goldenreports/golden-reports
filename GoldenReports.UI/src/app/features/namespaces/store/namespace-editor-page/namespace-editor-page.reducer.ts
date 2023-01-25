@@ -33,7 +33,7 @@ export const namespaceEditorPageReducer = createReducer(
       error: undefined
     };
   }),
-  on(namespaceActions.namespaceFetched, (state) => {
+  on(namespaceActions.rootNamespaceFetched, namespaceActions.namespaceFetched, (state) => {
     return {
       ...state,
       loadingPath: false

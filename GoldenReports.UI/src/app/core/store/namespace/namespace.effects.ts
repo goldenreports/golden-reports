@@ -14,10 +14,9 @@ export class NamespaceEffects {
     private readonly actions$: Actions,
     private readonly store: Store,
     private readonly namespacesService: NamespacesService) {
-    console.log('namespace effects created');
   }
 
-  getRootNamespaces$ = createEffect(() => this.actions$.pipe(
+  getRootNamespace$ = createEffect(() => this.actions$.pipe(
     ofType(namespaceActions.rootNamespaceRequested),
     switchMap(() => this.namespacesService.getRootNamespace().pipe(
       map(namespace => namespaceActions.rootNamespaceFetched({ namespace })),
