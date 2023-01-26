@@ -79,7 +79,9 @@ public class NamespaceRepository : Repository<Namespace>, INamespaceRepository
                         name,
                         description,
                         creation_date,
-                        modification_date
+                        id_created_by,
+                        modification_date,
+                        id_modified_by
                     FROM
                         golden_reports.namespace WHERE id_namespace = {0}
                     UNION
@@ -89,7 +91,9 @@ public class NamespaceRepository : Repository<Namespace>, INamespaceRepository
                         n.name,
                         n.description,
                         n.creation_date,
-                        n.modification_date
+                        n.id_created_by,
+                        n.modification_date,
+                        n.id_modified_by
                     FROM
                         golden_reports.namespace n
                     INNER JOIN namespace_ancestry a ON n.id_namespace = a.id_parent
