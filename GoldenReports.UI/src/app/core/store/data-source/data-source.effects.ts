@@ -19,11 +19,7 @@ export class DataSourceEffects {
 
   getNamespaceDataSources$ = createEffect(() => this.actions$.pipe(
     ofType(dataSourceActions.namespaceDataSourcesRequested),
-    switchMap(({ namespaceId }) => (
-      namespaceId === 'global' ?
-        this.namespacesService.getRootNamespaceDataSources() :
-        this.namespacesService.getNamespaceDataSources({ namespaceId })
-    ).pipe(
+    switchMap(({ namespaceId }) => this.namespacesService.getNamespaceDataSources({ namespaceId }).pipe(
       map(dataSources => dataSourceActions.namespaceDataSourcesFetched({ dataSources })),
       catchError((resp: HttpErrorResponse) => of(dataSourceActions.namespaceDataSourcesFetchFailed({ error: resp.error })))
     ))

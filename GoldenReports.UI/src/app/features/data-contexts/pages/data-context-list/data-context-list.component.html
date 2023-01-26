@@ -16,9 +16,9 @@
     <tr *ngFor="let dataContext of vm.dataContexts">
       <td><a routerLink="./{{dataContext.id}}">{{dataContext.name}}</a></td>
       <td>{{dataContext.creationDate | date: 'short'}}</td>
-      <td></td>
+      <td>{{dataContext.createdBy}}</td>
       <td>{{dataContext.modificationDate | date: 'short'}}</td>
-      <td></td>
+      <td>{{dataContext.modifiedBy}}</td>
       <td>
         <a>Delete</a>
       </td>

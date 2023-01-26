@@ -18,9 +18,9 @@
       <td><a routerLink="/namespaces/{{namespace.id}}">{{namespace.name}}</a></td>
       <td>{{namespace.description}}</td>
       <td>{{namespace.creationDate | date: 'short'}}</td>
-      <td></td>
+      <td>{{namespace.createdBy}}</td>
       <td>{{namespace.modificationDate | date: 'short'}}</td>
-      <td></td>
+      <td>{{namespace.modifiedBy}}</td>
       <td>
         <a routerLink="/namespaces/{{namespace.id}}/metadata">Edit</a>
         <nz-divider nzType="vertical"></nz-divider>

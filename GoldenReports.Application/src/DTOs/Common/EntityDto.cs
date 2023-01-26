@@ -8,5 +8,9 @@ public record EntityDto: IIdentifiable
     
     public DateTime CreationDate { get; init; }
     
+    public string CreatedBy { get; init; }
+    
     public DateTime ModificationDate { get; init; }
+    
+    public string ModifiedBy { get; init; }
 }

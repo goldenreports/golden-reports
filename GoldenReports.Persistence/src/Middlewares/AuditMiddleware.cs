@@ -39,13 +39,18 @@ public class AuditMiddleware : IDbContextMiddleware
             throw new InvalidOperationException("Current user was not found.");
         }
 
-        var user = await dbContext.Users.SingleOrDefaultAsync(x => x.AuthContextKey == this.authContext.CurrentUser.AuthContextKey);
+        var user = dbContext.Users.Local.SingleOrDefault(x => x.AuthContextKey == this.authContext.CurrentUser.AuthContextKey) ??
+                   await dbContext.Users.SingleOrDefaultAsync(x => x.AuthContextKey == this.authContext.CurrentUser.AuthContextKey);
         if (user != null)
         {
             return user;
         }
 
-        dbContext.Users.Entry(SecurityConstants.SystemUser).State = EntityState.Unchanged;
+        if (dbContext.Entry(SecurityConstants.SystemUser).State == EntityState.Detached)
+        {
+            dbContext.Users.Attach(SecurityConstants.SystemUser);   
+        }
+        
         user = new User
         {
             AuthContextKey = this.authContext.CurrentUser.AuthContextKey,

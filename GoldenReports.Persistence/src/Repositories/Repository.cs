@@ -21,22 +21,42 @@ public abstract class Repository<TEntity>: IRepository<TEntity> where TEntity : 
 
     public virtual IAsyncEnumerable<TEntity> GetAll()
     {
-        return this.dataContext.Set<TEntity>().OrderByDescending(x => x.ModificationDate).AsAsyncEnumerable();
+        return this.dataContext.Set<TEntity>()
+            .OrderByDescending(x => x.ModificationDate)
+            .Include(x => x.CreatedBy)
+            .Include(x => x.ModifiedBy)
+            .AsAsyncEnumerable();
     }
     
     public virtual IAsyncEnumerable<TEntity> GetAllAsReadOnly()
     {
-        return this.dataContext.Set<TEntity>().OrderByDescending(x => x.ModificationDate).AsNoTracking().AsAsyncEnumerable();
+        return this.dataContext.Set<TEntity>()
+            .OrderByDescending(x => x.ModificationDate)
+            .Include(x => x.CreatedBy)
+            .Include(x => x.ModifiedBy)
+            .AsNoTrackingWithIdentityResolution()
+            .AsAsyncEnumerable();
     }
 
     public virtual IAsyncEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
     {
-        return this.dataContext.Set<TEntity>().Where(predicate).OrderByDescending(x => x.ModificationDate).AsAsyncEnumerable();
+        return this.dataContext.Set<TEntity>()
+            .Where(predicate)
+            .Include(x => x.CreatedBy)
+            .Include(x => x.ModifiedBy)
+            .OrderByDescending(x => x.ModificationDate)
+            .AsAsyncEnumerable();
     }
 
     public IAsyncEnumerable<TEntity> FindAsReadOnly(Expression<Func<TEntity, bool>> predicate)
     {
-        return this.dataContext.Set<TEntity>().Where(predicate).OrderByDescending(x => x.ModificationDate).AsNoTracking().AsAsyncEnumerable();
+        return this.dataContext.Set<TEntity>()
+            .Where(predicate)
+            .Include(x => x.CreatedBy)
+            .Include(x => x.ModifiedBy)
+            .OrderByDescending(x => x.ModificationDate)
+            .AsNoTrackingWithIdentityResolution()
+            .AsAsyncEnumerable();
     }
 
     public virtual async Task Add(TEntity entity, CancellationToken cancellationToken = default)

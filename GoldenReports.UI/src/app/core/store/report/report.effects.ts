@@ -15,10 +15,7 @@ export class ReportEffects {
 
   getNamespaceReports$ = createEffect(() => this.actions$.pipe(
     ofType(reportActions.namespaceReportsRequested),
-    switchMap(({ namespaceId }) => (
-      namespaceId === 'global' ?
-        this.namespacesService.getRootNamespaceReports() :
-        this.namespacesService.getNamespaceReports({ namespaceId })).pipe(
+    switchMap(({ namespaceId }) => this.namespacesService.getNamespaceReports({ namespaceId }).pipe(
       map(reports => reportActions.namespaceReportsFetched({ reports })),
       catchError((resp: HttpErrorResponse) => of(reportActions.namespaceReportsFetchFailed({ error: resp.error })))
     ))

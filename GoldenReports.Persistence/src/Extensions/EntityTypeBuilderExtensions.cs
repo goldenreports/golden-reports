@@ -25,7 +25,7 @@ public static class EntityTypeBuilderExtensions
         builder.Property(x => x.CreatedById).HasColumnName("IdCreatedBy".ToSnakeCase());
         builder.HasOne(x => x.CreatedBy).WithMany().HasForeignKey(x => x.CreatedById)
             .HasConstraintName($"FK_{tableName}_User_CreatedBy");
-        builder.Property(x => x.CreatedById).HasColumnName("IdModifiedBy".ToSnakeCase());
+        builder.Property(x => x.ModifiedById).HasColumnName("IdModifiedBy".ToSnakeCase());
         builder.HasOne(x => x.ModifiedBy).WithMany().HasForeignKey(x => x.ModifiedById)
             .HasConstraintName($"FK_{tableName}_User_ModifiedBy");
     }

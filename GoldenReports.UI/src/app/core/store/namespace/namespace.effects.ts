@@ -41,11 +41,7 @@ export class NamespaceEffects {
 
   getChildren$ = createEffect(() => this.actions$.pipe(
     ofType(namespaceActions.childrenRequested),
-    switchMap(({ parentNamespaceId }) => (
-      parentNamespaceId === 'global' ?
-        this.namespacesService.getRootInnerNamespaces() :
-        this.namespacesService.getInnerNamespaces({ namespaceId: parentNamespaceId })
-    ).pipe(
+    switchMap(({ parentNamespaceId }) => this.namespacesService.getInnerNamespaces({ namespaceId: parentNamespaceId }).pipe(
       map(namespaces => namespaceActions.childrenFetched({ children: namespaces })),
       catchError((resp: HttpErrorResponse) => of(namespaceActions.childrenFetchFailed({ error: resp.error })))
     ))
