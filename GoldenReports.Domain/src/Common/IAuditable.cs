@@ -1,12 +1,18 @@
-﻿namespace GoldenReports.Domain.Common;
+﻿using GoldenReports.Domain.Security;
+
+namespace GoldenReports.Domain.Common;
 
 public interface IAuditable
 {
-    // public User CreatedBy { get; }
+    public Guid? CreatedById { get; }
+    
+    public User? CreatedBy { get; }
 
     public DateTime CreationDate { get; }
 
-    // public User ModifiedBy { get; }
+    public Guid? ModifiedById { get; }
+    
+    public User? ModifiedBy { get; }
 
     public DateTime ModificationDate { get; }
 }

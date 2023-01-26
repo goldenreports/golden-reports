@@ -3,49 +3,57 @@ using GoldenReports.Domain.Common;
 using GoldenReports.Domain.Data;
 using GoldenReports.Domain.Namespaces;
 using GoldenReports.Domain.Reports;
+using GoldenReports.Domain.Security;
+using GoldenReports.Persistence.Middlewares;
 using Microsoft.EntityFrameworkCore;
 
 namespace GoldenReports.Persistence;
 
 public class GoldenReportsDbContext : DbContext
 {
-    public GoldenReportsDbContext(DbContextOptions<GoldenReportsDbContext> options) : base(options)
+    private readonly IEnumerable<IDbContextMiddleware> middlewares;
+
+    public GoldenReportsDbContext(DbContextOptions<GoldenReportsDbContext> options,
+        IEnumerable<IDbContextMiddleware> middlewares) : base(options)
     {
+        this.middlewares = middlewares;
     }
-    
+
     public DbSet<Namespace> Namespaces { get; set; }
-    
+
     public DbSet<DataSource> DataSources { get; set; }
 
     public DbSet<DataContext> DataContexts { get; set; }
-    
+
     public DbSet<ReportDefinition> Reports { get; set; }
-    
+
     public DbSet<NamespaceAsset> NamespaceAssets { get; set; }
+
+    public DbSet<User> Users { get; set; }
 
     public override int SaveChanges()
     {
-        this.RefreshAuditDates();
+        this.ProcessMiddlewares().GetAwaiter().GetResult();
         return base.SaveChanges();
     }
 
     public override int SaveChanges(bool acceptAllChangesOnSuccess)
     {
-        this.RefreshAuditDates();
+        this.ProcessMiddlewares().GetAwaiter().GetResult();
         return base.SaveChanges(acceptAllChangesOnSuccess);
     }
 
-    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
     {
-        this.RefreshAuditDates();
-        return base.SaveChangesAsync(cancellationToken);
+        await this.ProcessMiddlewares();
+        return await base.SaveChangesAsync(cancellationToken);
     }
 
-    public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess,
+    public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess,
         CancellationToken cancellationToken = new())
     {
-        this.RefreshAuditDates();
-        return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        await this.ProcessMiddlewares();
+        return await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -54,16 +62,15 @@ public class GoldenReportsDbContext : DbContext
         DbInitializer.Initialize(modelBuilder);
     }
 
-    private void RefreshAuditDates()
+    private async Task ProcessMiddlewares()
     {
-        foreach (var entry in this.ChangeTracker.Entries<Entity>())
+        var entries = this.ChangeTracker.Entries<Entity>()
+            .Where(entry => entry.State != EntityState.Detached && entry.State != EntityState.Unchanged)
+            .ToList();
+        
+        foreach (var middleware in this.middlewares)
         {
-            if (entry.State == EntityState.Added)
-            {
-                entry.Entity.CreationDate = DateTime.UtcNow;
-            }
-
-            entry.Entity.ModificationDate = DateTime.UtcNow;
+            await middleware.ProcessModifiedEntries(this, entries);
         }
     }
 }

@@ -2,17 +2,20 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { RootNamespaceResolver } from './resolvers';
-import { MetadataEditorComponent, NamespaceEditorComponent, NamespaceListComponent } from './pages';
+import {
+  MetadataEditorComponent,
+  NamespaceEditorComponent,
+  NamespaceListComponent,
+  NewNamespaceComponent
+} from './pages';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'global' },
   {
     path: ':namespaceId', component: NamespaceEditorComponent, resolve: { root: RootNamespaceResolver }, children: [
       { path: '', pathMatch: 'full', redirectTo: 'namespaces' },
-      {
-        path: 'namespaces',
-        component: NamespaceListComponent,
-      },
+      { path: 'namespaces', component: NamespaceListComponent },
+      { path: 'namespaces/new', component: NewNamespaceComponent },
       {
         path: 'data-sources',
         loadChildren: () => import('@features/data-sources/data-sources.module').then(x => x.DataSourcesModule)

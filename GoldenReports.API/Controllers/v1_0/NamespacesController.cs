@@ -1,4 +1,6 @@
-﻿using System.Net.Mime;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Net.Mime;
+using System.Security.Claims;
 using GoldenReports.API.Resources;
 using GoldenReports.Application.DTOs.Assets;
 using GoldenReports.Application.DTOs.DataContexts;
@@ -26,7 +28,7 @@ public class NamespacesController : ControllerBase
 {
     private readonly IMediator mediator;
 
-    public NamespacesController(IMediator mediator)
+    public NamespacesController(IMediator mediator, IHttpContextAccessor httpContextAccessor)
     {
         this.mediator = mediator;
     }
@@ -37,6 +39,7 @@ public class NamespacesController : ControllerBase
     [ProducesDefaultResponseType(typeof(ErrorDto))]
     public async Task<ActionResult<NamespaceDto>> GetRootNamespace()
     {
+        var test = this.HttpContext.User.FindFirst(JwtRegisteredClaimNames.Sub);
         var rootNamespace = await this.mediator.Send(new GetRootNamespace());
         return this.Ok(rootNamespace);
     }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
 import { SharedModule } from '@shared';
 import { DataContextsRoutingModule } from './data-contexts-routing.module';
@@ -23,6 +24,7 @@ import { DataContextListPageEffects } from './store/data-context-list-page';
     NzTableModule,
     StoreModule.forFeature(dataContextFeatureStateKey, dataContextFeatureReducer),
     EffectsModule.forFeature([DataContextEditorPageEffects, DataContextListPageEffects]),
+    NzButtonModule,
   ]
 })
 export class DataContextsModule {}

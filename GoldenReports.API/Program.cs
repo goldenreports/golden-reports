@@ -1,8 +1,11 @@
+using System.IdentityModel.Tokens.Jwt;
 using System.Text.Json.Serialization;
 using GoldenReports.API.Configuration;
 using GoldenReports.API.Extensions;
 using GoldenReports.API.GraphQL;
 using GoldenReports.API.OpenApi;
+using GoldenReports.API.Security;
+using GoldenReports.Application.Abstractions.Security;
 using GoldenReports.Application.Extensions;
 using GoldenReports.Persistence.Extensions;
 using GraphQL;
@@ -95,6 +98,8 @@ builder.Services
     );
 
 builder.Services.AddAuthorization();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<IAuthContext, AuthContext>();
 
 var app = builder.Build();
 app.UseCors();
@@ -136,6 +141,8 @@ if (appSettings?.Swagger.Enabled == true)
 app.UseGlobalExceptionHandler();
 
 app.UseHttpsRedirection();
+
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
 app.UseAuthentication();
 
