@@ -1,0 +1,27 @@
+name: API Continuous Integration
+
+on:
+  pull_request:
+    branches:
+      - 'main'
+      - 'dev'
+    paths:
+      - 'GoldenReports.API/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Build Docker image
+        id: build-and-push
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: GoldenReports.API/Dockerfile
+          push: false
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
