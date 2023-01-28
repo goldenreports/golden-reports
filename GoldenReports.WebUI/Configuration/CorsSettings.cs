@@ -1,4 +1,4 @@
-﻿namespace GoldenReports.API.Configuration;
+﻿namespace GoldenReports.WebUI.Configuration;
 
 public record CorsSettings
 {

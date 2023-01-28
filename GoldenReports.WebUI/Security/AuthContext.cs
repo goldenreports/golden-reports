@@ -3,7 +3,7 @@ using System.Security.Claims;
 using GoldenReports.Application.Abstractions.Security;
 using GoldenReports.Domain.Security;
 
-namespace GoldenReports.API.Security;
+namespace GoldenReports.WebUI.Security;
 
 public class AuthContext : IAuthContext
 {

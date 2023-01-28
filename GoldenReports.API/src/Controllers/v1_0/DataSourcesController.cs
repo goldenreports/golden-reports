@@ -1,10 +1,11 @@
 ﻿using System.Net.Mime;
-using GoldenReports.API.Resources;
+using GoldenReports.Application.DTOs.Common;
 using GoldenReports.Application.DTOs.DataSources;
 using GoldenReports.Application.Features.DataSources.Commands;
 using GoldenReports.Application.Features.DataSources.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GoldenReports.API.Controllers.v1_0;

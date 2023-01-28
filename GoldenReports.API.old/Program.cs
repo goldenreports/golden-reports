@@ -25,59 +25,7 @@ builder.Services
 
 builder.Services.AddControllers()
     .AddJsonOptions(opts => opts.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
-builder.Services.AddCors(opts =>
-{
-    opts.AddDefaultPolicy(policy =>
-    {
-        var corsSettings = builder.Configuration
-            .GetSection($"{nameof(AppSettings.Security)}:{nameof(SecuritySettings.Cors)}")
-            .Get<CorsSettings>();
-        
-        policy.WithOrigins(corsSettings?.AllowedOrigins ?? Array.Empty<string>())
-            .AllowAnyMethod()
-            .AllowAnyHeader();
-    });
-});
-builder.Services.AddEndpointsApiExplorer();
-builder.Services
-    .AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerGenOptions>()
-    .AddSwaggerGen();
 
-builder.Services.AddApiVersioning(o =>
-{
-    o.AssumeDefaultVersionWhenUnspecified = true;
-    o.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
-    o.ReportApiVersions = true;
-    o.ApiVersionReader = new HeaderApiVersionReader("X-Version");
-});
-builder.Services.AddVersionedApiExplorer(
-    options =>
-    {
-        options.GroupNameFormat = "'v'VVV";
-        // options.SubstituteApiVersionInUrl = true;
-    });
-
-
-
-builder.Services.AddApplicationServices();
-builder.Services.AddPersistenceServices(builder.Configuration);
-
-
-
-builder.Services
-    .AddAuthentication(opts =>
-    {
-        opts.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        opts.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        opts.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddJwtBearer(opts =>
-        builder.Configuration.Bind($"{nameof(AppSettings.Security)}:{nameof(AppSettings.Security.Jwt)}", opts)
-    );
-
-builder.Services.AddAuthorization();
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<IAuthContext, AuthContext>();
 
 var app = builder.Build();
 app.UseCors();

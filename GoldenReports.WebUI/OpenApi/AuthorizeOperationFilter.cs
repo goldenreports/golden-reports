@@ -1,11 +1,11 @@
 ﻿using System.Net;
-using GoldenReports.API.Configuration;
+using GoldenReports.WebUI.Configuration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace GoldenReports.API.OpenApi;
+namespace GoldenReports.WebUI.OpenApi;
 
 public class AuthorizeOperationFilter : IOperationFilter
 {
@@ -18,7 +18,7 @@ public class AuthorizeOperationFilter : IOperationFilter
 
     public void Apply(OpenApiOperation operation, OperationFilterContext context)
     {
-        var authAttributes = context.MethodInfo.DeclaringType.GetCustomAttributes(true)
+        var authAttributes = context.MethodInfo.DeclaringType!.GetCustomAttributes(true)
             .Union(context.MethodInfo.GetCustomAttributes(true)).ToList();
 
         if (!authAttributes.OfType<AuthorizeAttribute>().Any() ||

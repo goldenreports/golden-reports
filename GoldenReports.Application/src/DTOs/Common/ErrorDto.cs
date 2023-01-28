@@ -1,4 +1,4 @@
-﻿namespace GoldenReports.API.Resources;
+﻿namespace GoldenReports.Application.DTOs.Common;
 
 public class ErrorDto
 {

@@ -1,10 +1,22 @@
+using System.IdentityModel.Tokens.Jwt;
+using GoldenReports.WebUI.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-builder.Services.AddControllersWithViews();
+builder
+    .AddAppConfiguration()
+    .AddControllers()
+    .AddVersioning()
+    .AddSwagger()
+    .AddSecurity()
+    .AddCors()
+    .AddGoldenReports();
 
 var app = builder.Build();
+
+app.UseGlobalExceptionHandler();
+
+app.UseCors();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -17,6 +29,13 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
+
+app.UseApiSwagger();
 
 app.MapControllerRoute(
     name: "default",

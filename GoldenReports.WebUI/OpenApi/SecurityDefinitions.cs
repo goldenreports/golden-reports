@@ -1,4 +1,4 @@
-﻿namespace GoldenReports.API.OpenApi;
+﻿namespace GoldenReports.WebUI.OpenApi;
 
 public static class SecurityDefinitions
 {

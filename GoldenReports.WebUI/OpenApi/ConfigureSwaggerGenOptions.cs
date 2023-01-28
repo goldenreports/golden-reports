@@ -1,9 +1,9 @@
-﻿using GoldenReports.API.Configuration;
+﻿using GoldenReports.WebUI.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace GoldenReports.API.OpenApi;
+namespace GoldenReports.WebUI.OpenApi;
 
 public class ConfigureSwaggerGenOptions : IConfigureOptions<SwaggerGenOptions>
 {

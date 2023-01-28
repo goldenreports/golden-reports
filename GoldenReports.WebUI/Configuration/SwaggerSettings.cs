@@ -1,6 +1,6 @@
 ﻿using Microsoft.OpenApi.Models;
 
-namespace GoldenReports.API.Configuration;
+namespace GoldenReports.WebUI.Configuration;
 
 public record SwaggerSettings
 {

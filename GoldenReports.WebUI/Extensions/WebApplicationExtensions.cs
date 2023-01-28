@@ -1,9 +1,10 @@
 ﻿using System.Net.Mime;
-using GoldenReports.API.Resources;
+using GoldenReports.Application.DTOs.Common;
 using GoldenReports.Application.Exceptions;
+using GoldenReports.WebUI.Configuration;
 using Microsoft.AspNetCore.Diagnostics;
 
-namespace GoldenReports.API.Extensions;
+namespace GoldenReports.WebUI.Extensions;
 
 public static class WebApplicationExtensions
 {
@@ -34,5 +35,46 @@ public static class WebApplicationExtensions
             });
         });
         return webApplication;
+    }
+
+    public static WebApplication UseApiSwagger(this WebApplication app)
+    {
+        var appSettings = app.Configuration.Get<AppSettings>();
+        if (appSettings?.Swagger.Enabled != true)
+        {
+            return app;
+        }
+
+        var swaggerSettings = appSettings.Swagger;
+        app.UseSwagger();
+        app.UseSwaggerUI(opts =>
+        {
+            opts.SwaggerEndpoint("/swagger/v1/swagger.json", "Version 1.0");
+
+            if (swaggerSettings.OAuthFlows == null)
+            {
+                return;
+            }
+
+            if (swaggerSettings.ClientId != null)
+            {
+                opts.OAuthClientId(swaggerSettings.ClientId);
+            }
+
+            if (swaggerSettings.UsePkce)
+            {
+                opts.OAuthUsePkce();
+            }
+
+            if (swaggerSettings.ClientSecret != null)
+            {
+                opts.OAuthClientSecret(swaggerSettings.ClientSecret);
+            }
+
+            opts.OAuthAppName("Golden Reports API");
+            opts.OAuthScopeSeparator(" ");
+        });
+
+        return app;
     }
 }

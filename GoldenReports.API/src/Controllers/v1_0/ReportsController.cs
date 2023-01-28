@@ -1,6 +1,6 @@
 ﻿using System.Net.Mime;
-using GoldenReports.API.Resources;
 using GoldenReports.Application.DTOs.Assets;
+using GoldenReports.Application.DTOs.Common;
 using GoldenReports.Application.DTOs.Reports;
 using GoldenReports.Application.Features.Assets.Commands;
 using GoldenReports.Application.Features.Assets.Queries;
@@ -8,6 +8,7 @@ using GoldenReports.Application.Features.Reports.Commands;
 using GoldenReports.Application.Features.Reports.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GoldenReports.API.Controllers.v1_0;
