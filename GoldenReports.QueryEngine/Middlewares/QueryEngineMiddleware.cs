@@ -4,16 +4,16 @@ using GraphQL.Resolvers;
 using GraphQL.Transport;
 using GraphQL.Types;
 
-namespace GoldenReports.API.GraphQL;
+namespace GoldenReports.QueryEngine.Middlewares;
 
-public class GraphQLMiddleware : IMiddleware
+public class QueryEngineMiddleware : IMiddleware
 {
     // private readonly GraphQLSettings _settings;
     private readonly IDocumentExecuter executor;
     private readonly IGraphQLSerializer serializer;
     // private readonly ISchema schema;
 
-    public GraphQLMiddleware(
+    public QueryEngineMiddleware(
         // IOptions<GraphQLSettings> options,
         // ISchema schema,
         IDocumentExecuter executor,

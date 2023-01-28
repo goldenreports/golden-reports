@@ -57,34 +57,12 @@ builder.Services.AddVersionedApiExplorer(
         // options.SubstituteApiVersionInUrl = true;
     });
 
-builder.Services.AddGraphQL(builder => builder
-        .AddSystemTextJson()
-    // .AddErrorInfoProvider((opts, serviceProvider) =>
-    // {
-    //     var settings = serviceProvider.GetRequiredService<IOptions<GraphQLSettings>>();
-    //     opts.ExposeExceptionDetails = settings.Value.ExposeExceptions;
-    // })
-    // .AddSchema<StarWarsSchema>()
-    // .AddGraphTypes(typeof(StarWarsQuery).Assembly)
-    // .UseMiddleware<CountFieldMiddleware>(false) // do not auto-install middleware
-    // .UseMiddleware<InstrumentFieldsMiddleware>(false) // do not auto-install middleware
-    // .ConfigureSchema((schema, serviceProvider) =>
-    // {
-    //     // install middleware only when the custom EnableMetrics option is set
-    //     var settings = serviceProvider.GetRequiredService<IOptions<GraphQLSettings>>();
-    //     if (settings.Value.EnableMetrics)
-    //     {
-    //         var middlewares = serviceProvider.GetRequiredService<IEnumerable<IFieldMiddleware>>();
-    //         foreach (var middleware in middlewares)
-    //             schema.FieldMiddleware.Use(middleware);
-    //     }
-    // })
-);
+
 
 builder.Services.AddApplicationServices();
 builder.Services.AddPersistenceServices(builder.Configuration);
 
-builder.Services.AddSingleton<GraphQLMiddleware>();
+
 
 builder.Services
     .AddAuthentication(opts =>
@@ -150,11 +128,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.UseMiddleware<GraphQLMiddleware>();
 
-if (appSettings?.GraphQl.EnableAltair == true)
-{
-    app.UseGraphQLAltair("/altair");
-}
 
 app.Run();
