@@ -1,4 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
+using GoldenReports.WebUI.Configuration;
 using GoldenReports.WebUI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,7 +40,14 @@ app.UseApiSwagger();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
+    pattern: "api/{controller}/{action=Index}/{id?}");
+
+app.MapGet("settings", async ctx =>
+{
+    var clientSettings = ctx.RequestServices.GetRequiredService<ClientSettings>();
+    await ctx.Response.WriteAsJsonAsync(clientSettings, ctx.RequestAborted);
+    await ctx.Response.CompleteAsync();
+});
 
 app.MapFallbackToFile("index.html");
 

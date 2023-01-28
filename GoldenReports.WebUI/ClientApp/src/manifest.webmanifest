@@ -1,7 +1,7 @@
 {
   "name": "GoldenReports.WebUI",
   "short_name": "GoldenReports.WebUI",
-  "theme_color": "#1976d2",
+  "theme_color": "#1111F",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "./",

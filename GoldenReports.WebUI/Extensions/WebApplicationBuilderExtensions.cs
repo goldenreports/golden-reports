@@ -21,7 +21,8 @@ public static class WebApplicationBuilderExtensions
             .Configure<AppSettings>(builder.Configuration)
             .AddScoped<AppSettings>(x => x.GetRequiredService<IOptionsSnapshot<AppSettings>>().Value)
             .AddScoped<SwaggerSettings>(x => x.GetRequiredService<AppSettings>().Swagger)
-            .AddScoped<SecuritySettings>(x => x.GetRequiredService<AppSettings>().Security);
+            .AddScoped<SecuritySettings>(x => x.GetRequiredService<AppSettings>().Security)
+            .AddScoped<ClientSettings>(x => x.GetRequiredService<AppSettings>().Client);
         return builder;
     }
     
