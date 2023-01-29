@@ -1,0 +1,9 @@
+<app-page *ngIf="vm$ | async as vm">
+  <header><app-breadcrumb [namespaces]="vm.namespaces" [loading]="vm.loading"></app-breadcrumb></header>
+  <div class="content">
+    <app-error-message [error]="vm.error"></app-error-message>
+    <div class="inner-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</app-page>

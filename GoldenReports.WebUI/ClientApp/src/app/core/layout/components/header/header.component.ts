@@ -11,10 +11,6 @@ import { authActions, AuthSelectors } from '@core/store/auth';
   styleUrls: ['header.component.scss']
 })
 export class HeaderComponent {
-  @Input() public menuCollapsed!:boolean;
-
-  @Output() public menuCollapsedChange = new EventEmitter<boolean>();
-
   public userName$: Observable<string>;
 
   constructor(private readonly store: Store<AppState>) {

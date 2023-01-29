@@ -40,7 +40,7 @@ app.UseApiSwagger();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "api/{controller}/{action=Index}/{id?}");
+    pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapGet("settings", async ctx =>
 {

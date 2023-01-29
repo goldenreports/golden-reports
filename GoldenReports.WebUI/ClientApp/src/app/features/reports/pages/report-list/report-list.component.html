@@ -1,0 +1,29 @@
+<ng-container *ngIf="vm$ | async as vm">
+  <app-error-message [error]="vm.error"></app-error-message>
+  <nz-table [nzData]="vm.reports" [nzLoading]="vm.loading" nzSize="middle">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Creation Date</th>
+      <th>Created By</th>
+      <th>Modification Date</th>
+      <th>Modified By</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let report of vm.reports">
+      <td><a routerLink="./{{report.id}}">{{report.name}}</a></td>
+      <td>{{report.description}}</td>
+      <td>{{report.creationDate | date: 'short'}}</td>
+      <td>{{report.createdBy}}</td>
+      <td>{{report.modificationDate | date: 'short'}}</td>
+      <td>{{report.modifiedBy}}</td>
+      <td>
+        <a>Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</ng-container>

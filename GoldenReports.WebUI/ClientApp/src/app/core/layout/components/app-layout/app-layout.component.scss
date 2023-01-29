@@ -7,6 +7,9 @@
 
 .app-layout {
   height: 100vh;
+}
+
+.app-content {
   flex-direction: row;
 }
 
@@ -25,3 +28,4 @@ nz-content {
     height: 100%;
   }
 }
+

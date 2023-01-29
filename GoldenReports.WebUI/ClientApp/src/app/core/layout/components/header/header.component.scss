@@ -1,34 +1,33 @@
-nz-header {
-  padding: 0;
-  width: 100%;
-  z-index: 2;
+.app-header {
+  display: flex;
+  padding: 0 2rem 0 0;
 
-  .app-header {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 1rem;
-    position: relative;
-    height: 64px;
-    background: #fff;
-    box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+  .header-logo {
+    flex: 0 0 auto;
 
-    .header-trigger {
-      height: 64px;
-      font-size: 20px;
-      cursor: pointer;
-      transition: all .3s, padding 0s;
-    }
-
-    .trigger:hover {
-      color: #C99700;
+    .logo {
+      display: block;
+      height: 100%;
+      width: 200px;
+      padding: 1rem 2rem;
+      background-image: url("/assets/img/logo.svg");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-origin: content-box;
     }
   }
-}
 
-@media (max-width: 767px) {
-  .user-button {
+  .header-menu {
+    line-height: 64px;
+    flex: 1 1 auto;
+  }
+
+  .header-actions {
+    flex: 0 0 auto;
+
     .username {
-      display: none;
+      margin: 0.5rem;
     }
   }
 }

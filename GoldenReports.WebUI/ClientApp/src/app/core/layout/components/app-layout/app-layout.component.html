@@ -1,15 +1,7 @@
 <nz-layout class="app-layout">
-  <app-side-menu [collapsed]="menuCollapsed"></app-side-menu>
-  <nz-layout>
-    <app-header [(menuCollapsed)]="menuCollapsed"></app-header>
-    <nz-content>
-      <nz-breadcrumb>
-        <nz-breadcrumb-item>User</nz-breadcrumb-item>
-        <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
-      </nz-breadcrumb>
-      <div class="inner-content">
-        <router-outlet></router-outlet>
-      </div>
-    </nz-content>
+  <app-header></app-header>
+  <nz-layout class="app-content">
+    <router-outlet name="sidenav"></router-outlet>
+    <router-outlet></router-outlet>
   </nz-layout>
 </nz-layout>

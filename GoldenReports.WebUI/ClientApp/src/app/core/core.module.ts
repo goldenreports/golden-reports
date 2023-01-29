@@ -15,7 +15,7 @@ import { ApiModule } from './api';
     LayoutModule,
     HttpClientModule,
     AppStoreModule,
-    ApiModule.forRoot({ rootUrl: "/" })
+    ApiModule.forRoot({ rootUrl: "/api" })
   ],
   providers: [appInitializer]
 })

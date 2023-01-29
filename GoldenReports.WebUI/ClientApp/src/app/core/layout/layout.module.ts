@@ -10,13 +10,12 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 
 import { IconsProviderModule } from './icons-provider.module';
-import { AppLayoutComponent, HeaderComponent, SideMenuComponent } from './components';
+import { AppLayoutComponent, HeaderComponent } from './components';
 
 @NgModule({
   declarations: [
     AppLayoutComponent,
-    HeaderComponent,
-    SideMenuComponent
+    HeaderComponent
   ],
   imports: [
     CommonModule,
