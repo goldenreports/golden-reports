@@ -15,7 +15,7 @@ services:
       - query-engine
 
   query-engine:
-    container_name: goldenreports-query-engine
+    container_name: goldenreports-query
     image: goldenreports/query-engine
     build:
       dockerfile: ./GoldenReports.QueryEngine/Dockerfile
