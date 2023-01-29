@@ -2,11 +2,10 @@ import { APP_INITIALIZER, FactoryProvider, Injector, isDevMode, PLATFORM_ID } fr
 import { isPlatformServer, DOCUMENT } from '@angular/common';
 import { Store } from '@ngrx/store';
 
-// import { AppState } from '@core/store';
+import { AppState } from '@core/store';
 import { AuthService } from '@core/auth';
 import { ConfigService } from '@core/config';
-import { Router } from '@angular/router';
-// import { authActions } from '@core/store/auth';
+import { authActions } from '@core/store/auth';
 
 
 /* TODO: Refactor this once async factory provider is added to angular:
@@ -25,7 +24,7 @@ function appInitializerFactory(injector: Injector) : () => Promise<void> {
 
     await initializeAuth(configService,
       injector.get<AuthService>(AuthService),
-      // injector.get<Store<AppState>>(Store<AppState>),
+      injector.get<Store<AppState>>(Store<AppState>),
       injector.get<Document>(DOCUMENT));
   };
 }
@@ -35,7 +34,7 @@ function initializeConfig(configService: ConfigService): Promise<void> {
 }
 
 async function initializeAuth(
-  config: ConfigService, authService: AuthService/*, store: Store<AppState>*/, document: Document): Promise<void> {
+  config: ConfigService, authService: AuthService, store: Store<AppState>, document: Document): Promise<void> {
   const hostUrl = `${document.location.protocol}//${document.location.host}/`;
   const authConfig = {
     ...config.app.auth,
@@ -59,7 +58,7 @@ async function initializeAuth(
     redirectUrl = decodeURIComponent(redirectUrl);
   }
 
-  // store.dispatch(authActions.initialized({ redirectUrl }));
+  store.dispatch(authActions.initialized({ redirectUrl }));
 }
 
 export const appInitializer = {
