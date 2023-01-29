@@ -1,32 +1,24 @@
 version: "3.7"
 
 services:
-  proxy:
-    container_name: goldenreports-proxy
-    image: goldenreports/dev-proxy
+  golden-reports-ui:
+    container_name: goldenreports-ui
+    image: goldenreports/web-ui
     build:
-      context: ./proxy
+      dockerfile: ./GoldenReports.WebUI/Dockerfile
+      context: .
     ports:
       - 80:80
       - 443:443
-    depends_on:
-      - manager
-      - api
-
-  manager:
-    container_name: goldenreports-manager
-    image: goldenreports/manager
-    build:
-      context: ./GoldenReports.UI
     env_file: .env
     depends_on:
-      - api
+      - query-engine
 
-  api:
-    container_name: goldenreports-api
-    image: goldenreports/api
+  query-engine:
+    container_name: goldenreports-query-engine
+    image: goldenreports/query-engine
     build:
-      dockerfile: ./GoldenReports.API/Dockerfile
+      dockerfile: ./GoldenReports.QueryEngine/Dockerfile
       context: .
     ports:
       - 5001:80
