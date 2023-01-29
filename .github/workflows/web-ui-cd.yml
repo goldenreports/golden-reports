@@ -1,4 +1,4 @@
-name: API Continuous Dployment
+name: Web UI CD
 
 on:
   push:

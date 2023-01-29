@@ -1,12 +1,12 @@
-name: Application Layer CD
+name: Application Layer CI
 
 on:
-  push:
+  pull_request:
     branches:
       - 'main'
       - 'dev'
     paths:
-      - 'GoldenReports.Application/**'
+      - 'GoldenReports.Persistence/**'
 
 jobs:
   build:

@@ -1,4 +1,4 @@
-name: API Continuous Integration
+name: Web UI CI
 
 on:
   pull_request:
