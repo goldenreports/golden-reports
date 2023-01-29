@@ -5,6 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthModule } from './auth';
 import { appInitializer } from './app-initializer';
 import { LayoutModule } from './layout';
+import { AppStoreModule } from './store';
+import { ApiModule } from './api';
 
 @NgModule({
   imports: [
@@ -12,8 +14,8 @@ import { LayoutModule } from './layout';
     AuthModule,
     LayoutModule,
     HttpClientModule,
-    // ApiModule.forRoot({  }),
-    // AppStoreModule
+    AppStoreModule,
+    ApiModule.forRoot({ rootUrl: "/" })
   ],
   providers: [appInitializer]
 })

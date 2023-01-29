@@ -10,7 +10,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "generate-api": "ng-openapi-gen --input https://localhost:7242/swagger/v1/swagger.json --output src/app/core/api  --index-file true"
+    "generate-api": "ng-openapi-gen --input http://localhost:5038/swagger/v1/swagger.json --output src/app/core/api  --index-file true"
   },
   "private": true,
   "dependencies": {

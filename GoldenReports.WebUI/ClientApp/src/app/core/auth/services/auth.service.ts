@@ -36,8 +36,6 @@ export class AuthService extends OAuthService {
     eventHub.eventTriggered.pipe(
       filter(x => x.name === 'accessTokenChanged'),
     ).subscribe(() => {
-      // this.isAuthenticatedSubject$.next(this.oauthService.hasValidAccessToken());
-
       if (!this.hasValidAccessToken()) {
         this.login();
       }
@@ -46,8 +44,8 @@ export class AuthService extends OAuthService {
     this.setupAutomaticSilentRefresh();
 
     this.events
-        .pipe(filter(e => ['session_terminated', 'session_error'].includes(e.type)))
-        .subscribe(e => this.login());
+      .pipe(filter(e => ['session_terminated', 'session_error'].includes(e.type)))
+      .subscribe(e => this.login());
   }
 
   protected override storeAccessTokenResponse(accessToken: string, refreshToken: string, expiresIn: number, grantedScopes: String, customParameters?: Map<string, string>) {
@@ -61,7 +59,7 @@ export class AuthService extends OAuthService {
       console.table(document.location.hash.substr(1).split('&').map(kvp => kvp.split('=')));
     }
 
-    if(config) {
+    if (config) {
       this.configure(config);
     }
 
@@ -106,9 +104,27 @@ export class AuthService extends OAuthService {
     this.events.subscribe(event => {
       if (event instanceof OAuthErrorEvent) {
         console.error('OAuthErrorEvent Object:', event);
+        this.checkIfNeedsLogin(event);
       } else {
         console.debug('OAuthEvent Object:', event);
       }
     });
+  }
+
+  private checkIfNeedsLogin(event: OAuthErrorEvent): void {
+    const eventsThatRequireLogin = [
+      'token_error',
+      'code_error',
+      'token_refresh_error',
+      'silent_refresh_error',
+      'silent_refresh_timeout',
+      'token_validation_error',
+      'session_error',
+      'token_revoke_error'
+    ];
+
+    if (eventsThatRequireLogin.indexOf(event.type) >= 0) {
+      this.login();
+    }
   }
 }
