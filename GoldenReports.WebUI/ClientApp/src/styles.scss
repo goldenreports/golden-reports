@@ -1,3 +1,18 @@
+.loading-splash {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #11111F;
+
+  img  {
+    width: 20%;
+    min-width: 200px;
+    max-width: 350px;
+  }
+}
+
 .page-layout {
   height: 100%;
 
