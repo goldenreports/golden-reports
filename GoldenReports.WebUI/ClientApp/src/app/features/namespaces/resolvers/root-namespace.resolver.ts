@@ -14,9 +14,9 @@ export class RootNamespaceResolver implements Resolve<NamespaceDto | undefined> 
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<NamespaceDto | undefined> | Promise<NamespaceDto | undefined> | NamespaceDto | undefined {
-    // if (route.params['namespaceId'] !== 'global') {
+    if (route.params['namespaceId'] !== 'global') {
       return of(undefined);
-    // }
+    }
 
     return this.store.select(NamespaceSelectors.getRoot).pipe(
       tap(rootNamespace => {

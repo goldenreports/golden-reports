@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder
     .AddAppConfiguration()
-    .AddControllers()
+    .AddControllers("api")
     .AddVersioning()
     .AddSwagger()
     .AddSecurity()

@@ -26,10 +26,10 @@ public static class WebApplicationBuilderExtensions
         return builder;
     }
     
-    public static WebApplicationBuilder AddControllers(this WebApplicationBuilder builder)
+    public static WebApplicationBuilder AddControllers(this WebApplicationBuilder builder, string prefix)
     {
         builder.Services
-            .AddControllersWithViews()
+            .AddControllersWithViews(x => x.UseGeneralRoutePrefix(prefix))
             .AddGoldenReportsControllers()
             .AddJsonOptions(opts => opts.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
         return builder;
