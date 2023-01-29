@@ -7,6 +7,7 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './pages';
+import { SharedModule } from '@shared';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { DashboardComponent } from './pages';
     NzSkeletonModule,
     NzListModule,
     NzButtonModule,
-    NzLayoutModule
+    NzLayoutModule,
+    SharedModule
   ]
 })
 export class DashboardModule {}

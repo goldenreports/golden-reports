@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { NzMessageService } from 'ng-zorro-antd/message';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
-  templateUrl: 'dashboard.component.html'
+  templateUrl: 'dashboard.component.html',
+  styleUrls: ['dashboard.component.scss']
 })
 export class DashboardComponent {
   initLoading = true; // bug
