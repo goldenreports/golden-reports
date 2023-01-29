@@ -1,0 +1,32 @@
+<nz-sider class="menu-sidebar"
+          nzCollapsible
+          nzWidth="256px"
+          nzBreakpoint="md"
+          [(nzCollapsed)]="collapsed"
+          [nzTrigger]="null">
+  <div class="sidebar-logo">
+    <a routerLink="/"><i class="logo"></i></a>
+  </div>
+  <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="collapsed">
+    <li nz-menu-item>
+      <span nz-icon nzType="dashboard"></span>
+      <span>Dashboard</span>
+    </li>
+    <li nz-submenu nzOpen nzTitle="Content" nzIcon="reconciliation">
+      <ul>
+        <li nz-menu-item nzMatchRouter>
+          <a routerLink="/welcome">Namespaces</a>
+        </li>
+        <li nz-menu-item nzMatchRouter>
+          <a routerLink="/welcome">Data Sources</a>
+        </li>
+        <li nz-menu-item nzMatchRouter>
+          <a routerLink="/welcome">Data Contexts</a>
+        </li>
+        <li nz-menu-item nzMatchRouter>
+          <a routerLink="/welcome">Reports</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nz-sider>

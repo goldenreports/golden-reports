@@ -1,0 +1,35 @@
+:host {
+  display: flex;
+
+  .menu-sidebar {
+    position: relative;
+    z-index: 10;
+    min-height: 100vh;
+    box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
+
+    .sidebar-logo {
+      overflow: hidden;
+      transition: all .3s;
+      padding: 1rem;
+
+      .logo {
+        display: block;
+        height: 40px;
+        background-image: url("/assets/img/logo.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-origin: content-box;
+      }
+    }
+
+    &.ant-layout-sider-collapsed {
+      .sidebar-logo {
+        .logo {
+          background-image: url("/assets/img/icon.svg");
+          height: 32px;
+        }
+      }
+    }
+  }
+}

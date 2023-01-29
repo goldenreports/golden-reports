@@ -1,0 +1,24 @@
+<nz-header>
+  <div class="app-header">
+    <span class="header-trigger" (click)="menuCollapsedChange.emit(!menuCollapsed)">
+      <span class="trigger"
+            nz-icon
+            [nzType]="menuCollapsed ? 'menu-unfold' : 'menu-fold'"
+      ></span>
+    </span>
+
+    <a class="user-button" nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
+      <span nz-icon nzType="user"></span>
+      <span class="username">{{userName$ | async}}</span>
+      <span nz-icon nzType="down"></span>
+    </a>
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item>Settings</li>
+        <li nz-menu-item>Logout</li>
+        <li nz-menu-divider></li>
+        <li nz-menu-item nzDisabled>About</li>
+      </ul>
+    </nz-dropdown-menu>
+  </div>
+</nz-header>

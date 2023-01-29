@@ -1,62 +1,7 @@
 <nz-layout class="app-layout">
-  <nz-sider class="menu-sidebar"
-            nzCollapsible
-            nzWidth="256px"
-            nzBreakpoint="md"
-            [(nzCollapsed)]="isCollapsed"
-            [nzTrigger]="null">
-    <div class="sidebar-logo">
-      <a routerLink="/"><i class="logo"></i></a>
-    </div>
-    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-menu-item>
-        <span nz-icon nzType="dashboard"></span>
-        <span>Dashboard</span>
-      </li>
-      <li nz-submenu nzOpen nzTitle="Content" nzIcon="reconciliation">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/welcome">Namespaces</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/welcome">Data Sources</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/welcome">Data Contexts</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/welcome">Reports</a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </nz-sider>
+  <app-side-menu [collapsed]="menuCollapsed"></app-side-menu>
   <nz-layout>
-    <nz-header>
-      <div class="app-header">
-        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-            <span class="trigger"
-                  nz-icon
-                  [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-            ></span>
-        </span>
-
-        <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
-          <span nz-icon nzType="user"></span>
-          {{userName$ | async}}
-          <span nz-icon nzType="down"></span>
-        </a>
-        <nz-dropdown-menu #menu="nzDropdownMenu">
-          <ul nz-menu>
-            <li nz-menu-item>Settings</li>
-            <li nz-menu-item>Logout</li>
-            <li nz-menu-divider></li>
-            <li nz-menu-item nzDisabled>About</li>
-          </ul>
-        </nz-dropdown-menu>
-
-      </div>
-    </nz-header>
+    <app-header [(menuCollapsed)]="menuCollapsed"></app-header>
     <nz-content>
       <nz-breadcrumb>
         <nz-breadcrumb-item>User</nz-breadcrumb-item>
