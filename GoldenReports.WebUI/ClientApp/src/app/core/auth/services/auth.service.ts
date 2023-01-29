@@ -120,7 +120,8 @@ export class AuthService extends OAuthService {
       'silent_refresh_timeout',
       'token_validation_error',
       'session_error',
-      'token_revoke_error'
+      'token_revoke_error',
+      'invalid_nonce_in_state'
     ];
 
     if (eventsThatRequireLogin.indexOf(event.type) >= 0) {

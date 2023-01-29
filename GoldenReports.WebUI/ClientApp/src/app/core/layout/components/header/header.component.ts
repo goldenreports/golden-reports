@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { AppState } from '@core/store';
-import { AuthSelectors } from '@core/store/auth';
+import { authActions, AuthSelectors } from '@core/store/auth';
 
 @Component({
   selector: 'app-header',
@@ -19,5 +19,9 @@ export class HeaderComponent {
 
   constructor(private readonly store: Store<AppState>) {
     this.userName$ = this.store.select(AuthSelectors.getName);
+  }
+
+  public logout(): void {
+    this.store.dispatch(authActions.logoutRequested());
   }
 }
