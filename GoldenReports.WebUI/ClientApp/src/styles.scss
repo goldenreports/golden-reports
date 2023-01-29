@@ -1,0 +1,13 @@
+.page-layout {
+  height: 100%;
+
+  .page-content-layout {
+    padding: 2rem;
+
+    .page-content {
+      background: #fff;
+      padding: 2rem;
+      height: 100%;
+    }
+  }
+}

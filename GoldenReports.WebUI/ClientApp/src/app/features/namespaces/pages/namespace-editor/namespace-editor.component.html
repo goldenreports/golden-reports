@@ -1,9 +1,10 @@
-<app-page *ngIf="vm$ | async as vm">
-  <header><app-breadcrumb [namespaces]="vm.namespaces" [loading]="vm.loading"></app-breadcrumb></header>
-  <div class="content">
-    <app-error-message [error]="vm.error"></app-error-message>
-    <div class="inner-content">
+<nz-layout *ngIf="vm$ | async as vm" class="page-layout">
+  <nz-sider nzTheme="light"><app-namespace-side-nav></app-namespace-side-nav></nz-sider>
+  <nz-layout class="page-content-layout">
+    <app-breadcrumb [namespaces]="vm.namespaces" [loading]="vm.loading"></app-breadcrumb>
+    <nz-content class="page-content">
+      <app-error-message [error]="vm.error"></app-error-message>
       <router-outlet></router-outlet>
-    </div>
-  </div>
-</app-page>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

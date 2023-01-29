@@ -4,12 +4,11 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 
 import { StateFormBindingDirective } from './directives';
-import { ErrorMessageComponent, PageComponent } from './components';
+import { ErrorMessageComponent } from './components';
 
 const sharedElements = [
   StateFormBindingDirective,
-  ErrorMessageComponent,
-  PageComponent
+  ErrorMessageComponent
 ]
 
 @NgModule({

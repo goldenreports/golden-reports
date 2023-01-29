@@ -3,31 +3,14 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
 
-.app-layout {
-  height: 100vh;
-}
-
-.app-content {
-  display: grid;
-  grid-template-columns: auto auto auto 1fr;
-  grid-template-rows: 100%;
-}
-
-nz-content {
-  margin: 24px;
-  display: flex;
-  flex-direction: column;
-
-  nz-breadcrumb {
-    margin: 16px 0;
+  .app-layout {
+    height: 100vh;
   }
 
-  .inner-content {
-    padding: 24px;
-    background: #fff;
+  .app-content {
     height: 100%;
+    display: grid;
+    grid-template-rows: 0 100%;
   }
 }
-

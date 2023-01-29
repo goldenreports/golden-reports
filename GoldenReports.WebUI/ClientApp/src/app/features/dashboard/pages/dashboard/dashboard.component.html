@@ -1,93 +1,98 @@
-<app-page>
-  <header>
-    <h1>Pinned namespaces</h1>
-  </header>
-  <div class="content">
-    <nz-list class="demo-loadmore-list" [nzLoading]="false">
-      <nz-list-item *ngFor="let item of list">
-        <ng-container *ngIf="!item.loading">
-          <nz-list-item-meta
-            nzAvatar="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-            nzDescription="Ant Design, a design language for background applications, is refined by Ant UED Team"
-          >
-            <nz-list-item-meta-title>
-              <a href="https://ng.ant.design">{{ item.name.last }}</a>
-            </nz-list-item-meta-title>
-          </nz-list-item-meta>
-          content
-          <ul nz-list-item-actions>
-            <nz-list-item-action><a (click)="edit(item)">edit</a></nz-list-item-action>
-            <nz-list-item-action><a (click)="edit(item)">more</a></nz-list-item-action>
-          </ul>
-        </ng-container>
-        <nz-skeleton
-          *ngIf="item.loading"
-          [nzAvatar]="true"
-          [nzActive]="true"
-          [nzTitle]="false"
-          [nzLoading]="true"
-        ></nz-skeleton>
-      </nz-list-item>
-    </nz-list>
+<nz-layout class="page-layout">
+  <nz-layout class="page-content-layout">
+    <app-error-message [error]="undefined"></app-error-message>
 
-    <!--<table class="table table-noborder">-->
-    <!--  <thead>-->
-    <!--  <tr>-->
-    <!--    <th class="left">Namespace</th>-->
-    <!--    <th class="left">Shortcuts</th>-->
-    <!--  </tr>-->
-    <!--  </thead>-->
-    <!--  <tbody>-->
-    <!--  <tr>-->
-    <!--    <td class="left"><a routerLink="/namespaces/1">Namespace1.Namespace2.Namespace3</a></td>-->
-    <!--    <td class="left">-->
-    <!--      <clr-tooltip>-->
-    <!--        <button clrTooltipTrigger class="btn btn-primary"><cds-icon shape="data-cluster"></cds-icon></button>-->
-    <!--        <clr-tooltip-content clrPosition="bottom-right" *clrIfOpen>-->
-    <!--          <span>Data Sources</span>-->
-    <!--        </clr-tooltip-content>-->
-    <!--      </clr-tooltip>-->
-    <!--      <clr-tooltip>-->
-    <!--        <button clrTooltipTrigger class="btn btn-primary"><cds-icon shape="internet-of-things"></cds-icon></button>-->
-    <!--        <clr-tooltip-content clrPosition="bottom-right" *clrIfOpen>-->
-    <!--          <span>Data Contexts</span>-->
-    <!--        </clr-tooltip-content>-->
-    <!--      </clr-tooltip>-->
-    <!--      <clr-tooltip>-->
-    <!--        <button clrTooltipTrigger class="btn btn-primary"><cds-icon shape="objects"></cds-icon></button>-->
-    <!--        <clr-tooltip-content clrPosition="bottom-right" *clrIfOpen>-->
-    <!--          <span>Assets</span>-->
-    <!--        </clr-tooltip-content>-->
-    <!--      </clr-tooltip>-->
-    <!--      <clr-tooltip>-->
-    <!--        <button clrTooltipTrigger class="btn btn-primary"><cds-icon shape="file-group"></cds-icon></button>-->
-    <!--        <clr-tooltip-content clrPosition="bottom-right" *clrIfOpen>-->
-    <!--          <span>Reports</span>-->
-    <!--        </clr-tooltip-content>-->
-    <!--      </clr-tooltip>-->
-    <!--      <clr-tooltip>-->
-    <!--        <button clrTooltipTrigger class="btn btn-primary"><cds-icon shape="shield"></cds-icon></button>-->
-    <!--        <clr-tooltip-content clrPosition="bottom-right" *clrIfOpen>-->
-    <!--          <span>Permissions</span>-->
-    <!--        </clr-tooltip-content>-->
-    <!--      </clr-tooltip>-->
-    <!--      <clr-dropdown>-->
-    <!--        <button class="btn btn-outline-primary" clrDropdownTrigger>-->
-    <!--          New-->
-    <!--          <cds-icon shape="angle" direction="down"></cds-icon>-->
-    <!--        </button>-->
-    <!--        <clr-dropdown-menu *clrIfOpen>-->
-    <!--          <button clrDropdownItem>Namespace</button>-->
-    <!--          <button clrDropdownItem>Data Source</button>-->
-    <!--          <button clrDropdownItem>Data Context</button>-->
-    <!--          <button clrDropdownItem>Asset</button>-->
-    <!--          <button clrDropdownItem>Report</button>-->
-    <!--          <button clrDropdownItem>Permission</button>-->
-    <!--        </clr-dropdown-menu>-->
-    <!--      </clr-dropdown>-->
-    <!--    </td>-->
-    <!--  </tr>-->
-    <!--  </tbody>-->
-    <!--</table>-->
-  </div>
-</app-page>
+    <section class="dashboard-section">
+      <h1>Pinned namespaces</h1>
+      <hr/>
+      <div class="section-content">
+        <nz-list class="demo-loadmore-list" [nzLoading]="false">
+          <nz-list-item *ngFor="let item of list">
+            <ng-container *ngIf="!item.loading">
+              <nz-list-item-meta
+                nzAvatar="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                nzDescription="Ant Design, a design language for background applications, is refined by Ant UED Team"
+              >
+                <nz-list-item-meta-title>
+                  <a href="https://ng.ant.design">{{ item.name.last }}</a>
+                </nz-list-item-meta-title>
+              </nz-list-item-meta>
+              content
+              <ul nz-list-item-actions>
+                <nz-list-item-action><a (click)="edit(item)">edit</a></nz-list-item-action>
+                <nz-list-item-action><a (click)="edit(item)">more</a></nz-list-item-action>
+              </ul>
+            </ng-container>
+            <nz-skeleton
+              *ngIf="item.loading"
+              [nzAvatar]="true"
+              [nzActive]="true"
+              [nzTitle]="false"
+              [nzLoading]="true"
+            ></nz-skeleton>
+          </nz-list-item>
+        </nz-list>
+
+        <!--<table class="table table-noborder">-->
+        <!--  <thead>-->
+        <!--  <tr>-->
+        <!--    <th class="left">Namespace</th>-->
+        <!--    <th class="left">Shortcuts</th>-->
+        <!--  </tr>-->
+        <!--  </thead>-->
+        <!--  <tbody>-->
+        <!--  <tr>-->
+        <!--    <td class="left"><a routerLink="/namespaces/1">Namespace1.Namespace2.Namespace3</a></td>-->
+        <!--    <td class="left">-->
+        <!--      <clr-tooltip>-->
+        <!--        <button clrTooltipTrigger class="btn btn-primary"><cds-icon shape="data-cluster"></cds-icon></button>-->
+        <!--        <clr-tooltip-content clrPosition="bottom-right" *clrIfOpen>-->
+        <!--          <span>Data Sources</span>-->
+        <!--        </clr-tooltip-content>-->
+        <!--      </clr-tooltip>-->
+        <!--      <clr-tooltip>-->
+        <!--        <button clrTooltipTrigger class="btn btn-primary"><cds-icon shape="internet-of-things"></cds-icon></button>-->
+        <!--        <clr-tooltip-content clrPosition="bottom-right" *clrIfOpen>-->
+        <!--          <span>Data Contexts</span>-->
+        <!--        </clr-tooltip-content>-->
+        <!--      </clr-tooltip>-->
+        <!--      <clr-tooltip>-->
+        <!--        <button clrTooltipTrigger class="btn btn-primary"><cds-icon shape="objects"></cds-icon></button>-->
+        <!--        <clr-tooltip-content clrPosition="bottom-right" *clrIfOpen>-->
+        <!--          <span>Assets</span>-->
+        <!--        </clr-tooltip-content>-->
+        <!--      </clr-tooltip>-->
+        <!--      <clr-tooltip>-->
+        <!--        <button clrTooltipTrigger class="btn btn-primary"><cds-icon shape="file-group"></cds-icon></button>-->
+        <!--        <clr-tooltip-content clrPosition="bottom-right" *clrIfOpen>-->
+        <!--          <span>Reports</span>-->
+        <!--        </clr-tooltip-content>-->
+        <!--      </clr-tooltip>-->
+        <!--      <clr-tooltip>-->
+        <!--        <button clrTooltipTrigger class="btn btn-primary"><cds-icon shape="shield"></cds-icon></button>-->
+        <!--        <clr-tooltip-content clrPosition="bottom-right" *clrIfOpen>-->
+        <!--          <span>Permissions</span>-->
+        <!--        </clr-tooltip-content>-->
+        <!--      </clr-tooltip>-->
+        <!--      <clr-dropdown>-->
+        <!--        <button class="btn btn-outline-primary" clrDropdownTrigger>-->
+        <!--          New-->
+        <!--          <cds-icon shape="angle" direction="down"></cds-icon>-->
+        <!--        </button>-->
+        <!--        <clr-dropdown-menu *clrIfOpen>-->
+        <!--          <button clrDropdownItem>Namespace</button>-->
+        <!--          <button clrDropdownItem>Data Source</button>-->
+        <!--          <button clrDropdownItem>Data Context</button>-->
+        <!--          <button clrDropdownItem>Asset</button>-->
+        <!--          <button clrDropdownItem>Report</button>-->
+        <!--          <button clrDropdownItem>Permission</button>-->
+        <!--        </clr-dropdown-menu>-->
+        <!--      </clr-dropdown>-->
+        <!--    </td>-->
+        <!--  </tr>-->
+        <!--  </tbody>-->
+        <!--</table>-->
+      </div>
+    </section>
+  </nz-layout>
+</nz-layout>
