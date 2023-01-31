@@ -2,12 +2,15 @@ import { Inject, Injectable, isDevMode, NgZone, Optional } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import {
-  AuthConfig, DateTimeProvider, HashHandler,
-  OAuthErrorEvent, OAuthLogger,
+  AuthConfig,
+  DateTimeProvider,
+  HashHandler,
+  OAuthErrorEvent,
+  OAuthLogger,
   OAuthService,
   OAuthStorage,
   UrlHelperService,
-  ValidationHandler
+  ValidationHandler,
 } from 'angular-oauth2-oidc';
 import { filter } from 'rxjs/operators';
 
@@ -15,48 +18,87 @@ import { EventHubService } from '@core/thread-safe';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService extends OAuthService {
-
-  constructor(ngZone: NgZone,
-              httpClient: HttpClient,
-              storage: OAuthStorage,
-              tokenValidationHandler: ValidationHandler,
-              @Optional() config: AuthConfig,
-              urlHelper: UrlHelperService,
-              logger: OAuthLogger,
-              crypto: HashHandler,
-              @Inject(DOCUMENT) document: Document,
-              dateTimeService: DateTimeProvider,
-              private readonly eventHub: EventHubService) {
-    super(ngZone, httpClient, storage, tokenValidationHandler, config, urlHelper, logger, crypto, document, dateTimeService);
+  constructor(
+    ngZone: NgZone,
+    httpClient: HttpClient,
+    storage: OAuthStorage,
+    tokenValidationHandler: ValidationHandler,
+    @Optional() config: AuthConfig,
+    urlHelper: UrlHelperService,
+    logger: OAuthLogger,
+    crypto: HashHandler,
+    @Inject(DOCUMENT) document: Document,
+    dateTimeService: DateTimeProvider,
+    private readonly eventHub: EventHubService
+  ) {
+    super(
+      ngZone,
+      httpClient,
+      storage,
+      tokenValidationHandler,
+      config,
+      urlHelper,
+      logger,
+      crypto,
+      document,
+      dateTimeService
+    );
 
     if (isDevMode()) {
       this.initializeEventLogging();
     }
 
-    eventHub.eventTriggered.pipe(
-      filter(x => x.name === 'accessTokenChanged'),
-    ).subscribe(() => {
-      if (!this.hasValidAccessToken()) {
-        this.login();
-      }
-    });
+    eventHub.eventTriggered
+      .pipe(filter((x) => x.name === 'accessTokenChanged'))
+      .subscribe(() => {
+        if (!this.hasValidAccessToken()) {
+          this.login();
+        }
+      });
 
     this.setupAutomaticSilentRefresh();
 
     this.events
-      .pipe(filter(e => ['session_terminated', 'session_error'].includes(e.type)))
-      .subscribe(e => this.login());
+      .pipe(
+        filter((e) =>
+          [
+            'session_terminated',
+            'session_error',
+            'invalid_nonce_in_state',
+            'silent_refresh_error',
+            'silent_refresh_timeout',
+          ].includes(e.type)
+        )
+      )
+      .subscribe((e) => this.login());
   }
 
-  protected override storeAccessTokenResponse(accessToken: string, refreshToken: string, expiresIn: number, grantedScopes: String, customParameters?: Map<string, string>) {
-    super.storeAccessTokenResponse(accessToken, refreshToken, expiresIn, grantedScopes, customParameters);
+  protected override storeAccessTokenResponse(
+    accessToken: string,
+    refreshToken: string,
+    expiresIn: number,
+    grantedScopes: string,
+    customParameters?: Map<string, string>
+  ) {
+    super.storeAccessTokenResponse(
+      accessToken,
+      refreshToken,
+      expiresIn,
+      grantedScopes,
+      customParameters
+    );
     this.eventHub.triggerEvent({ name: 'accessTokenChanged' });
   }
 
   public async initialize(state?: string, config?: AuthConfig): Promise<void> {
     if (document.location.hash && isDevMode()) {
       console.log('Encountered hash fragment, plotting as table...');
-      console.table(document.location.hash.substr(1).split('&').map(kvp => kvp.split('=')));
+      console.table(
+        document.location.hash
+          .substr(1)
+          .split('&')
+          .map((kvp) => kvp.split('='))
+      );
     }
 
     if (config) {
@@ -71,7 +113,7 @@ export class AuthService extends OAuthService {
       return;
     }
 
-    if (!await this.tryRefreshToken()) {
+    if (!(await this.tryRefreshToken())) {
       this.login(state);
     }
   }
@@ -88,7 +130,13 @@ export class AuthService extends OAuthService {
         'consent_required',
       ];
 
-      if (error && error.reason?.params && errorResponsesRequiringUserInteraction.indexOf(error.reason.params.error) >= 0) {
+      if (
+        error &&
+        error.reason?.params &&
+        errorResponsesRequiringUserInteraction.indexOf(
+          error.reason.params.error
+        ) >= 0
+      ) {
         return false;
       }
 
@@ -101,31 +149,12 @@ export class AuthService extends OAuthService {
   }
 
   private initializeEventLogging(): void {
-    this.events.subscribe(event => {
+    this.events.subscribe((event) => {
       if (event instanceof OAuthErrorEvent) {
         console.error('OAuthErrorEvent Object:', event);
-        this.checkIfNeedsLogin(event);
       } else {
         console.debug('OAuthEvent Object:', event);
       }
     });
-  }
-
-  private checkIfNeedsLogin(event: OAuthErrorEvent): void {
-    const eventsThatRequireLogin = [
-      'token_error',
-      'code_error',
-      'token_refresh_error',
-      'silent_refresh_error',
-      'silent_refresh_timeout',
-      'token_validation_error',
-      'session_error',
-      'token_revoke_error',
-      'invalid_nonce_in_state'
-    ];
-
-    if (eventsThatRequireLogin.indexOf(event.type) >= 0) {
-      this.login();
-    }
   }
 }
