@@ -4,9 +4,11 @@
   "tools": {
     "dotnet-ef": {
       "version": "7.0.1",
-      "commands": [
-        "dotnet-ef"
-      ]
+      "commands": ["dotnet-ef"]
+    },
+    "husky": {
+      "version": "0.5.4",
+      "commands": ["husky"]
     }
   }
 }

@@ -1,0 +1,55 @@
+{
+  "tasks": [
+    {
+      "name": "dotnet-format",
+      "group": "pre-commit",
+      "command": "dotnet",
+      "args": ["format", "--include", "${staged}"],
+      "include": ["**/*.cs"]
+    },
+    {
+      "name": "commit-message-linter",
+      "command": "dotnet",
+      "args": [
+        "husky",
+        "exec",
+        ".husky/csx/commit-lint.csx",
+        "--args",
+        "${args}"
+      ]
+    },
+    {
+      "name": "warning-check",
+      "group": "pre-push",
+      "command": "dotnet",
+      "args": ["build", "/warnaserror"],
+      "include": ["**/*.cs"]
+    },
+    {
+      "name": "eslint",
+      "group": "pre-commit",
+      "pathMode": "absolute",
+      "cwd": "GoldenReports.WebUI/ClientApp",
+      "command": "npm",
+      "args": ["run", "lint", "${staged}"],
+      "include": ["GoldenReports.WebUI/ClientApp/**/*.ts", "GoldenReports.WebUI/ClientApp/**/*.js"]
+    },
+    {
+      "name": "prettier",
+      "group": "pre-commit",
+      "pathMode": "absolute",
+      "cwd": "GoldenReports.WebUI/ClientApp",
+      "command": "npx",
+      "args": ["prettier", "--write", "${staged}"],
+      "include": [
+        "GoldenReports.WebUI/ClientApp/**/*.ts",
+        "GoldenReports.WebUI/ClientApp/**/*.html",
+        "GoldenReports.WebUI/ClientApp/**/*.js",
+        "GoldenReports.WebUI/ClientApp/**/*.json",
+        "GoldenReports.WebUI/ClientApp/**/*.yml",
+        "GoldenReports.WebUI/ClientApp/**/*.css",
+        "GoldenReports.WebUI/ClientApp/**/*.scss"
+      ]
+    }
+  ]
+}
