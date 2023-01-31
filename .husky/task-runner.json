@@ -32,7 +32,7 @@
       "cwd": "GoldenReports.WebUI/ClientApp",
       "command": "npx",
       "args": ["eslint", "${staged}"],
-      "include": ["GoldenReports.WebUI/ClientApp/**/*.ts", "GoldenReports.WebUI/ClientApp/**/*.js"]
+      "include": ["GoldenReports.WebUI/ClientApp/src/**/*.ts", "GoldenReports.WebUI/ClientApp/src/**/*.js"]
     },
     {
       "name": "prettier",
