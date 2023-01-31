@@ -30,8 +30,8 @@
       "group": "pre-commit",
       "pathMode": "absolute",
       "cwd": "GoldenReports.WebUI/ClientApp",
-      "command": "npm",
-      "args": ["run", "lint", "${staged}"],
+      "command": "npx",
+      "args": ["eslint", "${staged}"],
       "include": ["GoldenReports.WebUI/ClientApp/**/*.ts", "GoldenReports.WebUI/ClientApp/**/*.js"]
     },
     {
