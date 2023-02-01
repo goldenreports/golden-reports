@@ -1,0 +1,53 @@
+name: Domain CI/CD
+
+on:
+  push:
+    branches: ['main', 'dev']
+    paths:
+      - 'GoldenReports.Domain/**'
+  pull_request:
+    branches: ['main', 'dev']
+    paths:
+      - 'GoldenReports.Domain/**'
+
+env:
+  PROJECT_PATH: 'GoldenReports.Domain/GoldenReports.Domain.csproj'
+  PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}/output
+  NUGET_PUSH_URL: ${{ secrets.NUGET_PUSH_URL }}
+  NUGET_TOKEN: ${{ secrets.NUGET_TOKEN }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.x
+      - name: Semantic Release
+        id: release
+        uses: cycjimmy/semantic-release-action@v3
+        with:
+          working_directory: ./Gpanga.Example.SDK
+          extra_plugins: |
+            @semantic-release/commit-analyzer
+            @semantic-release/release-notes-generator
+            @semantic-release/github
+            @semantic-release/git
+            @semantic-release/exec
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Clean
+        run: dotnet clean
+      - name: Restore dependencies
+        run: dotnet restore ${{ env.PROJECT_PATH }}
+      - name: Build
+        run: dotnet build ${{ env.PROJECT_PATH }} --no-restore -c Release /p:AssemblyVersion=${{release.outputs.new_release_version}} /p:Version=${{release.outputs.new_release_version}}
+      - name: Pack
+        run: dotnet pack ${{ env.PROJECT_PATH }} --no-build -c Release --include-symbols /p:AssemblyVersion=${{release.outputs.new_release_version}} /p:Version=${{release.outputs.new_release_version}} --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }}
+      # - name: Publish
+      #   if: ${{ steps.release.outputs.new_release_version }}
+      #   run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}/*.nupkg -k ${{ secrets.NUGET_TOKEN }} -s ${{ env.NUGET_PUSH_URL }}
+          
