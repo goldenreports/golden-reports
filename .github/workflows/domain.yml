@@ -44,9 +44,9 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore ${{ env.PROJECT_PATH }}
       - name: Build
-        run: dotnet build ${{ env.PROJECT_PATH }} --no-restore -c Release /p:AssemblyVersion=${{release.outputs.new_release_version}} /p:Version=${{release.outputs.new_release_version}}
+        run: dotnet build ${{ env.PROJECT_PATH }} --no-restore -c Release /p:AssemblyVersion=${{steps.release.outputs.new_release_version}} /p:Version=${{steps.release.outputs.new_release_version}}
       - name: Pack
-        run: dotnet pack ${{ env.PROJECT_PATH }} --no-build -c Release --include-symbols /p:AssemblyVersion=${{release.outputs.new_release_version}} /p:Version=${{release.outputs.new_release_version}} --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }}
+        run: dotnet pack ${{ env.PROJECT_PATH }} --no-build -c Release --include-symbols /p:AssemblyVersion=${{steps.release.outputs.new_release_version}} /p:Version=${{steps.release.outputs.new_release_version}} --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }}
       # - name: Publish
       #   if: ${{ steps.release.outputs.new_release_version }}
       #   run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}/*.nupkg -k ${{ secrets.NUGET_TOKEN }} -s ${{ env.NUGET_PUSH_URL }}
