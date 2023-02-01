@@ -39,7 +39,7 @@ jobs:
             @semantic-release/git
             @semantic-release/exec
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.CUSTOM_TOKEN }}
       - name: Clean
         run: dotnet clean
       - name: Restore dependencies
