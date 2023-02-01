@@ -13,18 +13,21 @@ import { DataContextEditorPageEffects } from './store/data-context-editor-page';
 import { DataContextListPageEffects } from './store/data-context-list-page';
 
 @NgModule({
-  declarations: [
-    DataContextListComponent,
-    DataContextEditorComponent
-  ],
+  declarations: [DataContextListComponent, DataContextEditorComponent],
   imports: [
     CommonModule,
     DataContextsRoutingModule,
     SharedModule,
     NzTableModule,
-    StoreModule.forFeature(dataContextFeatureStateKey, dataContextFeatureReducer),
-    EffectsModule.forFeature([DataContextEditorPageEffects, DataContextListPageEffects]),
+    StoreModule.forFeature(
+      dataContextFeatureStateKey,
+      dataContextFeatureReducer
+    ),
+    EffectsModule.forFeature([
+      DataContextEditorPageEffects,
+      DataContextListPageEffects,
+    ]),
     NzButtonModule,
-  ]
+  ],
 })
 export class DataContextsModule {}

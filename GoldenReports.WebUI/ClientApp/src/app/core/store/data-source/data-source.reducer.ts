@@ -4,10 +4,9 @@ import { createReducer, on } from '@ngrx/store';
 
 import { dataSourceActions } from './data-source.actions';
 
-export const DataSourceStateKey = "dataSources";
+export const DataSourceStateKey = 'dataSources';
 
-export interface DataSourceState extends EntityState<DataSourceDto> {
-}
+export interface DataSourceState extends EntityState<DataSourceDto> {}
 
 export const adapter = createEntityAdapter<DataSourceDto>();
 
@@ -15,9 +14,12 @@ export const initialState: DataSourceState = adapter.getInitialState();
 
 export const dataSourceReducer = createReducer(
   initialState,
-  on(dataSourceActions.namespaceDataSourcesFetched, (state, { dataSources }) => {
-    return adapter.upsertMany(dataSources, state);
-  }),
+  on(
+    dataSourceActions.namespaceDataSourcesFetched,
+    (state, { dataSources }) => {
+      return adapter.upsertMany(dataSources, state);
+    }
+  ),
   on(dataSourceActions.dataSourceFetched, (state, { dataSource }) => {
     return adapter.upsertOne(dataSource, state);
   }),

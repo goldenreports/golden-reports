@@ -14,8 +14,8 @@ export interface DataContextListPageState {
 
 export const initialState: DataContextListPageState = {
   loading: false,
-  isNewDataContext: false
-}
+  isNewDataContext: false,
+};
 
 export const dataContextListPageReducer = createReducer(
   initialState,
@@ -23,20 +23,23 @@ export const dataContextListPageReducer = createReducer(
     return {
       ...state,
       error: undefined,
-      loading: true
-    }
+      loading: true,
+    };
   }),
   on(dataContextActions.namespaceDataContextsFetched, (state) => {
     return {
       ...state,
-      loading: false
-    }
-  }),
-  on(dataContextActions.namespaceDataContextsFetchFailed, (state, {error}) => {
-    return {
-      ...state,
       loading: false,
-      error
+    };
+  }),
+  on(
+    dataContextActions.namespaceDataContextsFetchFailed,
+    (state, { error }) => {
+      return {
+        ...state,
+        loading: false,
+        error,
+      };
     }
-  })
+  )
 );

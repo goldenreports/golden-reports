@@ -7,35 +7,56 @@ import { DataSourceEditorVm } from '@features/data-sources/models';
 import { RouterSelectors } from '@core/store/router';
 import { NamespaceEditorPageSelectors } from '@features/namespaces/store/namespace-editor-page';
 
-
 export class DataSourceEditorPageSelectors {
-  public static readonly getState = createSelector(selectDataSourceFeature, state => state[DataSourceEditorPageStateKey]);
+  public static readonly getState = createSelector(
+    selectDataSourceFeature,
+    (state) => state[DataSourceEditorPageStateKey]
+  );
 
-  public static readonly getLoadingFlag = createSelector(DataSourceEditorPageSelectors.getState, state => state?.loading);
+  public static readonly getLoadingFlag = createSelector(
+    DataSourceEditorPageSelectors.getState,
+    (state) => state?.loading
+  );
 
   public static readonly getCombinedLoadingFlag = createSelector(
     DataSourceEditorPageSelectors.getLoadingFlag,
     NamespaceEditorPageSelectors.getLoadingPathFlag,
-    (localLoading, parentLoading) => localLoading && parentLoading);
+    (localLoading, parentLoading) => localLoading && parentLoading
+  );
 
   public static readonly getDataSource = createSelector(
     DataSourceSelectors.getEntities,
     RouterSelectors.getParam('dataSourceId'),
-    (dataSources, selectedDataSourceId) => selectedDataSourceId ? dataSources[selectedDataSourceId] : null);
+    (dataSources, selectedDataSourceId) =>
+      selectedDataSourceId ? dataSources[selectedDataSourceId] : null
+  );
 
-  public static readonly getIsNewDataSourceFlag = createSelector(DataSourceEditorPageSelectors.getState, state => state?.isNewDataSource);
+  public static readonly getIsNewDataSourceFlag = createSelector(
+    DataSourceEditorPageSelectors.getState,
+    (state) => state?.isNewDataSource
+  );
 
-  public static readonly getSavingFlag = createSelector(DataSourceEditorPageSelectors.getState, state => state?.saving);
+  public static readonly getSavingFlag = createSelector(
+    DataSourceEditorPageSelectors.getState,
+    (state) => state?.saving
+  );
 
-  public static readonly getError = createSelector(DataSourceEditorPageSelectors.getState, state => state?.error);
+  public static readonly getError = createSelector(
+    DataSourceEditorPageSelectors.getState,
+    (state) => state?.error
+  );
 
-  public static readonly getHasValidDataFlag = createSelector(DataSourceEditorPageSelectors.getState, state => state?.hasValidData);
+  public static readonly getHasValidDataFlag = createSelector(
+    DataSourceEditorPageSelectors.getState,
+    (state) => state?.hasValidData
+  );
 
   public static readonly getCanSaveFlag = createSelector(
     DataSourceEditorPageSelectors.getLoadingFlag,
     DataSourceEditorPageSelectors.getSavingFlag,
     DataSourceEditorPageSelectors.getHasValidDataFlag,
-    (loading, saving, hasValidData) => !loading && !saving && hasValidData);
+    (loading, saving, hasValidData) => !loading && !saving && hasValidData
+  );
 
   public static readonly getViewModel = createSelector(
     DataSourceEditorPageSelectors.getLoadingFlag,
@@ -44,13 +65,14 @@ export class DataSourceEditorPageSelectors {
     DataSourceEditorPageSelectors.getSavingFlag,
     DataSourceEditorPageSelectors.getError,
     DataSourceEditorPageSelectors.getCanSaveFlag,
-    (loading, dataSource, isNewDataSource, saving, error, canSave) => ({
-      loading,
-      dataSource,
-      isNewDataSource,
-      saving,
-      error,
-      canSave
-    } as DataSourceEditorVm)
+    (loading, dataSource, isNewDataSource, saving, error, canSave) =>
+      ({
+        loading,
+        dataSource,
+        isNewDataSource,
+        saving,
+        error,
+        canSave,
+      } as DataSourceEditorVm)
   );
 }

@@ -1,7 +1,10 @@
 import { isDevMode, NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { NavigationActionTiming, StoreRouterConnectingModule } from '@ngrx/router-store';
+import {
+  NavigationActionTiming,
+  StoreRouterConnectingModule,
+} from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { appReducers } from './app-store';
@@ -20,16 +23,22 @@ import { ReportEffects } from './report';
         strictActionSerializability: true,
         strictActionImmutability: true,
         strictActionTypeUniqueness: true,
-        strictStateImmutability: true
-      }
+        strictStateImmutability: true,
+      },
     }),
-    EffectsModule.forRoot([AuthEffects, NamespaceEffects, DataSourceEffects, DataContextEffects, ReportEffects]),
+    EffectsModule.forRoot([
+      AuthEffects,
+      NamespaceEffects,
+      DataSourceEffects,
+      DataContextEffects,
+      ReportEffects,
+    ]),
     StoreRouterConnectingModule.forRoot({
       stateKey: RouterStateKey,
       serializer: AppRouterStateSerializer,
-      navigationActionTiming: NavigationActionTiming.PostActivation
+      navigationActionTiming: NavigationActionTiming.PostActivation,
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-  ]
+  ],
 })
 export class AppStoreModule {}

@@ -10,23 +10,44 @@ import { NamespaceEditorPageSelectors } from './namespace-editor-page.selectors'
 
 @Injectable()
 export class NamespaceEditorPageEffects {
-  constructor(private readonly actions$: Actions, private readonly store: Store) {
-  }
+  constructor(
+    private readonly actions$: Actions,
+    private readonly store: Store
+  ) {}
 
-  selectedNamespaceChanged$ = createEffect(() => combineLatest([
-    this.store.select(NamespaceEditorPageSelectors.getNamespaceId),
-    this.store.select(NamespaceEditorPageSelectors.getLoadedFlag)
-  ]).pipe(
-    withLatestFrom(this.store.select(NamespaceSelectors.getRoot)),
-    filter(([[namespaceId, loaded], rootNamespace]) => loaded && namespaceId !== 'global' && namespaceId !== rootNamespace?.id),
-    map(([[namespaceId]]) => namespaceId),
-    distinctUntilChanged((previousNamespaceId, currentNamespaceId) => previousNamespaceId === currentNamespaceId),
-    map((namespaceId) => namespaceEditorPageActions.namespaceSelectionChanged({ namespaceId }))
-  ));
+  selectedNamespaceChanged$ = createEffect(() =>
+    combineLatest([
+      this.store.select(NamespaceEditorPageSelectors.getNamespaceId),
+      this.store.select(NamespaceEditorPageSelectors.getLoadedFlag),
+    ]).pipe(
+      withLatestFrom(this.store.select(NamespaceSelectors.getRoot)),
+      filter(
+        ([[namespaceId, loaded], rootNamespace]) =>
+          loaded &&
+          namespaceId !== 'global' &&
+          namespaceId !== rootNamespace?.id
+      ),
+      map(([[namespaceId]]) => namespaceId),
+      distinctUntilChanged(
+        (previousNamespaceId, currentNamespaceId) =>
+          previousNamespaceId === currentNamespaceId
+      ),
+      map((namespaceId) =>
+        namespaceEditorPageActions.namespaceSelectionChanged({ namespaceId })
+      )
+    )
+  );
 
-  fetchNamespace$ = createEffect(() => this.actions$.pipe(
-    ofType(namespaceEditorPageActions.namespaceSelectionChanged),
-    filter(x => !!x.namespaceId),
-    map((x) => namespaceActions.namespaceRequested({ namespaceId: x.namespaceId, includeAncestors: true }))
-  ));
+  fetchNamespace$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(namespaceEditorPageActions.namespaceSelectionChanged),
+      filter((x) => !!x.namespaceId),
+      map((x) =>
+        namespaceActions.namespaceRequested({
+          namespaceId: x.namespaceId,
+          includeAncestors: true,
+        })
+      )
+    )
+  );
 }

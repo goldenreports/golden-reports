@@ -12,12 +12,18 @@ import { dataSourceListPageActions } from './data-source-list-page.actions';
 export class DataSourceListPageEffects {
   constructor(
     private readonly actions$: Actions,
-    private readonly store: Store<AppState>) {
-  }
+    private readonly store: Store<AppState>
+  ) {}
 
-  loadDataSources$ = createEffect(() => this.actions$.pipe(
-    ofType(dataSourceListPageActions.opened),
-    withLatestFrom(this.store.select(RouterSelectors.getParam('namespaceId'))),
-    map(([, namespaceId]) => dataSourceActions.namespaceDataSourcesRequested({ namespaceId }))
-  ));
+  loadDataSources$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(dataSourceListPageActions.opened),
+      withLatestFrom(
+        this.store.select(RouterSelectors.getParam('namespaceId'))
+      ),
+      map(([, namespaceId]) =>
+        dataSourceActions.namespaceDataSourcesRequested({ namespaceId })
+      )
+    )
+  );
 }

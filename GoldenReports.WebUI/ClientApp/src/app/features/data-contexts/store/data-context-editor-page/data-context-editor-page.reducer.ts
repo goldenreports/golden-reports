@@ -17,8 +17,8 @@ export interface DataContextEditorPageState {
 export const initialState: DataContextEditorPageState = {
   loading: false,
   saving: false,
-  hasValidData: false
-}
+  hasValidData: false,
+};
 
 export const dataContextEditorPageReducer = createReducer(
   initialState,
@@ -28,46 +28,64 @@ export const dataContextEditorPageReducer = createReducer(
       error: undefined,
       loading: true,
       isNewDataContext: false,
-      saving: false
-    }
+      saving: false,
+    };
   }),
   on(dataContextEditorPageActions.dataContextCreationStarted, (state) => {
     return {
       ...state,
       loading: false,
-      isNewDataContext: true
-    }
+      isNewDataContext: true,
+    };
   }),
-  on(dataContextEditorPageActions.newDataContextSubmitted, dataContextEditorPageActions.dataContextChangesSubmitted, (state) => {
-    return {
-      ...state,
-      error: undefined,
-      saving: true
+  on(
+    dataContextEditorPageActions.newDataContextSubmitted,
+    dataContextEditorPageActions.dataContextChangesSubmitted,
+    (state) => {
+      return {
+        ...state,
+        error: undefined,
+        saving: true,
+      };
     }
-  }),
-  on(dataContextEditorPageActions.dataContextCreationFailed, dataContextEditorPageActions.dataContextUpdateFailed, (state, { error }) => {
-    return {
-      ...state,
-      error,
-      saving: false
+  ),
+  on(
+    dataContextEditorPageActions.dataContextCreationFailed,
+    dataContextEditorPageActions.dataContextUpdateFailed,
+    (state, { error }) => {
+      return {
+        ...state,
+        error,
+        saving: false,
+      };
     }
-  }),
-  on(dataContextActions.dataContextCreated, dataContextActions.dataContextUpdated, (state) => {
-    return {
-      ...state,
-      saving: false
+  ),
+  on(
+    dataContextActions.dataContextCreated,
+    dataContextActions.dataContextUpdated,
+    (state) => {
+      return {
+        ...state,
+        saving: false,
+      };
     }
-  }),
-  on(dataContextActions.dataContextFetched, dataContextActions.dataContextFetchFailed, (state) => {
-    return {
-      ...state,
-      loading: false
+  ),
+  on(
+    dataContextActions.dataContextFetched,
+    dataContextActions.dataContextFetchFailed,
+    (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
     }
-  }),
+  ),
   on(formActions.formValidityChanged, (state, { formId, valid }) => {
-    return formId === 'dataContext' ? {
-      ...state,
-      hasValidData: valid
-    } : state;
+    return formId === 'dataContext'
+      ? {
+          ...state,
+          hasValidData: valid,
+        }
+      : state;
   })
 );

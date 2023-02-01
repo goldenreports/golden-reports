@@ -4,7 +4,7 @@ import { ErrorDto } from '@core/api';
 import { formActions } from '@shared/store';
 import { namespaceMetadataPageActions } from './namespace-metadata-page.actions';
 
-export const NamespaceMetadataPageStateKey = "namespaceMetadataPage";
+export const NamespaceMetadataPageStateKey = 'namespaceMetadataPage';
 
 export interface NamespaceMetadataPageState {
   isOpen: boolean;
@@ -18,8 +18,8 @@ const initialState: NamespaceMetadataPageState = {
   isOpen: false,
   saving: false,
   formReady: false,
-  hasValidData: false
-}
+  hasValidData: false,
+};
 
 export const namespaceMetadataPageReducer = createReducer(
   initialState,
@@ -27,45 +27,53 @@ export const namespaceMetadataPageReducer = createReducer(
     return {
       ...state,
       error: undefined,
-      isOpen: true
-    }
+      isOpen: true,
+    };
   }),
   on(namespaceMetadataPageActions.closed, (state) => {
     return {
       ...state,
       isOpen: false,
-      formReady: false
-    }
+      formReady: false,
+    };
   }),
   on(formActions.formReady, (state, { formId }) => {
-    return formId === 'namespaceMetadata' ? {
-      ...state,
-      formReady: true
-    } : state;
+    return formId === 'namespaceMetadata'
+      ? {
+          ...state,
+          formReady: true,
+        }
+      : state;
   }),
   on(formActions.formValidityChanged, (state, { formId, valid }) => {
-    return formId === 'namespaceMetadata' ? {
-      ...state,
-      hasValidData: valid
-    } : state
+    return formId === 'namespaceMetadata'
+      ? {
+          ...state,
+          hasValidData: valid,
+        }
+      : state;
   }),
   on(namespaceMetadataPageActions.metadataChangesSubmitted, (state) => {
     return {
       ...state,
       error: undefined,
-      saving: true
-    }
+      saving: true,
+    };
   }),
-  on(namespaceMetadataPageActions.metadataUpdated, namespaceMetadataPageActions.metadataUpdateFailed, (state) => {
-    return {
-      ...state,
-      saving: false
+  on(
+    namespaceMetadataPageActions.metadataUpdated,
+    namespaceMetadataPageActions.metadataUpdateFailed,
+    (state) => {
+      return {
+        ...state,
+        saving: false,
+      };
     }
-  }),
+  ),
   on(namespaceMetadataPageActions.metadataUpdateFailed, (state, { error }) => {
     return {
       ...state,
-      error
-    }
+      error,
+    };
   })
 );

@@ -12,35 +12,51 @@ import { NamespaceListPageSelectors } from './namespace-list-page.selectors';
 
 @Injectable()
 export class NamespaceListPageEffects {
-  constructor(private readonly actions$: Actions, private readonly store: Store<AppState>) {
-  }
+  constructor(
+    private readonly actions$: Actions,
+    private readonly store: Store<AppState>
+  ) {}
 
-  getChildren$ = createEffect(() => combineLatest([
-    this.store.select(NamespaceEditorPageSelectors.getNamespaceId),
-    this.store.select(NamespaceListPageSelectors.getIsOpenFlag)
-  ]).pipe(
-    filter(([namespaceId, isOpen]) => !!namespaceId && isOpen),
-    map(([namespaceId]) => namespaceActions.childrenRequested({ parentNamespaceId: namespaceId }))
-  ));
+  getChildren$ = createEffect(() =>
+    combineLatest([
+      this.store.select(NamespaceEditorPageSelectors.getNamespaceId),
+      this.store.select(NamespaceListPageSelectors.getIsOpenFlag),
+    ]).pipe(
+      filter(([namespaceId, isOpen]) => !!namespaceId && isOpen),
+      map(([namespaceId]) =>
+        namespaceActions.childrenRequested({ parentNamespaceId: namespaceId })
+      )
+    )
+  );
 
-  createChildNamespace$ = createEffect(() => this.actions$.pipe(
-    ofType(namespaceListPageActions.childNamespaceSubmitted),
-    withLatestFrom(this.store.select(NamespaceEditorPageSelectors.getNamespaceId)),
-    map(([payload, namespaceId]) => namespaceActions.creationRequested({
-      newNamespace: {
-        ...payload.namespace,
-        parentId: namespaceId
-      }
-    }))
-  ));
+  createChildNamespace$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(namespaceListPageActions.childNamespaceSubmitted),
+      withLatestFrom(
+        this.store.select(NamespaceEditorPageSelectors.getNamespaceId)
+      ),
+      map(([payload, namespaceId]) =>
+        namespaceActions.creationRequested({
+          newNamespace: {
+            ...payload.namespace,
+            parentId: namespaceId,
+          },
+        })
+      )
+    )
+  );
 
-  childNamespaceCreated$ = createEffect(() => this.actions$.pipe(
-    ofType(namespaceActions.namespaceCreated),
-    map(() => namespaceListPageActions.childNamespaceCreated())
-  ));
+  childNamespaceCreated$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(namespaceActions.namespaceCreated),
+      map(() => namespaceListPageActions.childNamespaceCreated())
+    )
+  );
 
-  childNamespaceCreationFailed$ = createEffect(() => this.actions$.pipe(
-    ofType(namespaceActions.creationFailed),
-    map(x => namespaceListPageActions.childNamespaceCreationFailed(x))
-  ));
+  childNamespaceCreationFailed$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(namespaceActions.creationFailed),
+      map((x) => namespaceListPageActions.childNamespaceCreationFailed(x))
+    )
+  );
 }

@@ -6,23 +6,11 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { StateFormBindingDirective } from './directives';
 import { ErrorMessageComponent } from './components';
 
-const sharedElements = [
-  StateFormBindingDirective,
-  ErrorMessageComponent
-]
+const sharedElements = [StateFormBindingDirective, ErrorMessageComponent];
 
 @NgModule({
-  declarations: [
-    ...sharedElements
-  ],
-  imports: [
-    CommonModule,
-    NzAlertModule,
-    NzLayoutModule
-  ],
-  exports: [
-    ...sharedElements
-  ]
+  declarations: [...sharedElements],
+  imports: [CommonModule, NzAlertModule, NzLayoutModule],
+  exports: [...sharedElements],
 })
-export class SharedModule {
-}
+export class SharedModule {}

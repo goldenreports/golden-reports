@@ -13,30 +13,52 @@ import { NamespaceMetadataPageSelectors } from './namespace-metadata-page.select
 
 @Injectable()
 export class NamespaceMetadataPageEffects {
-  constructor(private readonly actions$: Actions, private readonly store: Store<AppState>) {
-  }
+  constructor(
+    private readonly actions$: Actions,
+    private readonly store: Store<AppState>
+  ) {}
 
-  setFormData$ = createEffect(() => combineLatest([
-    this.store.select(NamespaceMetadataPageSelectors.getFormReadyFlag),
-    this.store.select(NamespaceEditorPageSelectors.getNamespace)
-  ]).pipe(
-    filter(([formReady, namespace]) => formReady && !!namespace),
-    map(([, namespace]) => formActions.formDataLoaded({ formId: 'namespaceMetadata', value: namespace }))
-  ));
+  setFormData$ = createEffect(() =>
+    combineLatest([
+      this.store.select(NamespaceMetadataPageSelectors.getFormReadyFlag),
+      this.store.select(NamespaceEditorPageSelectors.getNamespace),
+    ]).pipe(
+      filter(([formReady, namespace]) => formReady && !!namespace),
+      map(([, namespace]) =>
+        formActions.formDataLoaded({
+          formId: 'namespaceMetadata',
+          value: namespace,
+        })
+      )
+    )
+  );
 
-  updateMetadata$ = createEffect(() => this.actions$.pipe(
-    ofType(namespaceMetadataPageActions.metadataChangesSubmitted),
-    withLatestFrom(this.store.select(NamespaceEditorPageSelectors.getNamespaceId)),
-    map(([payload, namespaceId]) => namespaceActions.updateRequested({ namespaceId, namespace: payload.namespace }))
-  ));
+  updateMetadata$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(namespaceMetadataPageActions.metadataChangesSubmitted),
+      withLatestFrom(
+        this.store.select(NamespaceEditorPageSelectors.getNamespaceId)
+      ),
+      map(([payload, namespaceId]) =>
+        namespaceActions.updateRequested({
+          namespaceId,
+          namespace: payload.namespace,
+        })
+      )
+    )
+  );
 
-  metadataUpdated$ = createEffect(() => this.actions$.pipe(
-    ofType(namespaceActions.namespaceUpdated),
-    map(() => namespaceMetadataPageActions.metadataUpdated())
-  ));
+  metadataUpdated$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(namespaceActions.namespaceUpdated),
+      map(() => namespaceMetadataPageActions.metadataUpdated())
+    )
+  );
 
-  metadataUpdateFailed$ = createEffect(() => this.actions$.pipe(
-    ofType(namespaceActions.updateFailed),
-    map(x => namespaceMetadataPageActions.metadataUpdateFailed(x))
-  ));
+  metadataUpdateFailed$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(namespaceActions.updateFailed),
+      map((x) => namespaceMetadataPageActions.metadataUpdateFailed(x))
+    )
+  );
 }

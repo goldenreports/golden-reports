@@ -13,10 +13,7 @@ import { IconsProviderModule } from './icons-provider.module';
 import { AppLayoutComponent, HeaderComponent } from './components';
 
 @NgModule({
-  declarations: [
-    AppLayoutComponent,
-    HeaderComponent
-  ],
+  declarations: [AppLayoutComponent, HeaderComponent],
   imports: [
     CommonModule,
     IconsProviderModule,
@@ -29,14 +26,14 @@ import { AppLayoutComponent, HeaderComponent } from './components';
     NzDividerModule,
     NzDropDownModule,
   ],
-  exports: [
-    AppLayoutComponent
-  ]
+  exports: [AppLayoutComponent],
 })
 export class LayoutModule {
   constructor(@Optional() @SkipSelf() parentModule: LayoutModule) {
     if (parentModule) {
-      throw new Error('LayoutModule is already loaded. Import it in the LayoutModule only');
+      throw new Error(
+        'LayoutModule is already loaded. Import it in the LayoutModule only'
+      );
     }
   }
 }

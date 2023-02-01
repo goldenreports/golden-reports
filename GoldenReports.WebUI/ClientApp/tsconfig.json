@@ -15,29 +15,14 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
-    "lib": [
-      "ES2022",
-      "dom"
-    ],
+    "lib": ["ES2022", "dom"],
     "paths": {
-      "@app/*": [
-        "src/app/*"
-      ],
-      "@core/*": [
-        "src/app/core/*"
-      ],
-      "@errors/*": [
-        "src/app/errors/*"
-      ],
-      "@shared": [
-        "src/app/shared"
-      ],
-      "@shared/*": [
-        "src/app/shared/*"
-      ],
-      "@features/*": [
-        "src/app/features/*"
-      ]
+      "@app/*": ["src/app/*"],
+      "@core/*": ["src/app/core/*"],
+      "@errors/*": ["src/app/errors/*"],
+      "@shared": ["src/app/shared"],
+      "@shared/*": ["src/app/shared/*"],
+      "@features/*": ["src/app/features/*"]
     },
     "useDefineForClassFields": false
   },

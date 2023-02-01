@@ -8,22 +8,44 @@ import { NamespaceEditorPageSelectors } from '@features/namespaces/store/namespa
 import { NamespaceSelectors } from '@core/store/namespace';
 
 export class NamespaceListPageSelectors {
-  public static readonly getState = createSelector(selectNamespaceFeature, state => state[NamespaceListPageStateKey]);
+  public static readonly getState = createSelector(
+    selectNamespaceFeature,
+    (state) => state[NamespaceListPageStateKey]
+  );
 
-  public static readonly getIsOpenFlag = createSelector(NamespaceListPageSelectors.getState, state => state?.isOpen);
+  public static readonly getIsOpenFlag = createSelector(
+    NamespaceListPageSelectors.getState,
+    (state) => state?.isOpen
+  );
 
-  public static readonly getLoadingFlag = createSelector(NamespaceListPageSelectors.getState, state => state?.loading);
+  public static readonly getLoadingFlag = createSelector(
+    NamespaceListPageSelectors.getState,
+    (state) => state?.loading
+  );
 
-  public static readonly getError = createSelector(NamespaceListPageSelectors.getState, state => state?.error);
+  public static readonly getError = createSelector(
+    NamespaceListPageSelectors.getState,
+    (state) => state?.error
+  );
 
   public static readonly getChildren = createSelector(
     NamespaceEditorPageSelectors.getNamespaceId,
     NamespaceSelectors.getAll,
-    (namespaceId, allNamespaces) => namespaceId ? allNamespaces?.filter(x => x.parentId === namespaceId) : []);
+    (namespaceId, allNamespaces) =>
+      namespaceId
+        ? allNamespaces?.filter((x) => x.parentId === namespaceId)
+        : []
+  );
 
-  public static readonly getShowingNewNamespaceModalFlag = createSelector(NamespaceListPageSelectors.getState, state => state?.showingNewNamespaceModal);
+  public static readonly getShowingNewNamespaceModalFlag = createSelector(
+    NamespaceListPageSelectors.getState,
+    (state) => state?.showingNewNamespaceModal
+  );
 
-  public static readonly getSavingFlag = createSelector(NamespaceListPageSelectors.getState, state => state?.saving);
+  public static readonly getSavingFlag = createSelector(
+    NamespaceListPageSelectors.getState,
+    (state) => state?.saving
+  );
 
   public static readonly getViewModel = createSelector(
     NamespaceListPageSelectors.getLoadingFlag,
@@ -31,12 +53,13 @@ export class NamespaceListPageSelectors {
     NamespaceListPageSelectors.getChildren,
     NamespaceListPageSelectors.getShowingNewNamespaceModalFlag,
     NamespaceListPageSelectors.getSavingFlag,
-    (loading, error, children, showingNewNamespaceModal, saving) => ({
-      loading,
-      error,
-      children,
-      showingNewNamespaceModal,
-      saving
-    } as NamespaceListVm)
-  )
+    (loading, error, children, showingNewNamespaceModal, saving) =>
+      ({
+        loading,
+        error,
+        children,
+        showingNewNamespaceModal,
+        saving,
+      } as NamespaceListVm)
+  );
 }

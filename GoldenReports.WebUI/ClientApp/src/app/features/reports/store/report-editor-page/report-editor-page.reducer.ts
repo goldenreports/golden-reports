@@ -23,12 +23,12 @@ export const initialReportState: ReportDto = {
     <gr-section name="Report Footer" height="Auto"></gr-section>
   </gr-page>
 </gr-report>
-`
-}
+`,
+};
 
 export const initialState: ReportEditorPageState = {
   loading: false,
-  report: initialReportState
+  report: initialReportState,
 };
 
 export const reportEditorPageReducer = createReducer(
@@ -36,7 +36,7 @@ export const reportEditorPageReducer = createReducer(
   on(reportEditorPageActions.opened, (state) => {
     return {
       ...state,
-      loading: true
-    }
+      loading: true,
+    };
   })
 );

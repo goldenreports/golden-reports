@@ -10,12 +10,20 @@ import { reportActions } from '@core/store/report';
 
 @Injectable()
 export class ReportListPageEffects {
-  constructor(private readonly actions$: Actions, private readonly store: Store<AppState>) {
-  }
+  constructor(
+    private readonly actions$: Actions,
+    private readonly store: Store<AppState>
+  ) {}
 
-  loadDataSources$ = createEffect(() => this.actions$.pipe(
-    ofType(reportListPageActions.opened),
-    withLatestFrom(this.store.select(RouterSelectors.getParam('namespaceId'))),
-    map(([, namespaceId]) => reportActions.namespaceReportsRequested({ namespaceId }))
-  ));
+  loadDataSources$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(reportListPageActions.opened),
+      withLatestFrom(
+        this.store.select(RouterSelectors.getParam('namespaceId'))
+      ),
+      map(([, namespaceId]) =>
+        reportActions.namespaceReportsRequested({ namespaceId })
+      )
+    )
+  );
 }

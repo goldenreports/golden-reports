@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { NotFoundComponent, ServerErrorComponent, UnauthorizedComponent } from './pages';
+import {
+  NotFoundComponent,
+  ServerErrorComponent,
+  UnauthorizedComponent,
+} from './pages';
 
 const routes: Routes = [
   { path: 'not-found', component: NotFoundComponent },
@@ -12,7 +16,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ErrorsRoutingModule {
-}
+export class ErrorsRoutingModule {}

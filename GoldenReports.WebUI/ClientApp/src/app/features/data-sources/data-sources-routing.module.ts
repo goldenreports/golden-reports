@@ -7,19 +7,16 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: DataSourceListComponent
+    component: DataSourceListComponent,
   },
   {
     path: ':dataSourceId',
-    component: DataSourceEditorComponent
-  }
+    component: DataSourceEditorComponent,
+  },
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes)
-  ],
-  exports: [RouterModule]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class DataSourcesRoutingModule {
-}
+export class DataSourcesRoutingModule {}

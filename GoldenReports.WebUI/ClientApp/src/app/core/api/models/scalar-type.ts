@@ -10,5 +10,5 @@ export enum ScalarType {
   Date = 'Date',
   Time = 'Time',
   DateTime = 'DateTime',
-  DateRange = 'DateRange'
+  DateRange = 'DateRange',
 }

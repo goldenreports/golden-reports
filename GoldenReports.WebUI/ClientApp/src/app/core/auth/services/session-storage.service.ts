@@ -6,8 +6,12 @@ class FakeStorage implements Storage {
   [name: string]: any;
   readonly length: number = 0;
   clear(): void {}
-  getItem(key: string): string | null {return null;}
-  key(index: number): string | null {return null;}
+  getItem(key: string): string | null {
+    return null;
+  }
+  key(index: number): string | null {
+    return null;
+  }
   removeItem(key: string): void {}
   setItem(key: string, value: string): void {}
 }
@@ -17,7 +21,9 @@ export class SessionStorageService implements OAuthStorage {
   private readonly storage: Storage;
 
   constructor(@Inject(PLATFORM_ID) platformId: any) {
-    this.storage = isPlatformServer(platformId) ? new FakeStorage() : localStorage;
+    this.storage = isPlatformServer(platformId)
+      ? new FakeStorage()
+      : localStorage;
   }
 
   getItem(key: string): string | null {

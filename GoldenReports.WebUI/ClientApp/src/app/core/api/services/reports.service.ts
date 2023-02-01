@@ -20,10 +20,7 @@ import { UpsertAssetDto } from '../models/upsert-asset-dto';
   providedIn: 'root',
 })
 export class ReportsService extends BaseService {
-  constructor(
-    config: ApiConfiguration,
-    http: HttpClient
-  ) {
+  constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
   }
 
@@ -40,25 +37,31 @@ export class ReportsService extends BaseService {
    */
   getReports$Response(params?: {
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<ReportListItemDto>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, ReportsService.GetReportsPath, 'get');
+    context?: HttpContext;
+  }): Observable<StrictHttpResponse<Array<ReportListItemDto>>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      ReportsService.GetReportsPath,
+      'get'
+    );
     if (params) {
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<ReportListItemDto>>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'json',
+          accept: 'application/json',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<Array<ReportListItemDto>>;
+        })
+      );
   }
 
   /**
@@ -69,12 +72,13 @@ export class ReportsService extends BaseService {
    */
   getReports(params?: {
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<Array<ReportListItemDto>> {
-
+    context?: HttpContext;
+  }): Observable<Array<ReportListItemDto>> {
     return this.getReports$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<ReportListItemDto>>) => r.body as Array<ReportListItemDto>)
+      map(
+        (r: StrictHttpResponse<Array<ReportListItemDto>>) =>
+          r.body as Array<ReportListItemDto>
+      )
     );
   }
 
@@ -91,27 +95,33 @@ export class ReportsService extends BaseService {
    */
   createReport$Response(params?: {
     'x-Version'?: string;
-    context?: HttpContext
-    body?: CreateReportDto
-  }
-): Observable<StrictHttpResponse<ReportDto>> {
-
-    const rb = new RequestBuilder(this.rootUrl, ReportsService.CreateReportPath, 'post');
+    context?: HttpContext;
+    body?: CreateReportDto;
+  }): Observable<StrictHttpResponse<ReportDto>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      ReportsService.CreateReportPath,
+      'post'
+    );
     if (params) {
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
       rb.body(params.body, 'application/*+json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<ReportDto>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'json',
+          accept: 'application/json',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<ReportDto>;
+        })
+      );
   }
 
   /**
@@ -122,11 +132,9 @@ export class ReportsService extends BaseService {
    */
   createReport(params?: {
     'x-Version'?: string;
-    context?: HttpContext
-    body?: CreateReportDto
-  }
-): Observable<ReportDto> {
-
+    context?: HttpContext;
+    body?: CreateReportDto;
+  }): Observable<ReportDto> {
     return this.createReport$Response(params).pipe(
       map((r: StrictHttpResponse<ReportDto>) => r.body as ReportDto)
     );
@@ -146,26 +154,32 @@ export class ReportsService extends BaseService {
   getReportById$Response(params: {
     reportId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<ReportDto>> {
-
-    const rb = new RequestBuilder(this.rootUrl, ReportsService.GetReportByIdPath, 'get');
+    context?: HttpContext;
+  }): Observable<StrictHttpResponse<ReportDto>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      ReportsService.GetReportByIdPath,
+      'get'
+    );
     if (params) {
-      rb.path('reportId', params.reportId, {"style":"simple"});
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.path('reportId', params.reportId, { style: 'simple' });
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<ReportDto>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'json',
+          accept: 'application/json',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<ReportDto>;
+        })
+      );
   }
 
   /**
@@ -177,10 +191,8 @@ export class ReportsService extends BaseService {
   getReportById(params: {
     reportId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<ReportDto> {
-
+    context?: HttpContext;
+  }): Observable<ReportDto> {
     return this.getReportById$Response(params).pipe(
       map((r: StrictHttpResponse<ReportDto>) => r.body as ReportDto)
     );
@@ -200,28 +212,34 @@ export class ReportsService extends BaseService {
   updateReport$Response(params: {
     reportId: string;
     'x-Version'?: string;
-    context?: HttpContext
-    body?: UpdateReportDto
-  }
-): Observable<StrictHttpResponse<ReportDto>> {
-
-    const rb = new RequestBuilder(this.rootUrl, ReportsService.UpdateReportPath, 'put');
+    context?: HttpContext;
+    body?: UpdateReportDto;
+  }): Observable<StrictHttpResponse<ReportDto>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      ReportsService.UpdateReportPath,
+      'put'
+    );
     if (params) {
-      rb.path('reportId', params.reportId, {"style":"simple"});
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.path('reportId', params.reportId, { style: 'simple' });
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
       rb.body(params.body, 'application/*+json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<ReportDto>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'json',
+          accept: 'application/json',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<ReportDto>;
+        })
+      );
   }
 
   /**
@@ -233,11 +251,9 @@ export class ReportsService extends BaseService {
   updateReport(params: {
     reportId: string;
     'x-Version'?: string;
-    context?: HttpContext
-    body?: UpdateReportDto
-  }
-): Observable<ReportDto> {
-
+    context?: HttpContext;
+    body?: UpdateReportDto;
+  }): Observable<ReportDto> {
     return this.updateReport$Response(params).pipe(
       map((r: StrictHttpResponse<ReportDto>) => r.body as ReportDto)
     );
@@ -257,26 +273,34 @@ export class ReportsService extends BaseService {
   deleteReport$Response(params: {
     reportId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, ReportsService.DeleteReportPath, 'delete');
+    context?: HttpContext;
+  }): Observable<StrictHttpResponse<void>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      ReportsService.DeleteReportPath,
+      'delete'
+    );
     if (params) {
-      rb.path('reportId', params.reportId, {"style":"simple"});
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.path('reportId', params.reportId, { style: 'simple' });
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
     }
 
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'text',
+          accept: '*/*',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return (r as HttpResponse<any>).clone({
+            body: undefined,
+          }) as StrictHttpResponse<void>;
+        })
+      );
   }
 
   /**
@@ -288,10 +312,8 @@ export class ReportsService extends BaseService {
   deleteReport(params: {
     reportId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<void> {
-
+    context?: HttpContext;
+  }): Observable<void> {
     return this.deleteReport$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
@@ -312,29 +334,35 @@ export class ReportsService extends BaseService {
     namespaceId?: string;
     reportId: string;
     'x-Version'?: string;
-    context?: HttpContext
-    body?: UpsertAssetDto
-  }
-): Observable<StrictHttpResponse<Array<AssetDto>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, ReportsService.AddReportAssetPath, 'post');
+    context?: HttpContext;
+    body?: UpsertAssetDto;
+  }): Observable<StrictHttpResponse<Array<AssetDto>>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      ReportsService.AddReportAssetPath,
+      'post'
+    );
     if (params) {
-      rb.query('namespaceId', params.namespaceId, {"style":"form"});
-      rb.path('reportId', params.reportId, {"style":"simple"});
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.query('namespaceId', params.namespaceId, { style: 'form' });
+      rb.path('reportId', params.reportId, { style: 'simple' });
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
       rb.body(params.body, 'application/*+json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<AssetDto>>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'json',
+          accept: 'application/json',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<Array<AssetDto>>;
+        })
+      );
   }
 
   /**
@@ -347,11 +375,9 @@ export class ReportsService extends BaseService {
     namespaceId?: string;
     reportId: string;
     'x-Version'?: string;
-    context?: HttpContext
-    body?: UpsertAssetDto
-  }
-): Observable<Array<AssetDto>> {
-
+    context?: HttpContext;
+    body?: UpsertAssetDto;
+  }): Observable<Array<AssetDto>> {
     return this.addReportAsset$Response(params).pipe(
       map((r: StrictHttpResponse<Array<AssetDto>>) => r.body as Array<AssetDto>)
     );
@@ -371,26 +397,32 @@ export class ReportsService extends BaseService {
   getReportAsset$Response(params: {
     assetId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<AssetDto>> {
-
-    const rb = new RequestBuilder(this.rootUrl, ReportsService.GetReportAssetPath, 'get');
+    context?: HttpContext;
+  }): Observable<StrictHttpResponse<AssetDto>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      ReportsService.GetReportAssetPath,
+      'get'
+    );
     if (params) {
-      rb.path('assetId', params.assetId, {"style":"simple"});
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.path('assetId', params.assetId, { style: 'simple' });
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<AssetDto>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'json',
+          accept: 'application/json',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<AssetDto>;
+        })
+      );
   }
 
   /**
@@ -402,10 +434,8 @@ export class ReportsService extends BaseService {
   getReportAsset(params: {
     assetId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<AssetDto> {
-
+    context?: HttpContext;
+  }): Observable<AssetDto> {
     return this.getReportAsset$Response(params).pipe(
       map((r: StrictHttpResponse<AssetDto>) => r.body as AssetDto)
     );
@@ -425,28 +455,34 @@ export class ReportsService extends BaseService {
   updateReportAsset$Response(params: {
     assetId: string;
     'x-Version'?: string;
-    context?: HttpContext
-    body?: UpsertAssetDto
-  }
-): Observable<StrictHttpResponse<AssetDto>> {
-
-    const rb = new RequestBuilder(this.rootUrl, ReportsService.UpdateReportAssetPath, 'put');
+    context?: HttpContext;
+    body?: UpsertAssetDto;
+  }): Observable<StrictHttpResponse<AssetDto>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      ReportsService.UpdateReportAssetPath,
+      'put'
+    );
     if (params) {
-      rb.path('assetId', params.assetId, {"style":"simple"});
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.path('assetId', params.assetId, { style: 'simple' });
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
       rb.body(params.body, 'application/*+json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<AssetDto>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'json',
+          accept: 'application/json',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<AssetDto>;
+        })
+      );
   }
 
   /**
@@ -458,11 +494,9 @@ export class ReportsService extends BaseService {
   updateReportAsset(params: {
     assetId: string;
     'x-Version'?: string;
-    context?: HttpContext
-    body?: UpsertAssetDto
-  }
-): Observable<AssetDto> {
-
+    context?: HttpContext;
+    body?: UpsertAssetDto;
+  }): Observable<AssetDto> {
     return this.updateReportAsset$Response(params).pipe(
       map((r: StrictHttpResponse<AssetDto>) => r.body as AssetDto)
     );
@@ -482,26 +516,34 @@ export class ReportsService extends BaseService {
   deleteReportAsset$Response(params: {
     assetId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, ReportsService.DeleteReportAssetPath, 'delete');
+    context?: HttpContext;
+  }): Observable<StrictHttpResponse<void>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      ReportsService.DeleteReportAssetPath,
+      'delete'
+    );
     if (params) {
-      rb.path('assetId', params.assetId, {"style":"simple"});
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.path('assetId', params.assetId, { style: 'simple' });
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
     }
 
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'text',
+          accept: '*/*',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return (r as HttpResponse<any>).clone({
+            body: undefined,
+          }) as StrictHttpResponse<void>;
+        })
+      );
   }
 
   /**
@@ -513,13 +555,10 @@ export class ReportsService extends BaseService {
   deleteReportAsset(params: {
     assetId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<void> {
-
+    context?: HttpContext;
+  }): Observable<void> {
     return this.deleteReportAsset$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }
-
 }

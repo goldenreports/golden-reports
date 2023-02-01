@@ -4,7 +4,7 @@ import { ErrorDto } from '@core/api';
 import { namespaceActions } from '@core/store/namespace';
 import { namespaceEditorPageActions } from './namespace-editor-page.actions';
 
-export const NamespaceEditorPageStateKey = "namespaceEditorPage";
+export const NamespaceEditorPageStateKey = 'namespaceEditorPage';
 
 export interface NamespaceEditorPageState {
   loaded: boolean;
@@ -14,7 +14,7 @@ export interface NamespaceEditorPageState {
 
 const initialState: NamespaceEditorPageState = {
   loaded: false,
-  loadingPath: false
+  loadingPath: false,
 };
 
 export const namespaceEditorPageReducer = createReducer(
@@ -23,30 +23,38 @@ export const namespaceEditorPageReducer = createReducer(
     return {
       ...state,
       loaded: true,
-      error: undefined
+      error: undefined,
+    };
+  }),
+  on(
+    namespaceEditorPageActions.namespaceSelectionChanged,
+    (state, { namespaceId }) => {
+      return {
+        ...state,
+        loadingPath: !!namespaceId,
+        error: undefined,
+      };
     }
-  }),
-  on(namespaceEditorPageActions.namespaceSelectionChanged, (state, { namespaceId }) => {
-    return {
-      ...state,
-      loadingPath: !!namespaceId,
-      error: undefined
-    };
-  }),
-  on(namespaceActions.rootNamespaceFetched, namespaceActions.namespaceFetched, (state) => {
-    return {
-      ...state,
-      loadingPath: false
-    };
-  }),
-  on(namespaceActions.rootNamespaceFetchFailed,
-     namespaceActions.namespaceFetchFailed,
+  ),
+  on(
+    namespaceActions.rootNamespaceFetched,
+    namespaceActions.namespaceFetched,
+    (state) => {
+      return {
+        ...state,
+        loadingPath: false,
+      };
+    }
+  ),
+  on(
+    namespaceActions.rootNamespaceFetchFailed,
+    namespaceActions.namespaceFetchFailed,
     (state, { error }) => {
-    return {
-      ...state,
-      loadingPath: false,
-      error
-    };
-  })
+      return {
+        ...state,
+        loadingPath: false,
+        error,
+      };
+    }
+  )
 );
-

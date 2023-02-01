@@ -6,16 +6,17 @@ import { AppConfig } from './../models';
 
 @Injectable({ providedIn: 'root' })
 export class ConfigService {
-  private appConfig!:AppConfig;
+  private appConfig!: AppConfig;
 
   public get app(): AppConfig {
     return this.appConfig;
   }
 
-  constructor(private readonly httpClient: HttpClient) {
-  }
+  constructor(private readonly httpClient: HttpClient) {}
 
   public async loadConfiguration(): Promise<void> {
-    this.appConfig = await firstValueFrom(this.httpClient.get<AppConfig>('/settings'));
+    this.appConfig = await firstValueFrom(
+      this.httpClient.get<AppConfig>('/settings')
+    );
   }
 }

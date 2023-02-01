@@ -3,26 +3,28 @@
   <a nz-button nzType="primary" routerLink="./new">Add New Data Context</a>
   <nz-table [nzData]="vm.dataContexts" [nzLoading]="vm.loading" nzSize="middle">
     <thead>
-    <tr>
-      <th>Name</th>
-      <th>Creation Date</th>
-      <th>Created By</th>
-      <th>Modification Date</th>
-      <th>Modified By</th>
-      <th>Actions</th>
-    </tr>
+      <tr>
+        <th>Name</th>
+        <th>Creation Date</th>
+        <th>Created By</th>
+        <th>Modification Date</th>
+        <th>Modified By</th>
+        <th>Actions</th>
+      </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let dataContext of vm.dataContexts">
-      <td><a routerLink="./{{dataContext.id}}">{{dataContext.name}}</a></td>
-      <td>{{dataContext.creationDate | date: 'short'}}</td>
-      <td>{{dataContext.createdBy}}</td>
-      <td>{{dataContext.modificationDate | date: 'short'}}</td>
-      <td>{{dataContext.modifiedBy}}</td>
-      <td>
-        <a>Delete</a>
-      </td>
-    </tr>
+      <tr *ngFor="let dataContext of vm.dataContexts">
+        <td>
+          <a routerLink="./{{ dataContext.id }}">{{ dataContext.name }}</a>
+        </td>
+        <td>{{ dataContext.creationDate | date : 'short' }}</td>
+        <td>{{ dataContext.createdBy }}</td>
+        <td>{{ dataContext.modificationDate | date : 'short' }}</td>
+        <td>{{ dataContext.modifiedBy }}</td>
+        <td>
+          <a>Delete</a>
+        </td>
+      </tr>
     </tbody>
   </nz-table>
 </ng-container>

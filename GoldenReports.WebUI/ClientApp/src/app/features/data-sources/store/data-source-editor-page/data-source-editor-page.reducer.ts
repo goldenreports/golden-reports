@@ -5,7 +5,7 @@ import { ErrorDto } from '@core/api';
 import { dataSourceEditorPageActions } from './data-source-editor-page.actions';
 import { formActions } from '@shared/store';
 
-export const DataSourceEditorPageStateKey = "dataSourceEditorPage";
+export const DataSourceEditorPageStateKey = 'dataSourceEditorPage';
 
 export interface DataSourceEditorPageState {
   loading: boolean;
@@ -19,8 +19,8 @@ export const initialState: DataSourceEditorPageState = {
   loading: false,
   isNewDataSource: false,
   saving: false,
-  hasValidData: false
-}
+  hasValidData: false,
+};
 
 export const dataSourceEditorPageReducer = createReducer(
   initialState,
@@ -30,47 +30,65 @@ export const dataSourceEditorPageReducer = createReducer(
       error: undefined,
       loading: true,
       isNewDataSource: false,
-      saving: false
-    }
+      saving: false,
+    };
   }),
   on(dataSourceEditorPageActions.creationStarted, (state) => {
     return {
       ...state,
       loading: false,
-      isNewDataSource: true
-    }
+      isNewDataSource: true,
+    };
   }),
-  on(dataSourceEditorPageActions.newDataSourceSubmitted, dataSourceEditorPageActions.changesSubmitted, (state) => {
-    return {
-      ...state,
-      error: undefined,
-      saving: true
+  on(
+    dataSourceEditorPageActions.newDataSourceSubmitted,
+    dataSourceEditorPageActions.changesSubmitted,
+    (state) => {
+      return {
+        ...state,
+        error: undefined,
+        saving: true,
+      };
     }
-  }),
-  on(dataSourceEditorPageActions.creationFailed, dataSourceEditorPageActions.updateFailed, (state, { error }) => {
-    return {
-      ...state,
-      error,
-      saving: false
+  ),
+  on(
+    dataSourceEditorPageActions.creationFailed,
+    dataSourceEditorPageActions.updateFailed,
+    (state, { error }) => {
+      return {
+        ...state,
+        error,
+        saving: false,
+      };
     }
-  }),
-  on(dataSourceActions.dataSourceCreated, dataSourceActions.dataSourceUpdated, (state) => {
-    return {
-      ...state,
-      isNewDataSource: false,
-      saving: false
+  ),
+  on(
+    dataSourceActions.dataSourceCreated,
+    dataSourceActions.dataSourceUpdated,
+    (state) => {
+      return {
+        ...state,
+        isNewDataSource: false,
+        saving: false,
+      };
     }
-  }),
-  on(dataSourceActions.dataSourceFetched, dataSourceActions.dataSourceFetchFailed, (state) => {
-    return {
-      ...state,
-      loading: false
+  ),
+  on(
+    dataSourceActions.dataSourceFetched,
+    dataSourceActions.dataSourceFetchFailed,
+    (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
     }
-  }),
+  ),
   on(formActions.formValidityChanged, (state, { formId, valid }) => {
-    return formId === 'dataSource' ? {
-      ...state,
-      hasValidData: valid
-    } : state;
+    return formId === 'dataSource'
+      ? {
+          ...state,
+          hasValidData: valid,
+        }
+      : state;
   })
 );

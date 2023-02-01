@@ -11,9 +11,14 @@
   </div>
 
   <div class="header-actions">
-    <a class="user-button" nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
+    <a
+      class="user-button"
+      nz-dropdown
+      nzTrigger="click"
+      [nzDropdownMenu]="menu"
+    >
       <span nz-icon nzType="user"></span>
-      <span class="username">{{userName$ | async}}</span>
+      <span class="username">{{ userName$ | async }}</span>
       <span nz-icon nzType="down"></span>
     </a>
     <nz-dropdown-menu #menu="nzDropdownMenu">

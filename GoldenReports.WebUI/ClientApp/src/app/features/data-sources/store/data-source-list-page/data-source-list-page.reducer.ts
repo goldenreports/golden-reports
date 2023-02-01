@@ -4,7 +4,7 @@ import { dataSourceActions } from '@core/store/data-source';
 import { ErrorDto } from '@core/api';
 import { dataSourceListPageActions } from './data-source-list-page.actions';
 
-export const DataSourceListPageStateKey = "dataSourceListPage";
+export const DataSourceListPageStateKey = 'dataSourceListPage';
 
 export interface DataSourceListPageState {
   loading: boolean;
@@ -12,8 +12,8 @@ export interface DataSourceListPageState {
 }
 
 export const initialState: DataSourceListPageState = {
-  loading: false
-}
+  loading: false,
+};
 
 export const dataSourceListPageReducer = createReducer(
   initialState,
@@ -21,13 +21,17 @@ export const dataSourceListPageReducer = createReducer(
     return {
       ...state,
       error: undefined,
-      loading: true
-    }
+      loading: true,
+    };
   }),
-  on(dataSourceActions.namespaceDataSourcesFetched, dataSourceActions.namespaceDataSourcesFetchFailed, (state) => {
-    return {
-      ...state,
-      loading: false
+  on(
+    dataSourceActions.namespaceDataSourcesFetched,
+    dataSourceActions.namespaceDataSourcesFetchFailed,
+    (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
     }
-  })
+  )
 );

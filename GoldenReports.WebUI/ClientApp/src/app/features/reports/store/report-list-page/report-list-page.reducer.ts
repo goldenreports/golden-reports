@@ -14,7 +14,7 @@ export interface ReportListPageState {
 
 export const initialState: ReportListPageState = {
   loading: false,
-  reports: []
+  reports: [],
 };
 
 export const reportListPageReducer = createReducer(
@@ -23,20 +23,20 @@ export const reportListPageReducer = createReducer(
     return {
       ...state,
       error: undefined,
-      loading: true
-    }
+      loading: true,
+    };
   }),
   on(reportActions.namespaceReportsFetched, (state) => {
     return {
       ...state,
-      loading: false
-    }
+      loading: false,
+    };
   }),
-  on(reportActions.namespaceReportsFetchFailed, (state, {error}) => {
+  on(reportActions.namespaceReportsFetchFailed, (state, { error }) => {
     return {
       ...state,
       loading: false,
-      error
-    }
+      error,
+    };
   })
 );

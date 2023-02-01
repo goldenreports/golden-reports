@@ -3,6 +3,5 @@ import { Actions } from '@ngrx/effects';
 
 @Injectable()
 export class ReportEditorPageEffects {
-  constructor(private readonly actions$: Actions) {
-  }
+  constructor(private readonly actions$: Actions) {}
 }

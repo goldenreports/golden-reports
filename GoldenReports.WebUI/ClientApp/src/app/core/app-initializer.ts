@@ -1,4 +1,10 @@
-import { APP_INITIALIZER, FactoryProvider, Injector, isDevMode, PLATFORM_ID } from '@angular/core';
+import {
+  APP_INITIALIZER,
+  FactoryProvider,
+  Injector,
+  isDevMode,
+  PLATFORM_ID,
+} from '@angular/core';
 import { isPlatformServer, DOCUMENT } from '@angular/common';
 import { Store } from '@ngrx/store';
 
@@ -7,14 +13,13 @@ import { AuthService } from '@core/auth';
 import { ConfigService } from '@core/config';
 import { authActions } from '@core/store/auth';
 
-
 /* TODO: Refactor this once async factory provider is added to angular:
  * https://github.com/angular/angular/issues/23279
  */
 
-function appInitializerFactory(injector: Injector) : () => Promise<void> {
+function appInitializerFactory(injector: Injector): () => Promise<void> {
   const platformId = injector.get(PLATFORM_ID);
-  if(isPlatformServer(platformId)) {
+  if (isPlatformServer(platformId)) {
     return () => Promise.resolve();
   }
 
@@ -22,10 +27,12 @@ function appInitializerFactory(injector: Injector) : () => Promise<void> {
     const configService = injector.get<ConfigService>(ConfigService);
     await initializeConfig(configService);
 
-    await initializeAuth(configService,
+    await initializeAuth(
+      configService,
       injector.get<AuthService>(AuthService),
       injector.get<Store<AppState>>(Store<AppState>),
-      injector.get<Document>(DOCUMENT));
+      injector.get<Document>(DOCUMENT)
+    );
   };
 }
 
@@ -34,7 +41,11 @@ function initializeConfig(configService: ConfigService): Promise<void> {
 }
 
 async function initializeAuth(
-  config: ConfigService, authService: AuthService, store: Store<AppState>, document: Document): Promise<void> {
+  config: ConfigService,
+  authService: AuthService,
+  store: Store<AppState>,
+  document: Document
+): Promise<void> {
   const hostUrl = `${document.location.protocol}//${document.location.host}/`;
   const authConfig = {
     ...config.app.auth,
@@ -42,7 +53,7 @@ async function initializeAuth(
     silentRefreshRedirectUri: `${hostUrl}silent-refresh.html`,
   };
 
-  if(isDevMode()) {
+  if (isDevMode()) {
     console.debug(authConfig);
   }
 
@@ -51,8 +62,9 @@ async function initializeAuth(
   let redirectUrl =
     authService.state &&
     authService.state !== 'undefined' &&
-    authService.state !== 'null' ?
-      authService.state : document.location.pathname;
+    authService.state !== 'null'
+      ? authService.state
+      : document.location.pathname;
 
   if (redirectUrl && !redirectUrl.startsWith('/')) {
     redirectUrl = decodeURIComponent(redirectUrl);
@@ -65,5 +77,5 @@ export const appInitializer = {
   provide: APP_INITIALIZER,
   useFactory: appInitializerFactory,
   deps: [Injector],
-  multi: true
+  multi: true,
 } as FactoryProvider;

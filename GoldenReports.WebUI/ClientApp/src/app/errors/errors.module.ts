@@ -4,22 +4,19 @@ import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 
 import { ErrorsRoutingModule } from './errors-routing.module';
-import { NotFoundComponent, ServerErrorComponent, UnauthorizedComponent } from './pages';
-
+import {
+  NotFoundComponent,
+  ServerErrorComponent,
+  UnauthorizedComponent,
+} from './pages';
 
 @NgModule({
   declarations: [
     NotFoundComponent,
     UnauthorizedComponent,
-    ServerErrorComponent
+    ServerErrorComponent,
   ],
-  imports: [
-    CommonModule,
-    ErrorsRoutingModule,
-    NzResultModule,
-    NzButtonModule
-  ],
-  exports: []
+  imports: [CommonModule, ErrorsRoutingModule, NzResultModule, NzButtonModule],
+  exports: [],
 })
-export class ErrorsModule {
-}
+export class ErrorsModule {}

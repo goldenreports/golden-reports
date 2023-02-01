@@ -10,9 +10,7 @@ import { DashboardComponent } from './pages';
 import { SharedModule } from '@shared';
 
 @NgModule({
-  declarations: [
-    DashboardComponent
-  ],
+  declarations: [DashboardComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,
@@ -20,7 +18,7 @@ import { SharedModule } from '@shared';
     NzListModule,
     NzButtonModule,
     NzLayoutModule,
-    SharedModule
-  ]
+    SharedModule,
+  ],
 })
 export class DashboardModule {}

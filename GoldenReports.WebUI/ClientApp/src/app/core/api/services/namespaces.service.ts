@@ -22,10 +22,7 @@ import { UpsertAssetDto } from '../models/upsert-asset-dto';
   providedIn: 'root',
 })
 export class NamespacesService extends BaseService {
-  constructor(
-    config: ApiConfiguration,
-    http: HttpClient
-  ) {
+  constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
   }
 
@@ -42,25 +39,31 @@ export class NamespacesService extends BaseService {
    */
   getRootNamespace$Response(params?: {
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<NamespaceDto>> {
-
-    const rb = new RequestBuilder(this.rootUrl, NamespacesService.GetRootNamespacePath, 'get');
+    context?: HttpContext;
+  }): Observable<StrictHttpResponse<NamespaceDto>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      NamespacesService.GetRootNamespacePath,
+      'get'
+    );
     if (params) {
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<NamespaceDto>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'json',
+          accept: 'application/json',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<NamespaceDto>;
+        })
+      );
   }
 
   /**
@@ -71,10 +74,8 @@ export class NamespacesService extends BaseService {
    */
   getRootNamespace(params?: {
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<NamespaceDto> {
-
+    context?: HttpContext;
+  }): Observable<NamespaceDto> {
     return this.getRootNamespace$Response(params).pipe(
       map((r: StrictHttpResponse<NamespaceDto>) => r.body as NamespaceDto)
     );
@@ -94,26 +95,32 @@ export class NamespacesService extends BaseService {
   getNamespace$Response(params: {
     namespaceId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<NamespaceDto>> {
-
-    const rb = new RequestBuilder(this.rootUrl, NamespacesService.GetNamespacePath, 'get');
+    context?: HttpContext;
+  }): Observable<StrictHttpResponse<NamespaceDto>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      NamespacesService.GetNamespacePath,
+      'get'
+    );
     if (params) {
-      rb.path('namespaceId', params.namespaceId, {"style":"simple"});
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.path('namespaceId', params.namespaceId, { style: 'simple' });
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<NamespaceDto>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'json',
+          accept: 'application/json',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<NamespaceDto>;
+        })
+      );
   }
 
   /**
@@ -125,10 +132,8 @@ export class NamespacesService extends BaseService {
   getNamespace(params: {
     namespaceId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<NamespaceDto> {
-
+    context?: HttpContext;
+  }): Observable<NamespaceDto> {
     return this.getNamespace$Response(params).pipe(
       map((r: StrictHttpResponse<NamespaceDto>) => r.body as NamespaceDto)
     );
@@ -148,28 +153,34 @@ export class NamespacesService extends BaseService {
   updateNamespace$Response(params: {
     namespaceId: string;
     'x-Version'?: string;
-    context?: HttpContext
-    body?: UpdateNamespaceDto
-  }
-): Observable<StrictHttpResponse<NamespaceDto>> {
-
-    const rb = new RequestBuilder(this.rootUrl, NamespacesService.UpdateNamespacePath, 'put');
+    context?: HttpContext;
+    body?: UpdateNamespaceDto;
+  }): Observable<StrictHttpResponse<NamespaceDto>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      NamespacesService.UpdateNamespacePath,
+      'put'
+    );
     if (params) {
-      rb.path('namespaceId', params.namespaceId, {"style":"simple"});
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.path('namespaceId', params.namespaceId, { style: 'simple' });
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
       rb.body(params.body, 'application/*+json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<NamespaceDto>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'json',
+          accept: 'application/json',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<NamespaceDto>;
+        })
+      );
   }
 
   /**
@@ -181,11 +192,9 @@ export class NamespacesService extends BaseService {
   updateNamespace(params: {
     namespaceId: string;
     'x-Version'?: string;
-    context?: HttpContext
-    body?: UpdateNamespaceDto
-  }
-): Observable<NamespaceDto> {
-
+    context?: HttpContext;
+    body?: UpdateNamespaceDto;
+  }): Observable<NamespaceDto> {
     return this.updateNamespace$Response(params).pipe(
       map((r: StrictHttpResponse<NamespaceDto>) => r.body as NamespaceDto)
     );
@@ -205,26 +214,34 @@ export class NamespacesService extends BaseService {
   deleteNamespace$Response(params: {
     namespaceId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, NamespacesService.DeleteNamespacePath, 'delete');
+    context?: HttpContext;
+  }): Observable<StrictHttpResponse<void>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      NamespacesService.DeleteNamespacePath,
+      'delete'
+    );
     if (params) {
-      rb.path('namespaceId', params.namespaceId, {"style":"simple"});
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.path('namespaceId', params.namespaceId, { style: 'simple' });
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
     }
 
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'text',
+          accept: '*/*',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return (r as HttpResponse<any>).clone({
+            body: undefined,
+          }) as StrictHttpResponse<void>;
+        })
+      );
   }
 
   /**
@@ -236,10 +253,8 @@ export class NamespacesService extends BaseService {
   deleteNamespace(params: {
     namespaceId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<void> {
-
+    context?: HttpContext;
+  }): Observable<void> {
     return this.deleteNamespace$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
@@ -259,26 +274,32 @@ export class NamespacesService extends BaseService {
   getAncestors$Response(params: {
     namespaceId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<NamespaceDto>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, NamespacesService.GetAncestorsPath, 'get');
+    context?: HttpContext;
+  }): Observable<StrictHttpResponse<Array<NamespaceDto>>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      NamespacesService.GetAncestorsPath,
+      'get'
+    );
     if (params) {
-      rb.path('namespaceId', params.namespaceId, {"style":"simple"});
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.path('namespaceId', params.namespaceId, { style: 'simple' });
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<NamespaceDto>>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'json',
+          accept: 'application/json',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<Array<NamespaceDto>>;
+        })
+      );
   }
 
   /**
@@ -290,19 +311,21 @@ export class NamespacesService extends BaseService {
   getAncestors(params: {
     namespaceId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<Array<NamespaceDto>> {
-
+    context?: HttpContext;
+  }): Observable<Array<NamespaceDto>> {
     return this.getAncestors$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<NamespaceDto>>) => r.body as Array<NamespaceDto>)
+      map(
+        (r: StrictHttpResponse<Array<NamespaceDto>>) =>
+          r.body as Array<NamespaceDto>
+      )
     );
   }
 
   /**
    * Path part for operation getInnerNamespaces
    */
-  static readonly GetInnerNamespacesPath = '/namespaces/{namespaceId}/namespaces';
+  static readonly GetInnerNamespacesPath =
+    '/namespaces/{namespaceId}/namespaces';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -313,26 +336,32 @@ export class NamespacesService extends BaseService {
   getInnerNamespaces$Response(params: {
     namespaceId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<NamespaceDto>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, NamespacesService.GetInnerNamespacesPath, 'get');
+    context?: HttpContext;
+  }): Observable<StrictHttpResponse<Array<NamespaceDto>>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      NamespacesService.GetInnerNamespacesPath,
+      'get'
+    );
     if (params) {
-      rb.path('namespaceId', params.namespaceId, {"style":"simple"});
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.path('namespaceId', params.namespaceId, { style: 'simple' });
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<NamespaceDto>>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'json',
+          accept: 'application/json',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<Array<NamespaceDto>>;
+        })
+      );
   }
 
   /**
@@ -344,19 +373,21 @@ export class NamespacesService extends BaseService {
   getInnerNamespaces(params: {
     namespaceId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<Array<NamespaceDto>> {
-
+    context?: HttpContext;
+  }): Observable<Array<NamespaceDto>> {
     return this.getInnerNamespaces$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<NamespaceDto>>) => r.body as Array<NamespaceDto>)
+      map(
+        (r: StrictHttpResponse<Array<NamespaceDto>>) =>
+          r.body as Array<NamespaceDto>
+      )
     );
   }
 
   /**
    * Path part for operation getNamespaceDataSources
    */
-  static readonly GetNamespaceDataSourcesPath = '/namespaces/{namespaceId}/data-sources';
+  static readonly GetNamespaceDataSourcesPath =
+    '/namespaces/{namespaceId}/data-sources';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -367,26 +398,32 @@ export class NamespacesService extends BaseService {
   getNamespaceDataSources$Response(params: {
     namespaceId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<DataSourceDto>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, NamespacesService.GetNamespaceDataSourcesPath, 'get');
+    context?: HttpContext;
+  }): Observable<StrictHttpResponse<Array<DataSourceDto>>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      NamespacesService.GetNamespaceDataSourcesPath,
+      'get'
+    );
     if (params) {
-      rb.path('namespaceId', params.namespaceId, {"style":"simple"});
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.path('namespaceId', params.namespaceId, { style: 'simple' });
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<DataSourceDto>>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'json',
+          accept: 'application/json',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<Array<DataSourceDto>>;
+        })
+      );
   }
 
   /**
@@ -398,19 +435,21 @@ export class NamespacesService extends BaseService {
   getNamespaceDataSources(params: {
     namespaceId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<Array<DataSourceDto>> {
-
+    context?: HttpContext;
+  }): Observable<Array<DataSourceDto>> {
     return this.getNamespaceDataSources$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<DataSourceDto>>) => r.body as Array<DataSourceDto>)
+      map(
+        (r: StrictHttpResponse<Array<DataSourceDto>>) =>
+          r.body as Array<DataSourceDto>
+      )
     );
   }
 
   /**
    * Path part for operation getNamespaceDataContexts
    */
-  static readonly GetNamespaceDataContextsPath = '/namespaces/{namespaceId}/data-contexts';
+  static readonly GetNamespaceDataContextsPath =
+    '/namespaces/{namespaceId}/data-contexts';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -421,26 +460,32 @@ export class NamespacesService extends BaseService {
   getNamespaceDataContexts$Response(params: {
     namespaceId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<DataContextDto>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, NamespacesService.GetNamespaceDataContextsPath, 'get');
+    context?: HttpContext;
+  }): Observable<StrictHttpResponse<Array<DataContextDto>>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      NamespacesService.GetNamespaceDataContextsPath,
+      'get'
+    );
     if (params) {
-      rb.path('namespaceId', params.namespaceId, {"style":"simple"});
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.path('namespaceId', params.namespaceId, { style: 'simple' });
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<DataContextDto>>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'json',
+          accept: 'application/json',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<Array<DataContextDto>>;
+        })
+      );
   }
 
   /**
@@ -452,12 +497,13 @@ export class NamespacesService extends BaseService {
   getNamespaceDataContexts(params: {
     namespaceId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<Array<DataContextDto>> {
-
+    context?: HttpContext;
+  }): Observable<Array<DataContextDto>> {
     return this.getNamespaceDataContexts$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<DataContextDto>>) => r.body as Array<DataContextDto>)
+      map(
+        (r: StrictHttpResponse<Array<DataContextDto>>) =>
+          r.body as Array<DataContextDto>
+      )
     );
   }
 
@@ -475,26 +521,32 @@ export class NamespacesService extends BaseService {
   getNamespaceAssets$Response(params: {
     namespaceId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<AssetDto>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, NamespacesService.GetNamespaceAssetsPath, 'get');
+    context?: HttpContext;
+  }): Observable<StrictHttpResponse<Array<AssetDto>>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      NamespacesService.GetNamespaceAssetsPath,
+      'get'
+    );
     if (params) {
-      rb.path('namespaceId', params.namespaceId, {"style":"simple"});
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.path('namespaceId', params.namespaceId, { style: 'simple' });
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<AssetDto>>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'json',
+          accept: 'application/json',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<Array<AssetDto>>;
+        })
+      );
   }
 
   /**
@@ -506,10 +558,8 @@ export class NamespacesService extends BaseService {
   getNamespaceAssets(params: {
     namespaceId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<Array<AssetDto>> {
-
+    context?: HttpContext;
+  }): Observable<Array<AssetDto>> {
     return this.getNamespaceAssets$Response(params).pipe(
       map((r: StrictHttpResponse<Array<AssetDto>>) => r.body as Array<AssetDto>)
     );
@@ -529,28 +579,34 @@ export class NamespacesService extends BaseService {
   addNamespaceAsset$Response(params: {
     namespaceId: string;
     'x-Version'?: string;
-    context?: HttpContext
-    body?: UpsertAssetDto
-  }
-): Observable<StrictHttpResponse<Array<AssetDto>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, NamespacesService.AddNamespaceAssetPath, 'post');
+    context?: HttpContext;
+    body?: UpsertAssetDto;
+  }): Observable<StrictHttpResponse<Array<AssetDto>>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      NamespacesService.AddNamespaceAssetPath,
+      'post'
+    );
     if (params) {
-      rb.path('namespaceId', params.namespaceId, {"style":"simple"});
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.path('namespaceId', params.namespaceId, { style: 'simple' });
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
       rb.body(params.body, 'application/*+json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<AssetDto>>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'json',
+          accept: 'application/json',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<Array<AssetDto>>;
+        })
+      );
   }
 
   /**
@@ -562,11 +618,9 @@ export class NamespacesService extends BaseService {
   addNamespaceAsset(params: {
     namespaceId: string;
     'x-Version'?: string;
-    context?: HttpContext
-    body?: UpsertAssetDto
-  }
-): Observable<Array<AssetDto>> {
-
+    context?: HttpContext;
+    body?: UpsertAssetDto;
+  }): Observable<Array<AssetDto>> {
     return this.addNamespaceAsset$Response(params).pipe(
       map((r: StrictHttpResponse<Array<AssetDto>>) => r.body as Array<AssetDto>)
     );
@@ -586,26 +640,32 @@ export class NamespacesService extends BaseService {
   getNamespaceReports$Response(params: {
     namespaceId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<ReportListItemDto>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, NamespacesService.GetNamespaceReportsPath, 'get');
+    context?: HttpContext;
+  }): Observable<StrictHttpResponse<Array<ReportListItemDto>>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      NamespacesService.GetNamespaceReportsPath,
+      'get'
+    );
     if (params) {
-      rb.path('namespaceId', params.namespaceId, {"style":"simple"});
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.path('namespaceId', params.namespaceId, { style: 'simple' });
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<ReportListItemDto>>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'json',
+          accept: 'application/json',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<Array<ReportListItemDto>>;
+        })
+      );
   }
 
   /**
@@ -617,12 +677,13 @@ export class NamespacesService extends BaseService {
   getNamespaceReports(params: {
     namespaceId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<Array<ReportListItemDto>> {
-
+    context?: HttpContext;
+  }): Observable<Array<ReportListItemDto>> {
     return this.getNamespaceReports$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<ReportListItemDto>>) => r.body as Array<ReportListItemDto>)
+      map(
+        (r: StrictHttpResponse<Array<ReportListItemDto>>) =>
+          r.body as Array<ReportListItemDto>
+      )
     );
   }
 
@@ -639,27 +700,33 @@ export class NamespacesService extends BaseService {
    */
   createNamespace$Response(params?: {
     'x-Version'?: string;
-    context?: HttpContext
-    body?: CreateNamespaceDto
-  }
-): Observable<StrictHttpResponse<NamespaceDto>> {
-
-    const rb = new RequestBuilder(this.rootUrl, NamespacesService.CreateNamespacePath, 'post');
+    context?: HttpContext;
+    body?: CreateNamespaceDto;
+  }): Observable<StrictHttpResponse<NamespaceDto>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      NamespacesService.CreateNamespacePath,
+      'post'
+    );
     if (params) {
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
       rb.body(params.body, 'application/*+json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<NamespaceDto>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'json',
+          accept: 'application/json',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<NamespaceDto>;
+        })
+      );
   }
 
   /**
@@ -670,11 +737,9 @@ export class NamespacesService extends BaseService {
    */
   createNamespace(params?: {
     'x-Version'?: string;
-    context?: HttpContext
-    body?: CreateNamespaceDto
-  }
-): Observable<NamespaceDto> {
-
+    context?: HttpContext;
+    body?: CreateNamespaceDto;
+  }): Observable<NamespaceDto> {
     return this.createNamespace$Response(params).pipe(
       map((r: StrictHttpResponse<NamespaceDto>) => r.body as NamespaceDto)
     );
@@ -694,26 +759,32 @@ export class NamespacesService extends BaseService {
   getNamespaceAsset$Response(params: {
     assetId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<AssetDto>> {
-
-    const rb = new RequestBuilder(this.rootUrl, NamespacesService.GetNamespaceAssetPath, 'get');
+    context?: HttpContext;
+  }): Observable<StrictHttpResponse<AssetDto>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      NamespacesService.GetNamespaceAssetPath,
+      'get'
+    );
     if (params) {
-      rb.path('assetId', params.assetId, {"style":"simple"});
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.path('assetId', params.assetId, { style: 'simple' });
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<AssetDto>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'json',
+          accept: 'application/json',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<AssetDto>;
+        })
+      );
   }
 
   /**
@@ -725,10 +796,8 @@ export class NamespacesService extends BaseService {
   getNamespaceAsset(params: {
     assetId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<AssetDto> {
-
+    context?: HttpContext;
+  }): Observable<AssetDto> {
     return this.getNamespaceAsset$Response(params).pipe(
       map((r: StrictHttpResponse<AssetDto>) => r.body as AssetDto)
     );
@@ -748,28 +817,34 @@ export class NamespacesService extends BaseService {
   updateNamespaceAsset$Response(params: {
     assetId: string;
     'x-Version'?: string;
-    context?: HttpContext
-    body?: UpsertAssetDto
-  }
-): Observable<StrictHttpResponse<AssetDto>> {
-
-    const rb = new RequestBuilder(this.rootUrl, NamespacesService.UpdateNamespaceAssetPath, 'put');
+    context?: HttpContext;
+    body?: UpsertAssetDto;
+  }): Observable<StrictHttpResponse<AssetDto>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      NamespacesService.UpdateNamespaceAssetPath,
+      'put'
+    );
     if (params) {
-      rb.path('assetId', params.assetId, {"style":"simple"});
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.path('assetId', params.assetId, { style: 'simple' });
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
       rb.body(params.body, 'application/*+json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<AssetDto>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'json',
+          accept: 'application/json',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<AssetDto>;
+        })
+      );
   }
 
   /**
@@ -781,11 +856,9 @@ export class NamespacesService extends BaseService {
   updateNamespaceAsset(params: {
     assetId: string;
     'x-Version'?: string;
-    context?: HttpContext
-    body?: UpsertAssetDto
-  }
-): Observable<AssetDto> {
-
+    context?: HttpContext;
+    body?: UpsertAssetDto;
+  }): Observable<AssetDto> {
     return this.updateNamespaceAsset$Response(params).pipe(
       map((r: StrictHttpResponse<AssetDto>) => r.body as AssetDto)
     );
@@ -805,26 +878,34 @@ export class NamespacesService extends BaseService {
   deleteNamespaceAsset$Response(params: {
     assetId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, NamespacesService.DeleteNamespaceAssetPath, 'delete');
+    context?: HttpContext;
+  }): Observable<StrictHttpResponse<void>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      NamespacesService.DeleteNamespaceAssetPath,
+      'delete'
+    );
     if (params) {
-      rb.path('assetId', params.assetId, {"style":"simple"});
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.path('assetId', params.assetId, { style: 'simple' });
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
     }
 
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'text',
+          accept: '*/*',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return (r as HttpResponse<any>).clone({
+            body: undefined,
+          }) as StrictHttpResponse<void>;
+        })
+      );
   }
 
   /**
@@ -836,13 +917,10 @@ export class NamespacesService extends BaseService {
   deleteNamespaceAsset(params: {
     assetId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<void> {
-
+    context?: HttpContext;
+  }): Observable<void> {
     return this.deleteNamespaceAsset$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }
-
 }

@@ -7,16 +7,27 @@ import { DataContextListVm } from '@features/data-contexts/models';
 import { DataContextListPageStateKey } from './data-context-list-page.reducer';
 
 export class DataContextListPageSelectors {
-  public static readonly getState = createSelector(selectDataContextFeature, state => state[DataContextListPageStateKey]);
+  public static readonly getState = createSelector(
+    selectDataContextFeature,
+    (state) => state[DataContextListPageStateKey]
+  );
 
-  public static readonly getLoadingFlag = createSelector(DataContextListPageSelectors.getState, state => state?.loading);
+  public static readonly getLoadingFlag = createSelector(
+    DataContextListPageSelectors.getState,
+    (state) => state?.loading
+  );
 
-  public static readonly getError = createSelector(DataContextListPageSelectors.getState, state => state?.error);
+  public static readonly getError = createSelector(
+    DataContextListPageSelectors.getState,
+    (state) => state?.error
+  );
 
   public static readonly getDataContexts = createSelector(
     DataContextSelectors.getAll,
     RouterSelectors.getParam('namespaceId'),
-    (contexts, namespaceId) => contexts.filter(x => x.namespaceId === namespaceId));
+    (contexts, namespaceId) =>
+      contexts.filter((x) => x.namespaceId === namespaceId)
+  );
 
   public static readonly getViewModel = createSelector(
     DataContextListPageSelectors.getLoadingFlag,

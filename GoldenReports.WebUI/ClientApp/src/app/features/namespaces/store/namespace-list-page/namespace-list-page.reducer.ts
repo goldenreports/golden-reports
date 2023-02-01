@@ -4,7 +4,7 @@ import { ErrorDto } from '@core/api';
 import { namespaceActions } from '@core/store/namespace';
 import { namespaceListPageActions } from './namespace-list-page.actions';
 
-export const NamespaceListPageStateKey = "namespaceListPage";
+export const NamespaceListPageStateKey = 'namespaceListPage';
 
 export interface NamespaceListPageState {
   isOpen: boolean;
@@ -18,8 +18,8 @@ const initialState: NamespaceListPageState = {
   isOpen: false,
   loading: false,
   showingNewNamespaceModal: false,
-  saving: false
-}
+  saving: false,
+};
 
 export const namespaceListPageReducer = createReducer(
   initialState,
@@ -28,64 +28,70 @@ export const namespaceListPageReducer = createReducer(
       ...state,
       isOpen: true,
       loading: true,
-      error: undefined
-    }
+      error: undefined,
+    };
   }),
   on(namespaceListPageActions.closed, (state) => {
     return {
       ...state,
       isOpen: false,
-      loading: false
-    }
+      loading: false,
+    };
   }),
-  on(namespaceActions.childrenFetched,
+  on(
+    namespaceActions.childrenFetched,
     namespaceActions.childrenFetchFailed,
     namespaceActions.rootNamespaceFetchFailed,
-    namespaceActions.namespaceFetchFailed, (state) => {
-    return {
-      ...state,
-      loading: false
+    namespaceActions.namespaceFetchFailed,
+    (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
     }
-  }),
+  ),
   on(namespaceActions.childrenFetchFailed, (state, { error }) => {
     return {
       ...state,
-      error
-    }
+      error,
+    };
   }),
   on(namespaceListPageActions.creationStated, (state) => {
     return {
       ...state,
       error: undefined,
-      showingNewNamespaceModal: true
-    }
+      showingNewNamespaceModal: true,
+    };
   }),
   on(namespaceListPageActions.creationCancelled, (state) => {
     return {
       ...state,
       error: undefined,
-      showingNewNamespaceModal: false
-    }
+      showingNewNamespaceModal: false,
+    };
   }),
   on(namespaceListPageActions.childNamespaceSubmitted, (state) => {
     return {
       ...state,
       saving: true,
-      error: undefined
-    }
+      error: undefined,
+    };
   }),
   on(namespaceListPageActions.childNamespaceCreated, (state) => {
     return {
       ...state,
       showingNewNamespaceModal: false,
-      saving: false
-    }
-  }),
-  on(namespaceListPageActions.childNamespaceCreationFailed, (state, { error }) => {
-    return {
-      ...state,
       saving: false,
-      error
+    };
+  }),
+  on(
+    namespaceListPageActions.childNamespaceCreationFailed,
+    (state, { error }) => {
+      return {
+        ...state,
+        saving: false,
+        error,
+      };
     }
-  })
+  )
 );

@@ -4,14 +4,13 @@ import { createReducer, on } from '@ngrx/store';
 
 import { reportActions } from '@core/store/report/report.actions';
 
-export const ReportStateKey = "reports";
+export const ReportStateKey = 'reports';
 
-export interface ReportState extends EntityState<ReportDto> {
-}
+export interface ReportState extends EntityState<ReportDto> {}
 
 export const adapter = createEntityAdapter<ReportDto>();
 
-export const initialState : ReportState = adapter.getInitialState();
+export const initialState: ReportState = adapter.getInitialState();
 
 export const reportReducer = createReducer(
   initialState,

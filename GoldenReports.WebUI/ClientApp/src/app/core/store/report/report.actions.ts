@@ -4,7 +4,7 @@ import {
   ErrorDto,
   ReportDto,
   ReportListItemDto,
-  UpdateReportDto
+  UpdateReportDto,
 } from '@core/api';
 
 export const reportActions = createActionGroup({
@@ -19,11 +19,11 @@ export const reportActions = createActionGroup({
     'Creation Requested': props<{ newReport: CreateReportDto }>(),
     'Report Created': props<{ report: ReportDto }>(),
     'Creation Failed': props<{ error: ErrorDto }>(),
-    'Update Requested': props<{ reportId: string, report: UpdateReportDto }>(),
+    'Update Requested': props<{ reportId: string; report: UpdateReportDto }>(),
     'Report Updated': props<{ report: ReportDto }>(),
     'Update Failed': props<{ error: ErrorDto }>(),
     'Remove Requested': props<{ reportId: string }>(),
     'Report Removed': props<{ reportId: string }>(),
     'Remove Failed': props<{ error: ErrorDto }>(),
-  }
-})
+  },
+});

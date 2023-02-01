@@ -6,7 +6,11 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { SharedModule } from '@shared';
 import { ReportsRoutingModule } from './reports-routing.module';
-import { ReportEditorComponent, ReportListComponent, ReportViewerComponent } from './pages';
+import {
+  ReportEditorComponent,
+  ReportListComponent,
+  ReportViewerComponent,
+} from './pages';
 import { reportFeatureReducer, reportFeatureStateKey } from './store';
 import { ReportListPageEffects } from './store/report-list-page';
 import { ReportEditorPageEffects } from './store/report-editor-page';
@@ -15,7 +19,7 @@ import { ReportEditorPageEffects } from './store/report-editor-page';
   declarations: [
     ReportListComponent,
     ReportEditorComponent,
-    ReportViewerComponent
+    ReportViewerComponent,
   ],
   imports: [
     CommonModule,
@@ -24,6 +28,6 @@ import { ReportEditorPageEffects } from './store/report-editor-page';
     NzTableModule,
     StoreModule.forFeature(reportFeatureStateKey, reportFeatureReducer),
     EffectsModule.forFeature([ReportListPageEffects, ReportEditorPageEffects]),
-  ]
+  ],
 })
 export class ReportsModule {}

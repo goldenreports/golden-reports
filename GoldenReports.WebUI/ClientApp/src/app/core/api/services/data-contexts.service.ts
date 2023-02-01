@@ -17,10 +17,7 @@ import { UpdateDataContextDto } from '../models/update-data-context-dto';
   providedIn: 'root',
 })
 export class DataContextsService extends BaseService {
-  constructor(
-    config: ApiConfiguration,
-    http: HttpClient
-  ) {
+  constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
   }
 
@@ -37,25 +34,31 @@ export class DataContextsService extends BaseService {
    */
   getDataContexts$Response(params?: {
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<Array<DataContextDto>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, DataContextsService.GetDataContextsPath, 'get');
+    context?: HttpContext;
+  }): Observable<StrictHttpResponse<Array<DataContextDto>>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      DataContextsService.GetDataContextsPath,
+      'get'
+    );
     if (params) {
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<DataContextDto>>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'json',
+          accept: 'application/json',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<Array<DataContextDto>>;
+        })
+      );
   }
 
   /**
@@ -66,12 +69,13 @@ export class DataContextsService extends BaseService {
    */
   getDataContexts(params?: {
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<Array<DataContextDto>> {
-
+    context?: HttpContext;
+  }): Observable<Array<DataContextDto>> {
     return this.getDataContexts$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<DataContextDto>>) => r.body as Array<DataContextDto>)
+      map(
+        (r: StrictHttpResponse<Array<DataContextDto>>) =>
+          r.body as Array<DataContextDto>
+      )
     );
   }
 
@@ -88,27 +92,33 @@ export class DataContextsService extends BaseService {
    */
   createDataContext$Response(params?: {
     'x-Version'?: string;
-    context?: HttpContext
-    body?: CreateDataContextDto
-  }
-): Observable<StrictHttpResponse<DataContextDto>> {
-
-    const rb = new RequestBuilder(this.rootUrl, DataContextsService.CreateDataContextPath, 'post');
+    context?: HttpContext;
+    body?: CreateDataContextDto;
+  }): Observable<StrictHttpResponse<DataContextDto>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      DataContextsService.CreateDataContextPath,
+      'post'
+    );
     if (params) {
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
       rb.body(params.body, 'application/*+json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<DataContextDto>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'json',
+          accept: 'application/json',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<DataContextDto>;
+        })
+      );
   }
 
   /**
@@ -119,11 +129,9 @@ export class DataContextsService extends BaseService {
    */
   createDataContext(params?: {
     'x-Version'?: string;
-    context?: HttpContext
-    body?: CreateDataContextDto
-  }
-): Observable<DataContextDto> {
-
+    context?: HttpContext;
+    body?: CreateDataContextDto;
+  }): Observable<DataContextDto> {
     return this.createDataContext$Response(params).pipe(
       map((r: StrictHttpResponse<DataContextDto>) => r.body as DataContextDto)
     );
@@ -143,26 +151,32 @@ export class DataContextsService extends BaseService {
   getDataContextById$Response(params: {
     contextId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<DataContextDto>> {
-
-    const rb = new RequestBuilder(this.rootUrl, DataContextsService.GetDataContextByIdPath, 'get');
+    context?: HttpContext;
+  }): Observable<StrictHttpResponse<DataContextDto>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      DataContextsService.GetDataContextByIdPath,
+      'get'
+    );
     if (params) {
-      rb.path('contextId', params.contextId, {"style":"simple"});
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.path('contextId', params.contextId, { style: 'simple' });
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<DataContextDto>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'json',
+          accept: 'application/json',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<DataContextDto>;
+        })
+      );
   }
 
   /**
@@ -174,10 +188,8 @@ export class DataContextsService extends BaseService {
   getDataContextById(params: {
     contextId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<DataContextDto> {
-
+    context?: HttpContext;
+  }): Observable<DataContextDto> {
     return this.getDataContextById$Response(params).pipe(
       map((r: StrictHttpResponse<DataContextDto>) => r.body as DataContextDto)
     );
@@ -197,28 +209,34 @@ export class DataContextsService extends BaseService {
   updateDataContext$Response(params: {
     contextId: string;
     'x-Version'?: string;
-    context?: HttpContext
-    body?: UpdateDataContextDto
-  }
-): Observable<StrictHttpResponse<DataContextDto>> {
-
-    const rb = new RequestBuilder(this.rootUrl, DataContextsService.UpdateDataContextPath, 'put');
+    context?: HttpContext;
+    body?: UpdateDataContextDto;
+  }): Observable<StrictHttpResponse<DataContextDto>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      DataContextsService.UpdateDataContextPath,
+      'put'
+    );
     if (params) {
-      rb.path('contextId', params.contextId, {"style":"simple"});
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.path('contextId', params.contextId, { style: 'simple' });
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
       rb.body(params.body, 'application/*+json');
     }
 
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<DataContextDto>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'json',
+          accept: 'application/json',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return r as StrictHttpResponse<DataContextDto>;
+        })
+      );
   }
 
   /**
@@ -230,11 +248,9 @@ export class DataContextsService extends BaseService {
   updateDataContext(params: {
     contextId: string;
     'x-Version'?: string;
-    context?: HttpContext
-    body?: UpdateDataContextDto
-  }
-): Observable<DataContextDto> {
-
+    context?: HttpContext;
+    body?: UpdateDataContextDto;
+  }): Observable<DataContextDto> {
     return this.updateDataContext$Response(params).pipe(
       map((r: StrictHttpResponse<DataContextDto>) => r.body as DataContextDto)
     );
@@ -254,26 +270,34 @@ export class DataContextsService extends BaseService {
   deleteDataContext$Response(params: {
     contextId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, DataContextsService.DeleteDataContextPath, 'delete');
+    context?: HttpContext;
+  }): Observable<StrictHttpResponse<void>> {
+    const rb = new RequestBuilder(
+      this.rootUrl,
+      DataContextsService.DeleteDataContextPath,
+      'delete'
+    );
     if (params) {
-      rb.path('contextId', params.contextId, {"style":"simple"});
-      rb.header('x-Version', params['x-Version'], {"style":"simple"});
+      rb.path('contextId', params.contextId, { style: 'simple' });
+      rb.header('x-Version', params['x-Version'], { style: 'simple' });
     }
 
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
+    return this.http
+      .request(
+        rb.build({
+          responseType: 'text',
+          accept: '*/*',
+          context: params?.context,
+        })
+      )
+      .pipe(
+        filter((r: any) => r instanceof HttpResponse),
+        map((r: HttpResponse<any>) => {
+          return (r as HttpResponse<any>).clone({
+            body: undefined,
+          }) as StrictHttpResponse<void>;
+        })
+      );
   }
 
   /**
@@ -285,13 +309,10 @@ export class DataContextsService extends BaseService {
   deleteDataContext(params: {
     contextId: string;
     'x-Version'?: string;
-    context?: HttpContext
-  }
-): Observable<void> {
-
+    context?: HttpContext;
+  }): Observable<void> {
     return this.deleteDataContext$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }
-
 }

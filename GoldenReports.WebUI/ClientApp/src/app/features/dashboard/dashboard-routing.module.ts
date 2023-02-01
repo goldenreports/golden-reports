@@ -5,17 +5,11 @@ import { DashboardComponent } from './pages';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
-  { path: '**', redirectTo: '/errors/not-found' }
+  { path: '**', redirectTo: '/errors/not-found' },
 ];
 
-
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes),
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class DashboardRoutingModule {
-}
+export class DashboardRoutingModule {}
