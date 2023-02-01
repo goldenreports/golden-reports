@@ -1,34 +1,62 @@
 <ng-container *ngIf="vm$ | async as vm">
   <app-error-message [error]="vm.error"></app-error-message>
-  <form nz-form [formGroup]="dataSourceForm" stateFormBinding="dataSource"
-        (ngSubmit)="saveDataSource(vm.dataSource?.id, dataSourceForm.value)">
+  <form
+    nz-form
+    [formGroup]="dataSourceForm"
+    stateFormBinding="dataSource"
+    (ngSubmit)="saveDataSource(vm.dataSource?.id, dataSourceForm.value)"
+  >
     <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="code">Code</nz-form-label>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="code"
+        >Code</nz-form-label
+      >
       <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Code is required">
-        <input nz-input id="code" formControlName="code"/>
+        <input nz-input id="code" formControlName="code" />
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>Name</nz-form-label>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired
+        >Name</nz-form-label
+      >
       <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Name is required">
-        <input nz-input id="name" formControlName="name"/>
+        <input nz-input id="name" formControlName="name" />
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="description">Description</nz-form-label>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="description"
+        >Description</nz-form-label
+      >
       <nz-form-control [nzSm]="14" [nzXs]="24">
-        <input nz-input id="description" formControlName="description"/>
+        <input nz-input id="description" formControlName="description" />
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="connectionString" nzRequired>Connection String</nz-form-label>
-      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your nickname!">
-        <textarea formControlName="connectionString" nz-input rows="2" placeholder="Connection string" style="min-height: 150px"></textarea>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="connectionString" nzRequired
+        >Connection String</nz-form-label
+      >
+      <nz-form-control
+        [nzSm]="14"
+        [nzXs]="24"
+        nzErrorTip="Connection string is required"
+      >
+        <textarea
+          formControlName="connectionString"
+          nz-input
+          rows="2"
+          [nzAutosize]="{ minRows: 5 }"
+        ></textarea>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item nz-row class="register-area">
       <nz-form-control [nzSpan]="14" [nzOffset]="6">
-        <button nz-button nzType="primary" [nzLoading]="vm.saving" [disabled]="!vm.canSave">Save</button>
+        <button
+          nz-button
+          nzType="primary"
+          [nzLoading]="vm.saving"
+          [disabled]="!vm.canSave"
+        >
+          Save
+        </button>
       </nz-form-control>
     </nz-form-item>
   </form>

@@ -16,26 +16,19 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 
 import { SharedModule } from '@shared';
 import { NamespacesRoutingModule } from './namespaces-routing.module';
-import {
-  MetadataEditorComponent,
-  NamespaceEditorComponent,
-  NamespaceListComponent,
-  NewNamespaceComponent
-} from './pages';
-import { BreadcrumbComponent, NamespaceFormComponent, NamespaceSideNavComponent } from './components';
+import { NamespaceContextComponent, NamespaceEditorComponent } from './pages';
+import { BreadcrumbComponent, NamespaceSideNavComponent } from './components';
 import { namespaceFeatureReducer, namespaceFeatureStateKey } from './store';
 import { NamespaceEditorPageEffects } from './store/namespace-editor-page';
 import { NamespaceListPageEffects } from './store/namespace-list-page';
 import { NamespaceMetadataPageEffects } from './store/namespace-metadata-page';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 @NgModule({
   declarations: [
-    NamespaceListComponent,
+    NamespaceContextComponent,
     NamespaceEditorComponent,
-    MetadataEditorComponent,
     BreadcrumbComponent,
-    NamespaceFormComponent,
-    NewNamespaceComponent,
-    NamespaceSideNavComponent
+    NamespaceSideNavComponent,
   ],
   imports: [
     CommonModule,
@@ -53,11 +46,12 @@ import { NamespaceMetadataPageEffects } from './store/namespace-metadata-page';
     EffectsModule.forFeature([
       NamespaceEditorPageEffects,
       NamespaceListPageEffects,
-      NamespaceMetadataPageEffects
+      NamespaceMetadataPageEffects,
     ]),
     SharedModule,
     NzFormModule,
     NzInputModule,
-  ]
+    NzPageHeaderModule,
+  ],
 })
 export class NamespacesModule {}

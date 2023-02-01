@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
@@ -6,17 +6,17 @@ import { AppState } from '@core/store';
 import { DataSourceListVm } from '@features/data-sources/models';
 import {
   dataSourceListPageActions,
-  DataSourceListPageSelectors
+  DataSourceListPageSelectors,
 } from '@features/data-sources/store/data-source-list-page';
 
 @Component({
-  templateUrl: 'data-source-list.component.html'
+  templateUrl: 'data-source-list.component.html',
+  styleUrls: ['data-source-list.component.scss'],
 })
-export class DataSourceListComponent {
+export class DataSourceListComponent implements OnInit {
   public vm$!: Observable<DataSourceListVm>;
 
-  constructor(private readonly store: Store<AppState>) {
-  }
+  constructor(private readonly store: Store<AppState>) {}
 
   public ngOnInit(): void {
     this.vm$ = this.store.select(DataSourceListPageSelectors.getViewModel);

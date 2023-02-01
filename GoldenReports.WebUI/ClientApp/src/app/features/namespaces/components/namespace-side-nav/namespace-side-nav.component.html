@@ -24,10 +24,16 @@
         <span>Reports</span>
       </a>
     </li>
-    <li nz-menu-item nzMatchRouter *ngIf="showMetadata">
-      <a routerLink="./metadata">
-        <span nz-icon nzType="setting"></span>
-        <span>Metadata</span>
+    <li nz-menu-item nzMatchRouter nzDisabled>
+      <a routerLink="./assets">
+        <span nz-icon nzType="folder"></span>
+        <span>Assets</span>
+      </a>
+    </li>
+    <li nz-menu-item nzMatchRouter nzDisabled>
+      <a routerLink="./permissions">
+        <span nz-icon nzType="security-scan"></span>
+        <span>Permissions</span>
       </a>
     </li>
   </ul>

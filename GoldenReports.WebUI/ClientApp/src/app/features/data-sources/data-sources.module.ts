@@ -16,25 +16,29 @@ import { DataSourcesRoutingModule } from './data-sources-routing.module';
 import { DataSourceEditorComponent, DataSourceListComponent } from './pages';
 import { dataSourceFeatureReducer, dataSourceFeatureStateKey } from './store';
 import { DataSourceListPageEffects } from './store/data-source-list-page';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 
 @NgModule({
-  declarations: [
-    DataSourceListComponent,
-    DataSourceEditorComponent
-  ],
+  declarations: [DataSourceListComponent, DataSourceEditorComponent],
   imports: [
     CommonModule,
     DataSourcesRoutingModule,
     SharedModule,
     NzTableModule,
     StoreModule.forFeature(dataSourceFeatureStateKey, dataSourceFeatureReducer),
-    EffectsModule.forFeature([DataSourceListPageEffects, DataSourceEditorPageEffects]),
+    EffectsModule.forFeature([
+      DataSourceListPageEffects,
+      DataSourceEditorPageEffects,
+    ]),
     NzButtonModule,
     NzFormModule,
     ReactiveFormsModule,
     NzInputModule,
     NzSelectModule,
     NzCheckboxModule,
-  ]
+    NzSpaceModule,
+    NzDividerModule,
+  ],
 })
 export class DataSourcesModule {}

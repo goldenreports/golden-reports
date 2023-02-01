@@ -1,10 +1,47 @@
-<nz-layout *ngIf="vm$ | async as vm" class="page-layout">
-  <nz-sider nzTheme="light"><app-namespace-side-nav></app-namespace-side-nav></nz-sider>
-  <nz-layout class="page-content-layout">
-    <app-breadcrumb [namespaces]="vm.namespaces" [loading]="vm.loading"></app-breadcrumb>
-    <nz-content class="page-content">
-      <app-error-message [error]="vm.error"></app-error-message>
-      <router-outlet></router-outlet>
-    </nz-content>
-  </nz-layout>
-</nz-layout>
+<ng-container *ngIf="vm$ | async as vm">
+  <nz-space nzDirection="vertical" nzSize="middle">
+    <ng-container *ngIf="vm.error">
+      <app-error-message *nzSpaceItem [error]="vm.error"></app-error-message>
+    </ng-container>
+    <button *nzSpaceItem class="add-button" nz-button nzGhost nzType="primary">
+      Add Namespace
+    </button>
+    <nz-table
+      *nzSpaceItem
+      [nzData]="vm.children"
+      [nzLoading]="vm.loading"
+      nzSize="middle"
+    >
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Creation Date</th>
+          <th>Created By</th>
+          <th>Modification Date</th>
+          <th>Modified By</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let namespace of vm.children">
+          <td>
+            <a routerLink="/namespaces/{{ namespace.id }}">{{
+              namespace.name
+            }}</a>
+          </td>
+          <td>{{ namespace.description }}</td>
+          <td>{{ namespace.creationDate | date : 'short' }}</td>
+          <td>{{ namespace.createdBy }}</td>
+          <td>{{ namespace.modificationDate | date : 'short' }}</td>
+          <td>{{ namespace.modifiedBy }}</td>
+          <td>
+            <a routerLink="/namespaces/{{ namespace.id }}/metadata">Edit</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a>Delete</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-space>
+</ng-container>

@@ -4,9 +4,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #11111F;
+  background-color: #11111f;
 
-  img  {
+  img {
     width: 20%;
     min-width: 200px;
     max-width: 350px;
@@ -17,10 +17,9 @@
   height: 100%;
 
   .page-content-layout {
-    padding: 2rem;
-
     .page-content {
       background: #fff;
+      margin: 2rem;
       padding: 2rem;
       height: 100%;
     }

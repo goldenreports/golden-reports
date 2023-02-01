@@ -2,49 +2,48 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { RootNamespaceResolver } from './resolvers';
-import {
-  MetadataEditorComponent,
-  NamespaceEditorComponent,
-  NamespaceListComponent,
-  NewNamespaceComponent
-} from './pages';
+import { NamespaceContextComponent, NamespaceEditorComponent } from './pages';
 import { NamespaceSideNavComponent } from './components';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'global' },
   { path: '', outlet: 'sidenav', component: NamespaceSideNavComponent },
   {
-    path: ':namespaceId', component: NamespaceEditorComponent, resolve: { root: RootNamespaceResolver }, children: [
+    path: ':namespaceId',
+    component: NamespaceContextComponent,
+    resolve: { root: RootNamespaceResolver },
+    children: [
       { path: '', pathMatch: 'full', redirectTo: 'namespaces' },
-      { path: 'namespaces', component: NamespaceListComponent },
-      { path: 'namespaces/new', component: NewNamespaceComponent },
+      { path: 'namespaces', component: NamespaceEditorComponent },
       {
         path: 'data-sources',
-        loadChildren: () => import('@features/data-sources/data-sources.module').then(x => x.DataSourcesModule)
+        loadChildren: () =>
+          import('@features/data-sources/data-sources.module').then(
+            (x) => x.DataSourcesModule
+          ),
       },
       {
         path: 'data-contexts',
-        loadChildren: () => import('@features/data-contexts/data-contexts.module').then(x => x.DataContextsModule)
+        loadChildren: () =>
+          import('@features/data-contexts/data-contexts.module').then(
+            (x) => x.DataContextsModule
+          ),
       },
       // { path: 'assets', loadChildren: () => import('@features/assets/assets.module').then(x => x.AssetsModule) },
       {
         path: 'reports',
-        loadChildren: () => import('@features/reports/reports.module').then(x => x.ReportsModule)
+        loadChildren: () =>
+          import('@features/reports/reports.module').then(
+            (x) => x.ReportsModule
+          ),
       },
       // { path: 'permissions', component: PermissionListComponent },
-      {
-        path: 'metadata',
-        component: MetadataEditorComponent,
-      }
-    ]
-  }
+    ],
+  },
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes)
-  ],
-  exports: [RouterModule]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class NamespacesRoutingModule {
-}
+export class NamespacesRoutingModule {}

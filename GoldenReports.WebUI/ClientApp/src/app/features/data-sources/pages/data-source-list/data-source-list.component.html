@@ -1,32 +1,53 @@
 <ng-container *ngIf="vm$ | async as vm">
-  <app-error-message [error]="vm.error"></app-error-message>
-  <a nz-button nzType="primary" routerLink="./new">Add New Data Source</a>
-  <nz-table [nzData]="vm.dataSources" [nzLoading]="vm.loading" nzSize="middle">
-    <thead>
-    <tr>
-      <th>Code</th>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Creation Date</th>
-      <th>Created By</th>
-      <th>Modification Date</th>
-      <th>Modified By</th>
-      <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let dataSource of vm.dataSources">
-      <td><a routerLink="./{{dataSource.id}}">{{dataSource.code}}</a></td>
-      <td>{{dataSource.name}}</td>
-      <td>{{dataSource.description}}</td>
-      <td>{{dataSource.creationDate | date: 'short'}}</td>
-      <td>{{dataSource.createdBy}}</td>
-      <td>{{dataSource.modificationDate | date: 'short'}}</td>
-      <td>{{dataSource.modifiedBy}}</td>
-      <td>
-        <a>Delete</a>
-      </td>
-    </tr>
-    </tbody>
-  </nz-table>
+  <nz-space nzDirection="vertical" nzSize="middle">
+    <ng-container *ngIf="vm.error">
+      <app-error-message *nzSpaceItem [error]="vm.error"></app-error-message>
+    </ng-container>
+    <a
+      *nzSpaceItem
+      class="add-button"
+      nz-button
+      nzType="primary"
+      nzGhost
+      routerLink="./new"
+    >
+      <span nz-icon nzType="plus"></span>
+      Add Data Source
+    </a>
+    <nz-table
+      *nzSpaceItem
+      [nzData]="vm.dataSources"
+      [nzLoading]="vm.loading"
+      nzSize="middle"
+    >
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Creation Date</th>
+          <th>Created By</th>
+          <th>Modification Date</th>
+          <th>Modified By</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let dataSource of vm.dataSources">
+          <td>{{ dataSource.code }}</td>
+          <td>{{ dataSource.name }}</td>
+          <td>{{ dataSource.description }}</td>
+          <td>{{ dataSource.creationDate | date : 'short' }}</td>
+          <td>{{ dataSource.createdBy }}</td>
+          <td>{{ dataSource.modificationDate | date : 'short' }}</td>
+          <td>{{ dataSource.modifiedBy }}</td>
+          <td>
+            <a routerLink="./{{ dataSource.id }}">Edit</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a>Delete</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-space>
 </ng-container>
