@@ -5,7 +5,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, defer, of, switchMap, tap } from 'rxjs';
 import { filter, map, withLatestFrom } from 'rxjs/operators';
 
-import { AuthService } from '@core/auth';
+import { AuthService, User } from '@core/auth';
 import { authActions } from './auth.actions';
 
 import { AppState } from '@core/store';
@@ -35,7 +35,7 @@ export class AuthEffects {
       ofType(authActions.initialized, authActions.tokenRefreshed),
       switchMap(() =>
         defer(() => this.authService.loadUserProfile()).pipe(
-          map((user) => authActions.userLoaded({ user })),
+          map((user) => authActions.userLoaded({ user: user as User })),
           catchError((error) => of(authActions.userLoadFailed({ error })))
         )
       )
