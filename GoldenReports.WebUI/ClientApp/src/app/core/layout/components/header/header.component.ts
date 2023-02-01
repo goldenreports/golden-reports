@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
@@ -8,7 +8,7 @@ import { authActions, AuthSelectors } from '@core/store/auth';
 @Component({
   selector: 'app-header',
   templateUrl: 'header.component.html',
-  styleUrls: ['header.component.scss']
+  styleUrls: ['header.component.scss'],
 })
 export class HeaderComponent {
   public userName$: Observable<string>;

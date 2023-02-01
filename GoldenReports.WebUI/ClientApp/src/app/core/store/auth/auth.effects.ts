@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, defer, of, switchMap, tap } from 'rxjs';
-import { distinctUntilChanged, filter, map, withLatestFrom } from 'rxjs/operators';
+import { filter, map, withLatestFrom } from 'rxjs/operators';
 
 import { AuthService } from '@core/auth';
 import { authActions } from './auth.actions';
@@ -13,40 +13,62 @@ import { AuthSelectors } from '@core/store/auth/auth.selectors';
 
 @Injectable()
 export class AuthEffects {
-  constructor(private readonly actions$: Actions,
-              private readonly authService: AuthService,
-              public readonly router: Router,
-              public readonly store: Store<AppState>) {
-  }
+  constructor(
+    private readonly actions$: Actions,
+    private readonly authService: AuthService,
+    public readonly router: Router,
+    public readonly store: Store<AppState>
+  ) {}
 
-  redirect$ = createEffect(() => this.actions$.pipe(
-    ofType(authActions.initialized),
-    filter(x => !!x.redirectUrl),
-    tap((x) => this.router.navigateByUrl(x.redirectUrl!))
-  ), { dispatch: false });
+  redirect$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(authActions.initialized),
+        filter((x) => !!x.redirectUrl),
+        tap((x) => this.router.navigateByUrl(x.redirectUrl!))
+      ),
+    { dispatch: false }
+  );
 
-  loadUserProfile$ = createEffect(() => this.actions$.pipe(
-    ofType(authActions.initialized, authActions.tokenRefreshed),
-    switchMap(() => defer(() => this.authService.loadUserProfile()).pipe(
-      map((user) => authActions.userLoaded({ user })),
-      catchError((error) => of(authActions.userLoadFailed({ error })))
-    ))
-  ));
+  loadUserProfile$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(authActions.initialized, authActions.tokenRefreshed),
+      switchMap(() =>
+        defer(() => this.authService.loadUserProfile()).pipe(
+          map((user) => authActions.userLoaded({ user })),
+          catchError((error) => of(authActions.userLoadFailed({ error })))
+        )
+      )
+    )
+  );
 
-  tokenRefresh$ = createEffect(() => this.authService.events.pipe(
-    filter(e => ['token_refreshed'].includes(e.type)),
-    map(() => authActions.tokenRefreshed())
-  ));
+  tokenRefresh$ = createEffect(() =>
+    this.authService.events.pipe(
+      filter((e) => ['token_refreshed'].includes(e.type)),
+      map(() => authActions.tokenRefreshed())
+    )
+  );
 
-  tokenValidity$ = createEffect(() => this.authService.events.pipe(
-    withLatestFrom(this.store.select(AuthSelectors.getAuthenticatedFlag)),
-    map(([, authenticated]) => [authenticated, this.authService.hasValidAccessToken()]),
-    filter(([authenticated, validToken]) => authenticated !== validToken),
-    map(([, validToken]) => authActions.tokenValidityChanged({ isTokenValid: validToken }))
-  ));
+  tokenValidity$ = createEffect(() =>
+    this.authService.events.pipe(
+      withLatestFrom(this.store.select(AuthSelectors.getAuthenticatedFlag)),
+      map(([, authenticated]) => [
+        authenticated,
+        this.authService.hasValidAccessToken(),
+      ]),
+      filter(([authenticated, validToken]) => authenticated !== validToken),
+      map(([, validToken]) =>
+        authActions.tokenValidityChanged({ isTokenValid: validToken })
+      )
+    )
+  );
 
-  logout$ = createEffect(() => this.actions$.pipe(
-    ofType(authActions.logoutRequested),
-    tap(() => this.authService.logOut())
-  ), { dispatch: false });
+  logout$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(authActions.logoutRequested),
+        tap(() => this.authService.logOut())
+      ),
+    { dispatch: false }
+  );
 }

@@ -16,52 +16,89 @@ export class DataSourceEditorPageEffects {
   constructor(
     private readonly actions$: Actions,
     private readonly store: Store<AppState>,
-    private readonly router: Router) {
-  }
+    private readonly router: Router
+  ) {}
 
-  pageOpened$ = createEffect(() => this.actions$.pipe(
-    ofType(dataSourceEditorPageActions.opened),
-    withLatestFrom(this.store.select(RouterSelectors.getParam('dataSourceId'))),
-    map(([_, dataSourceId]) => dataSourceId === 'new' ?
-      dataSourceEditorPageActions.creationStarted() :
-      dataSourceActions.dataSourceRequested({ dataSourceId })
+  pageOpened$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(dataSourceEditorPageActions.opened),
+      withLatestFrom(
+        this.store.select(RouterSelectors.getParam('dataSourceId'))
+      ),
+      map(([, dataSourceId]) =>
+        dataSourceId === 'new'
+          ? dataSourceEditorPageActions.creationStarted()
+          : dataSourceActions.dataSourceRequested({ dataSourceId })
+      )
     )
-  ));
+  );
 
-  submitDataSource$ = createEffect(() => this.actions$.pipe(
-    ofType(dataSourceEditorPageActions.newDataSourceSubmitted),
-    withLatestFrom(this.store.select(NamespaceEditorPageSelectors.getNamespaceId)),
-    map(([x, namespaceId]) => dataSourceActions.creationRequested({
-      ...x,
-      newDataSource: {
-        ...x.newDataSource,
-        namespaceId: namespaceId
-      }
-    }))
-  ));
+  submitDataSource$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(dataSourceEditorPageActions.newDataSourceSubmitted),
+      withLatestFrom(
+        this.store.select(NamespaceEditorPageSelectors.getNamespaceId)
+      ),
+      map(([x, namespaceId]) =>
+        dataSourceActions.creationRequested({
+          ...x,
+          newDataSource: {
+            ...x.newDataSource,
+            namespaceId: namespaceId,
+          },
+        })
+      )
+    )
+  );
 
-  dataSourceCreated$ = createEffect(() => this.actions$.pipe(
-    ofType(dataSourceActions.dataSourceCreated),
-    map(x => this.router.navigateByUrl(`/namespaces/${x.dataSource.namespaceId}/data-sources/${x.dataSource.id}`))
-  ), { dispatch: false });
+  dataSourceCreated$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(dataSourceActions.dataSourceCreated),
+        map((x) =>
+          this.router.navigateByUrl(
+            `/namespaces/${x.dataSource.namespaceId}/data-sources/${x.dataSource.id}`
+          )
+        )
+      ),
+    { dispatch: false }
+  );
 
-  dataSourceCreationFailed$ = createEffect(() => this.actions$.pipe(
-    ofType(dataSourceActions.creationFailed),
-    map(x => dataSourceEditorPageActions.creationFailed({ error: x.error }))
-  ));
+  dataSourceCreationFailed$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(dataSourceActions.creationFailed),
+      map((x) => dataSourceEditorPageActions.creationFailed({ error: x.error }))
+    )
+  );
 
-  formDataFetched$ = createEffect(() => this.actions$.pipe(
-    ofType(dataSourceActions.dataSourceFetched),
-    map(x => formActions.formDataLoaded({ formId: 'dataSource', value: x.dataSource }))
-  ));
+  formDataFetched$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(dataSourceActions.dataSourceFetched),
+      map((x) =>
+        formActions.formDataLoaded({
+          formId: 'dataSource',
+          value: x.dataSource,
+        })
+      )
+    )
+  );
 
-  submitChanges$ = createEffect(() => this.actions$.pipe(
-    ofType(dataSourceEditorPageActions.changesSubmitted),
-    map(x => dataSourceActions.updateRequested({ dataSourceId: x.dataSourceId, dataSource: x.dataSource }))
-  ));
+  submitChanges$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(dataSourceEditorPageActions.changesSubmitted),
+      map((x) =>
+        dataSourceActions.updateRequested({
+          dataSourceId: x.dataSourceId,
+          dataSource: x.dataSource,
+        })
+      )
+    )
+  );
 
-  dataSourceUpdateFailed$ = createEffect(() => this.actions$.pipe(
-    ofType(dataSourceActions.updateFailed),
-    map(x => dataSourceEditorPageActions.updateFailed({ error: x.error }))
-  ));
+  dataSourceUpdateFailed$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(dataSourceActions.updateFailed),
+      map((x) => dataSourceEditorPageActions.updateFailed({ error: x.error }))
+    )
+  );
 }

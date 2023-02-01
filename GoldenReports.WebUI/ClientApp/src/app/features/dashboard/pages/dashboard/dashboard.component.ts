@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   templateUrl: 'dashboard.component.html',
-  styleUrls: ['dashboard.component.scss']
+  styleUrls: ['dashboard.component.scss'],
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   initLoading = true; // bug
   loadingMore = false;
   data: any[] = [];
@@ -39,5 +39,6 @@ export class DashboardComponent {
   }
 
   edit(item: any): void {
+    // TODO
   }
 }

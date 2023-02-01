@@ -70,7 +70,7 @@ export class AuthService extends OAuthService {
           ].includes(e.type)
         )
       )
-      .subscribe((e) => this.login());
+      .subscribe(() => this.login());
   }
 
   protected override storeAccessTokenResponse(

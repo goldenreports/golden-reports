@@ -3,7 +3,7 @@
   <form
     nz-form
     [formGroup]="dataSourceForm"
-    stateFormBinding="dataSource"
+    appStateFormBinding="dataSource"
     (ngSubmit)="saveDataSource(vm.dataSource?.id, dataSourceForm.value)"
   >
     <nz-form-item>
