@@ -7,25 +7,24 @@ on:
   pull_request:
     branches: ['main', 'dev']
 
-env:
-  PROJECT_PATH: 'GoldenReports.Domain/GoldenReports.Domain.csproj'
-  OUTPUT_DIRECTORY: ${{ github.workspace }}/output
-  NUGET_REGISTRY_URL: ${{ secrets.NUGET_REGISTRY_URL }}
-  NUGET_TOKEN: ${{ secrets.NUGET_TOKEN }}
-  DOCKER_REGISTRY_URL: ${{ secrets.DOCKER_REGISTRY_URL }}
-
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      repository-projects: write
+      issues: write
+      packages: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
+          fetch-depth: 0
           persist-credentials: false
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 7.0.x
+          dotnet-version: 7
       - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
@@ -34,6 +33,7 @@ jobs:
         if: github.event_name == 'pull_request'
         run: dotnet build GoldenReports.sln -c Release
       - name: Install Semantic release
+        if: github.event_name == 'push'
         run: npm i -g semantic-release @semantic-release/exec
       - name: Login to GitHub Container Registry
         if: github.event_name == 'push'
@@ -45,6 +45,10 @@ jobs:
       - name: Release
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         env:
-          GITHUB_TOKEN: ${{ secrets.CUSTOM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OUTPUT_DIRECTORY: ${{ github.workspace }}/output
+          NUGET_REGISTRY_URL: "https://nuget.pkg.github.com/golden-reports/index.json"
+          NUGET_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DOCKER_REGISTRY_URL: "ghcr.io/golden-reports"
         run: npx semantic-release
           
