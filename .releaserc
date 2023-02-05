@@ -13,14 +13,14 @@
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "./.pack ${nextRelease.version} $OUTPUT_DIRECTORY $DOCKER_REGISTRY_URL",
-        "publishCmd": "./.publish ${nextRelease.version} $OUTPUT_DIRECTORY"
+        "prepareCmd": "./.pack ${nextRelease.version} dist $DOCKER_REGISTRY_URL",
+        "publishCmd": "./.publish dist"
       }
     ],
     [
       "@semantic-release/github",
       {
-        "assets": ["dist/*.nupkg"]
+        "assets": ["dist/*.nupkg", "dist/*.tar.gz"]
       }
     ]
   ]
