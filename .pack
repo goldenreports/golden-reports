@@ -13,6 +13,7 @@ echo "Packing WebUI"
 dotnet publish ./GoldenReports.WebUI/GoldenReports.WebUI.csproj -c Release /p:AssemblyVersion=$1 /p:Version=$1 --output $2/web-ui
 tar -czvf web-ui.tar.gz web-ui -C $2
 rm -rf $2/web-ui
+mv web-ui.tar.gz $2/web-ui.tar.gz
 
 echo "Building WebUI Docker Image"
 docker build . --file GoldenReports.WebUI/Dockerfile -t golden-reports --build-arg VERSION=$1
