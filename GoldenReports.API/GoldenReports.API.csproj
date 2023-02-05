@@ -4,6 +4,12 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <PackageId>GoldenReports.API</PackageId>
+        <Version>1.0.0</Version>
+        <Authors>Mariano Santoro</Authors>
+        <Company>Golden Reports</Company>
+        <PackageDescription>Golden Reports Foundation Controllers</PackageDescription>
+        <RepositoryUrl>https://github.com/goldenreports/golden-reports</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>
