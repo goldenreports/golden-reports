@@ -16,4 +16,4 @@ rm -rf $2/web-ui
 mv web-ui.tar.gz $2/web-ui.tar.gz
 
 echo "Building WebUI Docker Image"
-docker build . --file GoldenReports.WebUI/Dockerfile -t golden-reports --build-arg VERSION=$1
+docker build . --file GoldenReports.WebUI/Dockerfile -t $3/golden-reports --build-arg VERSION=$1
