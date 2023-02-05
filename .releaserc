@@ -13,8 +13,8 @@
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "dotnet pack $PROJECT_PATH -c Release --include-symbols /p:AssemblyVersion=${nextRelease.version} /p:Version=${nextRelease.version} --output $PACKAGE_OUTPUT_DIRECTORY",
-        "publishCmd": "dotnet nuget push $PACKAGE_OUTPUT_DIRECTORY/*.nupkg -k $NUGET_TOKEN -s $NUGET_PUSH_URL"
+        "prepareCmd": ".pack ${nextRelease.version} $OUTPUT_DIRECTORY",
+        "publishCmd": ".publish ${nextRelease.version} $OUTPUT_DIRECTORY"
       }
     ],
     [
