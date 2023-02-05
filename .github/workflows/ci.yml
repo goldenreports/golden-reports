@@ -26,6 +26,10 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 7.0.x
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
       - name: Build
         if: github.event_name == 'pull_request'
         run: dotnet build GoldenReports.sln -c Release
