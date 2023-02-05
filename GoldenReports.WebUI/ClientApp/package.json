@@ -2,7 +2,6 @@
   "name": "goldenreports.webui",
   "version": "0.0.0",
   "scripts": {
-    "prepare": "dotnet tool restore && dotnet husky install",
     "ng": "ng",
     "prestart": "node aspnetcore-https",
     "start": "run-script-os",
