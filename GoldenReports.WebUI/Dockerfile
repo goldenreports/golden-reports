@@ -11,15 +11,20 @@ RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash - \
         nodejs \
     && rm -rf /var/lib/apt/lists/*
 
+ARG VERSION=1.0.0
+ENV HUSKY=0
+
 WORKDIR /src
 COPY ["GoldenReports.WebUI/GoldenReports.WebUI.csproj", "GoldenReports.WebUI/"]
 RUN dotnet restore "GoldenReports.WebUI/GoldenReports.WebUI.csproj"
 COPY . .
+WORKDIR "/src/GoldenReports.WebUI/ClientApp"
+RUN npm version $VERSION
 WORKDIR "/src/GoldenReports.WebUI"
-RUN dotnet build "GoldenReports.WebUI.csproj" -c Release -o /app/build
+RUN dotnet build "GoldenReports.WebUI.csproj" -c Release /p:AssemblyVersion=$VERSION /p:Version=$VERSION -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "GoldenReports.WebUI.csproj" -c Release -o /app/publish
+RUN dotnet publish "GoldenReports.WebUI.csproj" -c Release /p:AssemblyVersion=$VERSION /p:Version=$VERSION -o /app/publish
 
 FROM base AS final
 WORKDIR /app
