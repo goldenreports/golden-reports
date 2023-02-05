@@ -13,8 +13,8 @@
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": ".pack ${nextRelease.version} $OUTPUT_DIRECTORY",
-        "publishCmd": ".publish ${nextRelease.version} $OUTPUT_DIRECTORY"
+        "prepareCmd": "./.pack ${nextRelease.version} $OUTPUT_DIRECTORY",
+        "publishCmd": "./.publish ${nextRelease.version} $OUTPUT_DIRECTORY"
       }
     ],
     [
