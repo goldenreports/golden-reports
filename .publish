@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Publishing nuget packages"
-dotnet nuget push "$2/*.nupkg" -k $NUGET_TOKEN -s $NUGET_REGISTRY_URL
+dotnet nuget push "$2/*.nupkg" --no-symbols --api-key $NUGET_TOKEN --source "github"
 
 echo "Publishing docker image"
 docker push $DOCKER_REGISTRY_URL/golden-reports:latest
