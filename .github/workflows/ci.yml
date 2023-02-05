@@ -45,10 +45,10 @@ jobs:
       - name: Release
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.CUSTOM_TOKEN }}
           OUTPUT_DIRECTORY: ${{ github.workspace }}/output
           NUGET_REGISTRY_URL: "https://nuget.pkg.github.com/golden-reports/index.json"
-          NUGET_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NUGET_TOKEN: ${{ secrets.CUSTOM_TOKEN }}
           DOCKER_REGISTRY_URL: "ghcr.io/golden-reports"
         run: npx semantic-release
           
