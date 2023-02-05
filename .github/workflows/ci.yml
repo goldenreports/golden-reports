@@ -10,11 +10,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      repository-projects: write
-      issues: write
-      packages: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
