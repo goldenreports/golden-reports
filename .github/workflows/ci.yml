@@ -51,8 +51,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OUTPUT_DIRECTORY: ${{ github.workspace }}/output
-          NUGET_REGISTRY_URL: "https://nuget.pkg.github.com/golden-reports/index.json"
+          NUGET_REGISTRY_URL: "https://nuget.pkg.github.com/goldenreports/index.json"
           NUGET_TOKEN: ${{ secrets.CUSTOM_TOKEN }}
-          DOCKER_REGISTRY_URL: ghcr.io/golden-reports
+          DOCKER_REGISTRY_URL: ghcr.io/goldenreports
         run: npx semantic-release
           
