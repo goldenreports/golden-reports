@@ -24,7 +24,7 @@ WORKDIR "/src/GoldenReports.WebUI"
 RUN dotnet build "GoldenReports.WebUI.csproj" -c Release /p:AssemblyVersion=$VERSION /p:Version=$VERSION -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "GoldenReports.WebUI.csproj" -c Release /p:AssemblyVersion=$VERSION /p:Version=$VERSION -o /app/publish
+RUN dotnet publish "GoldenReports.WebUI.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
