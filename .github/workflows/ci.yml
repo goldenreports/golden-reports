@@ -43,9 +43,9 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Add github nuget package source
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-        run: dotnet nuget add source --username santoro-mariano --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/golden-reports/index.json"
+      # - name: Add GitHub Nuget Package Source
+      #   if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+      #   run: dotnet nuget add source --username santoro-mariano --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/golden-reports/index.json"
       - name: Release
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         env:
