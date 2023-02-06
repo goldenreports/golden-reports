@@ -9,5 +9,5 @@ dotnet nuget push "$2/GoldenReports.API.$1.nupkg" -k $NUGET_TOKEN -s $NUGET_REGI
 sleep 2
 
 echo "Publishing docker image"
-docker push $DOCKER_REGISTRY_URL/golden-reports:latest
+docker push --all-tags $DOCKER_REGISTRY_URL/golden-reports
 sleep 2
