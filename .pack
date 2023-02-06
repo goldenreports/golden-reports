@@ -1,19 +1,18 @@
 #!/bin/bash
 
 echo "Packing Application Layer"
-dotnet pack ./GoldenReports.Application/GoldenReports.Application.csproj -c Release --include-symbols /p:AssemblyVersion=$1 /p:Version=$1 --output $2
+dotnet pack $2/GoldenReports.Application/GoldenReports.Application.csproj -c Release --include-symbols /p:AssemblyVersion=$1 /p:Version=$1 --output $2
 
 echo "Packing Persistence Layer"
-dotnet pack ./GoldenReports.Persistence/GoldenReports.Persistence.csproj -c Release --include-symbols /p:AssemblyVersion=$1 /p:Version=$1 --output $2
+dotnet pack $2/GoldenReports.Persistence/GoldenReports.Persistence.csproj -c Release --include-symbols /p:AssemblyVersion=$1 /p:Version=$1 --output $2
 
 echo "Packing API Layer"
-dotnet pack ./GoldenReports.API/GoldenReports.API.csproj -c Release --include-symbols /p:AssemblyVersion=$1 /p:Version=$1 --output $2
+dotnet pack $2/GoldenReports.API/GoldenReports.API.csproj -c Release --include-symbols /p:AssemblyVersion=$1 /p:Version=$1 --output $2
 
 echo "Packing WebUI"
-dotnet publish ./GoldenReports.WebUI/GoldenReports.WebUI.csproj -c Release /p:AssemblyVersion=$1 /p:Version=$1 --output $2/web-ui
-tar -czvf web-ui.tar.gz web-ui -C $2
+dotnet publish $2/GoldenReports.WebUI/GoldenReports.WebUI.csproj -c Release /p:AssemblyVersion=$1 /p:Version=$1 --output $2/web-ui
+tar -C $2/web-ui -czvf $2/web-ui.tar.gz .
 rm -rf $2/web-ui
-mv web-ui.tar.gz $2/web-ui.tar.gz
 
 echo "Building WebUI Docker Image"
 docker build . --file GoldenReports.WebUI/Dockerfile -t $3/golden-reports -t $3/golden-reports:$1 -t $3/golden-reports:latest --build-arg VERSION=$1
