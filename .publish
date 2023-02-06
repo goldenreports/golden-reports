@@ -2,8 +2,12 @@
 
 echo "Publishing nuget packages"
 dotnet nuget push "$2/GoldenReports.Application.$1.nupkg" -k $NUGET_TOKEN -s $NUGET_REGISTRY_URL
+sleep 1
 dotnet nuget push "$2/GoldenReports.Persistence.$1.nupkg" -k $NUGET_TOKEN -s $NUGET_REGISTRY_URL
+sleep 1
 dotnet nuget push "$2/GoldenReports.API.$1.nupkg" -k $NUGET_TOKEN -s $NUGET_REGISTRY_URL
+sleep 2
 
 echo "Publishing docker image"
 docker push $DOCKER_REGISTRY_URL/golden-reports:latest
+sleep 2
