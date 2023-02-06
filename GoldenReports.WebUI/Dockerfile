@@ -20,7 +20,7 @@ COPY ["GoldenReports.WebUI/GoldenReports.WebUI.csproj", "GoldenReports.WebUI/"]
 RUN dotnet restore "GoldenReports.WebUI/GoldenReports.WebUI.csproj"
 COPY . .
 WORKDIR "/src/GoldenReports.WebUI/ClientApp"
-RUN npm version $VERSION
+RUN npm version $FULL_VERSION
 WORKDIR "/src/GoldenReports.WebUI"
 RUN dotnet build "GoldenReports.WebUI.csproj" -c Release /p:AssemblyVersion=$VERSION /p:Version=$FULL_VERSION -o /app/build
 

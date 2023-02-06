@@ -14,5 +14,5 @@ dotnet publish $3/GoldenReports.WebUI/GoldenReports.WebUI.csproj -c Release /p:A
 tar -C $3/$4/web-ui -czvf $3/$4/web-ui.tar.gz .
 rm -rf $3/$4/web-ui
 
-echo "Building WebUI Docker Image"
-docker build . --file GoldenReports.WebUI/Dockerfile -t $5/golden-reports -t $5/golden-reports:$2 -t $5/golden-reports:latest --build-arg VERSION=$1 --build-arg FULL_VERSION=$2
+echo "Building WebUI Docker Image (Tags: $6, $2)"
+docker build . --file GoldenReports.WebUI/Dockerfile -t $5/golden-reports$6 -t $5/golden-reports:$2 --build-arg VERSION=$1 --build-arg FULL_VERSION=$2

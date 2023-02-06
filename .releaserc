@@ -13,7 +13,7 @@
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "$WORKSPACE/.pack ${nextRelease.version.split('-')[0]} ${nextRelease.version} $WORKSPACE dist $DOCKER_REGISTRY_URL",
+        "prepareCmd": "$WORKSPACE/.pack ${nextRelease.version.split('-')[0]} ${nextRelease.version} $WORKSPACE dist $DOCKER_REGISTRY_URL ${nextRelease.channel ? ':' + nextRelease.channel : ''}",
         "publishCmd": "$WORKSPACE/.publish ${nextRelease.version} $WORKSPACE/dist"
       }
     ],
