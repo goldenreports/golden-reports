@@ -1,4 +1,5 @@
 ﻿using GoldenReports.Persistence.Abstractions;
+using GoldenReports.Persistence.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +16,8 @@ public abstract class EntityTypeConfiguration<TEntity> : EntityTypeConfiguration
 {
     public IServiceProvider ServiceProvider { get; private set; } = null!;
 
-    public INameConverter NameConverter => this.ServiceProvider.GetRequiredService<INameConverter>();
+    public INameConverter NameConverter =>
+        this.ServiceProvider.GetService<INameConverter>() ?? DefaultNameConverter.Instance;
 
     public override void Configure(IServiceProvider serviceProvider, ModelBuilder modelBuilder)
     {
