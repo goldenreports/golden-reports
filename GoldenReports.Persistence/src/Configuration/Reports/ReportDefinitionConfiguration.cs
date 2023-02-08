@@ -7,14 +7,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GoldenReports.Persistence.Configuration.Reports;
 
-public class ReportDefinitionConfiguration : IEntityTypeConfiguration<ReportDefinition>
+public class ReportDefinitionConfiguration : EntityTypeConfiguration<ReportDefinition>
 {
-    public void Configure(EntityTypeBuilder<ReportDefinition> builder)
+    public override void Configure(EntityTypeBuilder<ReportDefinition> builder)
     {
         builder.ApplyEntityConfiguration();
-        builder.HasIndex(x => new {x.NamespaceId, x.Name}).IsUnique().HasDatabaseName("IX_ReportDefinition_Name");
-        builder.Property(x => x.NamespaceId).HasColumnName("IdNamespace".ToSnakeCase());
-        builder.Property(x => x.ParentId).HasColumnName("IdParent".ToSnakeCase());
+        builder.HasIndex(x => new { x.NamespaceId, x.Name }).IsUnique().HasDatabaseName("IX_ReportDefinition_Name");
+        builder.Property(x => x.NamespaceId).HasColumnName(this.NameConverter.GetColumnName("IdNamespace"));
+        builder.Property(x => x.ParentId).HasColumnName(this.NameConverter.GetColumnName("IdParent"));
         builder.Property(x => x.Name).HasMaxLength(StringSizes.ExtraSmall);
         builder.Property(x => x.Description).HasMaxLength(StringSizes.Small);
         builder.Property(x => x.Query).HasMaxLength(StringSizes.Large);

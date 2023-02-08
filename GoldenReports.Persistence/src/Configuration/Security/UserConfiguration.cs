@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GoldenReports.Persistence.Configuration.Security;
 
-public class UserConfiguration : IEntityTypeConfiguration<User>
+public class UserConfiguration : EntityTypeConfiguration<User>
 {
-    public void Configure(EntityTypeBuilder<User> builder)
+    public override void Configure(EntityTypeBuilder<User> builder)
     {
         builder.ApplyEntityConfiguration();
         builder.HasAlternateKey(x => x.AuthContextKey).HasName("UK_User");

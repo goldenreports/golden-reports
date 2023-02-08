@@ -4,6 +4,7 @@ using GoldenReports.Domain.Data;
 using GoldenReports.Domain.Namespaces;
 using GoldenReports.Domain.Reports;
 using GoldenReports.Domain.Security;
+using GoldenReports.Persistence.Configuration;
 using GoldenReports.Persistence.Middlewares;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,11 +13,18 @@ namespace GoldenReports.Persistence;
 public class GoldenReportsDbContext : DbContext
 {
     private readonly IEnumerable<IDbContextMiddleware> middlewares;
+    private readonly IServiceProvider serviceProvider;
+    private readonly IEnumerable<EntityTypeConfiguration> configurations;
 
-    public GoldenReportsDbContext(DbContextOptions<GoldenReportsDbContext> options,
-        IEnumerable<IDbContextMiddleware> middlewares) : base(options)
+    public GoldenReportsDbContext(
+        DbContextOptions<GoldenReportsDbContext> options,
+        IEnumerable<IDbContextMiddleware> middlewares,
+        IServiceProvider serviceProvider,
+        IEnumerable<EntityTypeConfiguration> configurations) : base(options)
     {
         this.middlewares = middlewares;
+        this.serviceProvider = serviceProvider;
+        this.configurations = configurations;
     }
 
     public DbSet<Namespace> Namespaces { get; set; }
@@ -58,6 +66,10 @@ public class GoldenReportsDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        foreach (var configuration in this.configurations)
+        {
+            configuration.Configure(this.serviceProvider, modelBuilder);
+        }
         modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
         DbInitializer.Initialize(modelBuilder);
     }
@@ -67,7 +79,7 @@ public class GoldenReportsDbContext : DbContext
         var entries = this.ChangeTracker.Entries<Entity>()
             .Where(entry => entry.State != EntityState.Detached && entry.State != EntityState.Unchanged)
             .ToList();
-        
+
         foreach (var middleware in this.middlewares)
         {
             await middleware.ProcessModifiedEntries(this, entries);

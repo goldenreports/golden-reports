@@ -1,4 +1,5 @@
 ﻿using GoldenReports.Application.Abstractions.Persistence;
+using GoldenReports.Persistence.Configuration;
 using GoldenReports.Persistence.Middlewares;
 using GoldenReports.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -9,15 +10,16 @@ namespace GoldenReports.Persistence.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddPersistenceServices(this IServiceCollection services,
-        IConfiguration configuration, string connectionStringName = "DefaultConnection")
+    public static IServiceCollection AddPersistenceServices(this IServiceCollection services)
     {
-        services.AddDbContext<GoldenReportsDbContext>(opts => opts.UseNpgsql(
-                configuration.GetConnectionString(connectionStringName), b => { b.EnableRetryOnFailure(3); })
-            .UseSnakeCaseNamingConvention());
+        typeof(EntityTypeConfiguration).Assembly.DefinedTypes
+            .Where(x => x is { IsAbstract: false, IsGenericTypeDefinition: false } &&
+                        typeof(EntityTypeConfiguration).IsAssignableFrom(x))
+            .ToList()
+            .ForEach(x => services.AddSingleton(typeof(EntityTypeConfiguration), x));
 
         services.AddScoped<IDbContextMiddleware, AuditMiddleware>();
-        
+
         services.AddScoped<INamespaceRepository, NamespaceRepository>();
         services.AddScoped<IDataSourceRepository, DataSourceRepository>();
         services.AddScoped<IDataContextRepository, DataContextRepository>();
