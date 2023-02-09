@@ -10,7 +10,7 @@ public class ReportParameterConfiguration : EntityTypeConfiguration<ReportParame
 {
     public override void Configure(EntityTypeBuilder<ReportParameter> builder)
     {
-        builder.ApplyEntityConfiguration();
+        builder.ApplyEntityConfiguration(this.NameConverter);
         builder.HasIndex(x => new { x.ReportId, x.Name }).IsUnique().HasDatabaseName("UK_ReportParameter_Name");
         builder.Property(x => x.ReportId).HasColumnName(this.NameConverter.GetColumnName("IdReport"));
         builder.Property(x => x.Name).HasMaxLength(StringSizes.ExtraSmall);

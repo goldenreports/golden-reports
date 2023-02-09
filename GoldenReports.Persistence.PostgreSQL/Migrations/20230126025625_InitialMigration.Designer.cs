@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace GoldenReports.Persistence.Migrations
+namespace GoldenReports.Persistence.PostgreSQL.Migrations
 {
     [DbContext(typeof(GoldenReportsDbContext))]
     [Migration("20230126025625_InitialMigration")]

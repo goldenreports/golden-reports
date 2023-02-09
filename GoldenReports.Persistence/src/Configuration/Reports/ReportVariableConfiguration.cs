@@ -10,7 +10,7 @@ public class ReportVariableConfiguration : EntityTypeConfiguration<ReportVariabl
 {
     public override void Configure(EntityTypeBuilder<ReportVariable> builder)
     {
-        builder.ApplyEntityConfiguration();
+        builder.ApplyEntityConfiguration(this.NameConverter);
         builder.HasIndex(x => new { x.ReportId, x.Name }).IsUnique().HasDatabaseName("UK_ReportVariable_Name");
         builder.Property(x => x.Name).HasMaxLength(StringSizes.ExtraSmall);
         builder.Property(x => x.Expression).HasMaxLength(StringSizes.Medium);

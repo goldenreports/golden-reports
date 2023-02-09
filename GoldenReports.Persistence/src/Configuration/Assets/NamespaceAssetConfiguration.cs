@@ -11,7 +11,7 @@ public class NamespaceAssetConfiguration : EntityTypeConfiguration<NamespaceAsse
 {
     public override void Configure(EntityTypeBuilder<NamespaceAsset> builder)
     {
-        builder.ApplyEntityConfiguration();
+        builder.ApplyEntityConfiguration(this.NameConverter);
         builder.HasAlternateKey(x => new { x.NamespaceId, x.Name }).HasName("UK_NamespaceAsset_Name");
         builder.Property(x => x.NamespaceId).HasColumnName(this.NameConverter.GetColumnName("IdNamespace"));
         builder.Property(x => x.Name).HasMaxLength(StringSizes.ExtraSmall);

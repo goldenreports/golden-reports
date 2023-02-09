@@ -10,7 +10,7 @@ public class NamespaceConfiguration : EntityTypeConfiguration<Namespace>
 {
     public override void Configure(EntityTypeBuilder<Namespace> builder)
     {
-        builder.ApplyEntityConfiguration();
+        builder.ApplyEntityConfiguration(this.NameConverter);
         builder.HasIndex(x => new { x.ParentId, x.Name }).IsUnique().HasDatabaseName("IX_Namespace_Name");
         builder.Property(x => x.Name).HasMaxLength(StringSizes.ExtraSmall);
         builder.Property(x => x.Description).HasMaxLength(StringSizes.Small);

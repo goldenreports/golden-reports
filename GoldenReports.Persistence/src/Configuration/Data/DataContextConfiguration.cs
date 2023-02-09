@@ -11,7 +11,7 @@ public class DataContextConfiguration : EntityTypeConfiguration<DataContext>
 {
     public override void Configure(EntityTypeBuilder<DataContext> builder)
     {
-        builder.ApplyEntityConfiguration();
+        builder.ApplyEntityConfiguration(this.NameConverter);
         builder.HasIndex(x => new { x.NamespaceId, x.Name }).IsUnique().HasDatabaseName("IX_DataContext_Name");
         builder.Property(x => x.NamespaceId).HasColumnName(this.NameConverter.GetColumnName("IdNamespace"));
         builder.Property(x => x.Name).HasMaxLength(StringSizes.Small);

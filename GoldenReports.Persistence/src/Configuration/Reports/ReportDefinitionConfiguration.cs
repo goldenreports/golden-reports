@@ -11,7 +11,7 @@ public class ReportDefinitionConfiguration : EntityTypeConfiguration<ReportDefin
 {
     public override void Configure(EntityTypeBuilder<ReportDefinition> builder)
     {
-        builder.ApplyEntityConfiguration();
+        builder.ApplyEntityConfiguration(this.NameConverter);
         builder.HasIndex(x => new { x.NamespaceId, x.Name }).IsUnique().HasDatabaseName("IX_ReportDefinition_Name");
         builder.Property(x => x.NamespaceId).HasColumnName(this.NameConverter.GetColumnName("IdNamespace"));
         builder.Property(x => x.ParentId).HasColumnName(this.NameConverter.GetColumnName("IdParent"));

@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace GoldenReports.Persistence.Migrations
+namespace GoldenReports.Persistence.PostgreSQL.Migrations
 {
     [DbContext(typeof(GoldenReportsDbContext))]
     partial class GoldenReportsDbContextModelSnapshot : ModelSnapshot

@@ -10,7 +10,7 @@ public class UserConfiguration : EntityTypeConfiguration<User>
 {
     public override void Configure(EntityTypeBuilder<User> builder)
     {
-        builder.ApplyEntityConfiguration();
+        builder.ApplyEntityConfiguration(this.NameConverter);
         builder.HasAlternateKey(x => x.AuthContextKey).HasName("UK_User");
         builder.Property(x => x.AuthContextKey).HasMaxLength(StringSizes.Small);
         builder.Property(x => x.FirstName).HasMaxLength(StringSizes.ExtraSmall);

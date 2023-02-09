@@ -11,7 +11,7 @@ public class DataSourceConfiguration : EntityTypeConfiguration<DataSource>
 {
     public override void Configure(EntityTypeBuilder<DataSource> builder)
     {
-        builder.ApplyEntityConfiguration();
+        builder.ApplyEntityConfiguration(this.NameConverter);
         builder.HasIndex(x => x.Code).IsUnique().HasDatabaseName("IX_DataSource_Code");
         builder.HasIndex(x => new { x.NamespaceId, x.Name }).IsUnique().HasDatabaseName("IX_DataSource_Name");
         builder.Property(x => x.Code).HasMaxLength(StringSizes.ExtraSmall);

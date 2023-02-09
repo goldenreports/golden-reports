@@ -11,7 +11,7 @@ public class ReportAssetConfiguration : EntityTypeConfiguration<ReportAsset>
 {
     public override void Configure(EntityTypeBuilder<ReportAsset> builder)
     {
-        builder.ApplyEntityConfiguration();
+        builder.ApplyEntityConfiguration(this.NameConverter);
         builder.HasAlternateKey(x => new { x.ReportId, x.Name }).HasName("UK_ReportAsset_Name");
         builder.Property(x => x.ReportId).HasColumnName(this.NameConverter.GetColumnName("IdReport"));
         builder.Property(x => x.Name).HasMaxLength(StringSizes.ExtraSmall);
