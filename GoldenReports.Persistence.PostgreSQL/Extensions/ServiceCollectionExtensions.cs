@@ -8,11 +8,17 @@ namespace GoldenReports.Persistence.PostgreSQL.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddPostgreSQLPersistenceServices(this IServiceCollection services, IConfiguration configuration, string connectionStringName = "DefaultConnection")
+    public static IServiceCollection AddPostgreSQLPersistenceServices(this IServiceCollection services,
+        IConfiguration configuration, string connectionStringName = "DefaultConnection")
     {
-        services.AddDbContext<GoldenReportsDbContext>(opts => opts.UseNpgsql(
-                configuration.GetConnectionString(connectionStringName), b => { b.EnableRetryOnFailure(3); })
-            .UseSnakeCaseNamingConvention());
+        services.AddDbContext<GoldenReportsDbContext>(opts => opts
+            .UseNpgsql(configuration.GetConnectionString(connectionStringName), b =>
+            {
+                b.MigrationsAssembly(typeof(ServiceCollectionExtensions).Assembly.GetName().Name);
+                b.EnableRetryOnFailure(3);
+            })
+            .UseSnakeCaseNamingConvention()
+        );
 
         services.AddPersistenceServices();
         services.AddSingleton<INameConverter, NameConverter>();
