@@ -70,7 +70,6 @@ public class GoldenReportsDbContext : DbContext
         {
             configuration.Configure(this.serviceProvider, modelBuilder);
         }
-        modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
         DbInitializer.Initialize(modelBuilder);
     }
 
