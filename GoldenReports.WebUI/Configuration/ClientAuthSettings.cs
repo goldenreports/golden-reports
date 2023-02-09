@@ -1,22 +1,22 @@
 ﻿namespace GoldenReports.WebUI.Configuration;
 
-public class ClientAuthSettings
+public record ClientAuthSettings
 {
-    public string Issuer { get; init; }
-    
-    public string ClientId { get; init; }
-    
-    public string ResponseType { get; init; }
-    
-    public string Scope { get; init; }
-    
+    public string Issuer { get; init; } = null!;
+
+    public string ClientId { get; init; } = null!;
+
+    public string ResponseType { get; init; } = null!;
+
+    public string Scope { get; init; } = null!;
+
     public bool UseSilentRefresh { get; init; }
-    
+
     public bool ShowDebugInformation { get; init; }
-    
+
     public bool ClearHashAfterLogin { get; init; }
-    
+
     public bool DisableAtHashCheck { get; init; }
-    
-    public string NonceStateSeparator { get; init; }
+
+    public string NonceStateSeparator { get; init; } = null!;
 }
