@@ -10,8 +10,8 @@ public static class NamespaceConstants
         Name = "Global",
         Description = "Global namespace",
         CreationDate = new DateTime(2022, 12, 21, 4, 18, 20, 850, DateTimeKind.Utc),
-        CreatedBy = SecurityConstants.SystemUser,
+        CreatedById = SecurityConstants.SystemUser.Id,
         ModificationDate = new DateTime(2022, 12, 21, 4, 18, 20, 850, DateTimeKind.Utc),
-        ModifiedBy = SecurityConstants.SystemUser
+        ModifiedById = SecurityConstants.SystemUser.Id,
     };
 }
