@@ -22,7 +22,7 @@
       "name": "warning-check",
       "group": "pre-push",
       "command": "dotnet",
-      "args": ["build"],
+      "args": ["build", "/warnaserror"],
       "include": ["**/*.cs"]
     },
     {
