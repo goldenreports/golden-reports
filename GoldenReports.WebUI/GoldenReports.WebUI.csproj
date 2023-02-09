@@ -36,7 +36,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\GoldenReports.API\GoldenReports.API.csproj" />
-      <ProjectReference Include="..\GoldenReports.Persistence\GoldenReports.Persistence.csproj" />
+      <ProjectReference Include="..\GoldenReports.Persistence.PostgreSQL\GoldenReports.Persistence.PostgreSQL.csproj" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

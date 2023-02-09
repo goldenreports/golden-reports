@@ -7,13 +7,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GoldenReports.Persistence.Configuration.Assets;
 
-public class ReportAssetConfiguration : IEntityTypeConfiguration<ReportAsset>
+public class ReportAssetConfiguration : EntityTypeConfiguration<ReportAsset>
 {
-    public void Configure(EntityTypeBuilder<ReportAsset> builder)
+    public override void Configure(EntityTypeBuilder<ReportAsset> builder)
     {
-        builder.ApplyEntityConfiguration();
-        builder.HasAlternateKey(x => new {x.ReportId, x.Name}).HasName("UK_ReportAsset_Name");
-        builder.Property(x => x.ReportId).HasColumnName("IdReport".ToSnakeCase());
+        builder.ApplyEntityConfiguration(this.NameConverter);
+        builder.HasAlternateKey(x => new { x.ReportId, x.Name }).HasName("UK_ReportAsset_Name");
+        builder.Property(x => x.ReportId).HasColumnName(this.NameConverter.GetColumnName("IdReport"));
         builder.Property(x => x.Name).HasMaxLength(StringSizes.ExtraSmall);
         builder.Property(x => x.Path).HasMaxLength(StringSizes.Medium);
         builder.HasOne(x => x.Report).WithMany(x => x.Assets).HasForeignKey(x => x.ReportId)

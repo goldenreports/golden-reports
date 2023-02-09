@@ -7,13 +7,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GoldenReports.Persistence.Configuration.Data;
 
-public class DataContextConfiguration : IEntityTypeConfiguration<DataContext>
+public class DataContextConfiguration : EntityTypeConfiguration<DataContext>
 {
-    public void Configure(EntityTypeBuilder<DataContext> builder)
+    public override void Configure(EntityTypeBuilder<DataContext> builder)
     {
-        builder.ApplyEntityConfiguration();
-        builder.HasIndex(x => new {x.NamespaceId, x.Name}).IsUnique().HasDatabaseName("IX_DataContext_Name");
-        builder.Property(x => x.NamespaceId).HasColumnName("IdNamespace".ToSnakeCase());
+        builder.ApplyEntityConfiguration(this.NameConverter);
+        builder.HasIndex(x => new { x.NamespaceId, x.Name }).IsUnique().HasDatabaseName("IX_DataContext_Name");
+        builder.Property(x => x.NamespaceId).HasColumnName(this.NameConverter.GetColumnName("IdNamespace"));
         builder.Property(x => x.Name).HasMaxLength(StringSizes.Small);
         builder.Property(x => x.Schema).HasMaxLength(StringSizes.ExtraLarge);
         builder.HasOne(x => x.Namespace).WithMany(x => x.DataContexts).HasForeignKey(x => x.NamespaceId)

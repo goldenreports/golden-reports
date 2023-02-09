@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace GoldenReports.Persistence.Extensions;
+namespace GoldenReports.Persistence.PostgreSQL.Extensions;
 
 public static class StringExtensions
 {
