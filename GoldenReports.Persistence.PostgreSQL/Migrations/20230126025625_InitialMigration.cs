@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace GoldenReports.Persistence.Migrations
+namespace GoldenReports.Persistence.PostgreSQL.Migrations
 {
     /// <inheritdoc />
     public partial class InitialMigration : Migration

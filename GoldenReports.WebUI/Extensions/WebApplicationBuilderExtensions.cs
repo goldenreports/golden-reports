@@ -3,6 +3,7 @@ using GoldenReports.API.Extensions;
 using GoldenReports.Application.Abstractions.Security;
 using GoldenReports.Application.Extensions;
 using GoldenReports.Persistence.Extensions;
+using GoldenReports.Persistence.PostgreSQL.Extensions;
 using GoldenReports.WebUI.Configuration;
 using GoldenReports.WebUI.OpenApi;
 using GoldenReports.WebUI.Security;
@@ -25,7 +26,7 @@ public static class WebApplicationBuilderExtensions
             .AddScoped<ClientSettings>(x => x.GetRequiredService<AppSettings>().Client);
         return builder;
     }
-    
+
     public static WebApplicationBuilder AddControllers(this WebApplicationBuilder builder, string prefix)
     {
         builder.Services
@@ -78,10 +79,10 @@ public static class WebApplicationBuilderExtensions
         builder.Services.AddAuthorization();
         builder.Services.AddHttpContextAccessor();
         builder.Services.AddScoped<IAuthContext, AuthContext>();
-        
+
         return builder;
     }
-    
+
     public static WebApplicationBuilder AddCors(this WebApplicationBuilder builder)
     {
         builder.Services.AddCors(opts =>
@@ -91,7 +92,7 @@ public static class WebApplicationBuilderExtensions
                 var corsSettings = builder.Configuration
                     .GetSection($"{nameof(AppSettings.Security)}:{nameof(SecuritySettings.Cors)}")
                     .Get<CorsSettings>();
-        
+
                 policy.WithOrigins(corsSettings?.AllowedOrigins ?? Array.Empty<string>())
                     .AllowAnyMethod()
                     .AllowAnyHeader();
@@ -104,7 +105,7 @@ public static class WebApplicationBuilderExtensions
     public static WebApplicationBuilder AddGoldenReports(this WebApplicationBuilder builder)
     {
         builder.Services.AddApplicationServices();
-        builder.Services.AddPersistenceServices(builder.Configuration);
+        builder.Services.AddPostgreSQLPersistenceServices(builder.Configuration);
         return builder;
     }
 }
