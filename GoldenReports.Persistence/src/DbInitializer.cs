@@ -9,7 +9,7 @@ public static class DbInitializer
 {
     public static void Initialize(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Namespace>().HasData(NamespaceConstants.GlobalNamespace);
         modelBuilder.Entity<User>().HasData(SecurityConstants.SystemUser);
+        modelBuilder.Entity<Namespace>().HasData(NamespaceConstants.GlobalNamespace);
     }
 }
