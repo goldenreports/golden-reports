@@ -20,7 +20,7 @@
     [
       "@semantic-release/github",
       {
-        "assets": ["dist/*.nupkg", "dist/*.tar.gz"]
+        "assets": ["dist/*.tar.gz"]
       }
     ]
   ]
