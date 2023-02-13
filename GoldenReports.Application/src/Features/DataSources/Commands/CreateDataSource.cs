@@ -11,7 +11,7 @@ namespace GoldenReports.Application.Features.DataSources.Commands;
 
 public record CreateDataSource(CreateDataSourceDto DataSource) : IRequest<DataSourceDto>;
 
-internal class CreateDataSourceHandler : IRequestHandler<CreateDataSource, DataSourceDto>
+public class CreateDataSourceHandler : IRequestHandler<CreateDataSource, DataSourceDto>
 {
     private readonly IValidator<CreateDataSource> validator;
     private readonly INamespaceRepository namespaceRepository;

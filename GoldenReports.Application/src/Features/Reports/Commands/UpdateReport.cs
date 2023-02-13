@@ -8,9 +8,9 @@ using MediatR;
 
 namespace GoldenReports.Application.Features.Reports.Commands;
 
-public record UpdateReport(Guid ReportId, UpdateReportDto Report): IRequest<ReportDto>;
+public record UpdateReport(Guid ReportId, UpdateReportDto Report) : IRequest<ReportDto>;
 
-internal class UpdateReportHandler : IRequestHandler<UpdateReport, ReportDto>
+public class UpdateReportHandler : IRequestHandler<UpdateReport, ReportDto>
 {
     private readonly IReportDefinitionRepository reportDefinitionRepository;
     private readonly IValidator<UpdateReport> validator;
@@ -28,7 +28,7 @@ internal class UpdateReportHandler : IRequestHandler<UpdateReport, ReportDto>
         this.mapper = mapper;
         this.unitOfWork = unitOfWork;
     }
-    
+
     public async Task<ReportDto> Handle(UpdateReport request, CancellationToken cancellationToken)
     {
         var validationResult = await this.validator.ValidateAsync(request, cancellationToken);

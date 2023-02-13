@@ -7,7 +7,7 @@ namespace GoldenReports.Application.Features.DataSources.Queries;
 
 public record GetDataSourcesByNamespaceId(Guid NamespaceId) : IRequest<IEnumerable<DataSourceDto>>;
 
-internal class GetDataSourceByNamespaceIdHandler :
+public class GetDataSourceByNamespaceIdHandler :
     IRequestHandler<GetDataSourcesByNamespaceId, IEnumerable<DataSourceDto>>
 {
     private readonly IDataSourceRepository dataSourceRepository;

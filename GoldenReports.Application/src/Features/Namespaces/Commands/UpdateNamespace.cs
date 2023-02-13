@@ -9,9 +9,9 @@ using MediatR;
 
 namespace GoldenReports.Application.Features.Namespaces.Commands;
 
-public record UpdateNamespace(Guid NamespaceId, UpdateNamespaceDto Namespace): IRequest<NamespaceDto>;
+public record UpdateNamespace(Guid NamespaceId, UpdateNamespaceDto Namespace) : IRequest<NamespaceDto>;
 
-internal class UpdateNamespaceHandler : IRequestHandler<UpdateNamespace, NamespaceDto>
+public class UpdateNamespaceHandler : IRequestHandler<UpdateNamespace, NamespaceDto>
 {
     private readonly INamespaceRepository namespaceRepository;
     private readonly IValidator<UpdateNamespace> validator;
@@ -29,7 +29,7 @@ internal class UpdateNamespaceHandler : IRequestHandler<UpdateNamespace, Namespa
         this.mapper = mapper;
         this.unitOfWork = unitOfWork;
     }
-    
+
     public async Task<NamespaceDto> Handle(UpdateNamespace request, CancellationToken cancellationToken)
     {
         var validationResult = await this.validator.ValidateAsync(request, cancellationToken);
@@ -37,7 +37,7 @@ internal class UpdateNamespaceHandler : IRequestHandler<UpdateNamespace, Namespa
         {
             throw new BadRequestException(nameof(Namespace), validationResult.Errors);
         }
-        
+
         var existingNamespace = await this.namespaceRepository.Get(request.NamespaceId, cancellationToken);
         if (existingNamespace == null)
         {

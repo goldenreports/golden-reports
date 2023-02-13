@@ -6,9 +6,9 @@ using MediatR;
 
 namespace GoldenReports.Application.Features.Assets.Commands;
 
-public record AddReportAsset(Guid ReportId, UpsertAssetDto Asset): IRequest<AssetDto>;
+public record AddReportAsset(Guid ReportId, UpsertAssetDto Asset) : IRequest<AssetDto>;
 
-internal class AddReportAssetHandler : IRequestHandler<AddReportAsset, AssetDto>
+public class AddReportAssetHandler : IRequestHandler<AddReportAsset, AssetDto>
 {
     private readonly IReportDefinitionRepository reportDefinitionRepository;
     private readonly IValidator<UpsertAssetDto> validator;
@@ -26,7 +26,7 @@ internal class AddReportAssetHandler : IRequestHandler<AddReportAsset, AssetDto>
         this.mapper = mapper;
         this.unitOfWork = unitOfWork;
     }
-    
+
     public Task<AssetDto> Handle(AddReportAsset request, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();

@@ -10,7 +10,7 @@ namespace GoldenReports.Application.Features.DataSources.Commands;
 
 public record UpdateDataSource(Guid DataSourceId, UpdateDataSourceDto DataSource) : IRequest<DataSourceDto>;
 
-internal class UpdateDataSourceHandler : IRequestHandler<UpdateDataSource, DataSourceDto>
+public class UpdateDataSourceHandler : IRequestHandler<UpdateDataSource, DataSourceDto>
 {
     private readonly IValidator<UpdateDataSource> validator;
     private readonly IDataSourceRepository dataSourceRepository;
@@ -29,7 +29,7 @@ internal class UpdateDataSourceHandler : IRequestHandler<UpdateDataSource, DataS
         this.unitOfWork = unitOfWork;
         this.mapper = mapper;
     }
-    
+
     public async Task<DataSourceDto> Handle(UpdateDataSource request, CancellationToken cancellationToken)
     {
         var validationResult = await this.validator.ValidateAsync(request, cancellationToken);

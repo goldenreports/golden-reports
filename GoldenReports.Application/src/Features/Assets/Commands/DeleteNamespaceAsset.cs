@@ -3,9 +3,9 @@ using MediatR;
 
 namespace GoldenReports.Application.Features.Assets.Commands;
 
-public record DeleteNamespaceAsset(Guid AssetId): IRequest;
+public record DeleteNamespaceAsset(Guid AssetId) : IRequest;
 
-internal class DeleteNamespaceAssetHandler : IRequestHandler<DeleteNamespaceAsset>
+public class DeleteNamespaceAssetHandler : IRequestHandler<DeleteNamespaceAsset>
 {
     private readonly INamespaceAssetRepository namespaceAssetRepository;
     private readonly IUnitOfWork unitOfWork;
@@ -17,7 +17,7 @@ internal class DeleteNamespaceAssetHandler : IRequestHandler<DeleteNamespaceAsse
         this.namespaceAssetRepository = namespaceAssetRepository;
         this.unitOfWork = unitOfWork;
     }
-    
+
     public Task<Unit> Handle(DeleteNamespaceAsset request, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
