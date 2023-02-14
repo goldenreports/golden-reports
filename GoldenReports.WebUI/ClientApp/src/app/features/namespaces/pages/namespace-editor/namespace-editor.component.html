@@ -3,7 +3,14 @@
     <ng-container *ngIf="vm.error">
       <app-error-message *nzSpaceItem [error]="vm.error"></app-error-message>
     </ng-container>
-    <button *nzSpaceItem class="add-button" nz-button nzGhost nzType="primary">
+    <button
+      *nzSpaceItem
+      class="add-button"
+      nz-button
+      nzGhost
+      nzType="primary"
+      [disabled]="true"
+    >
       Add Namespace
     </button>
     <nz-table
