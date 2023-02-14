@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using GoldenReports.Application.Abstractions.Persistence;
 using GoldenReports.Application.DTOs.Namespaces;
+using GoldenReports.Application.Exceptions;
+using GoldenReports.Domain.Namespaces;
 using MediatR;
 
 namespace GoldenReports.Application.Features.Namespaces.Queries;
@@ -20,9 +22,12 @@ public class GetInnerNamespaceHandler : IRequestHandler<GetInnerNamespaces, IEnu
 
     public async Task<IEnumerable<NamespaceDto>> Handle(GetInnerNamespaces request, CancellationToken cancellationToken)
     {
-        var namespaces = await this.namespaceRepository.FindAsReadOnly(x => x.ParentId == request.ParentId)
-            .ToListAsync(cancellationToken);
+        var parent = await this.namespaceRepository.GetNamespaceWithInnerNamespaces(request.ParentId, cancellationToken);
+        if (parent == null)
+        {
+            throw new NotFoundException(nameof(Namespace), $"{nameof(Namespace.Id)} = {request.ParentId}");
+        }
 
-        return this.mapper.Map<IEnumerable<NamespaceDto>>(namespaces);
+        return this.mapper.Map<IEnumerable<NamespaceDto>>(parent.Namespaces);
     }
 }

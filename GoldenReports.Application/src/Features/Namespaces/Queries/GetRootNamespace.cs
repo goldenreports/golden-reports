@@ -21,6 +21,7 @@ public class GetRootNamespaceHandler : IRequestHandler<GetRootNamespace, Namespa
     public async Task<NamespaceDto> Handle(GetRootNamespace request, CancellationToken cancellationToken)
     {
         var rootNamespace = await this.namespaceRepository.GetRootNamespace(cancellationToken);
+
         return this.mapper.Map<NamespaceDto>(rootNamespace);
     }
 }
