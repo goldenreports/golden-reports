@@ -19,7 +19,7 @@ public class DeleteDataSourceHandlerTests
     }
 
     [Fact]
-    public async Task Handle_ShouldDeleteDataSource()
+    public async Task Handle_WhenDataSourceExists_ShouldDeleteDataSource()
     {
         var dataSource = new DataSource { Id = Guid.NewGuid() };
         var request = new DeleteDataSource(dataSource.Id);

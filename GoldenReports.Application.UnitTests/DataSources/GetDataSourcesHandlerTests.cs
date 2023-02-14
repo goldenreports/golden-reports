@@ -26,7 +26,7 @@ public class GetDataSourcesHandlerTests
     }
 
     [Fact]
-    public void Handle_ShouldReturnDataSources()
+    public void Handle_WhenCalled_ShouldReturnDataSources()
     {
         var request = new GetDataSources();
         var dataSources = new List<DataSource> { new() };
