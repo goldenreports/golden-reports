@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppLayoutComponent } from '@core/layout';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+  { path: '', pathMatch: 'full', redirectTo: 'namespaces' },
   {
     path: 'errors',
     loadChildren: () =>
@@ -14,13 +14,13 @@ const routes: Routes = [
     path: '',
     component: AppLayoutComponent,
     children: [
-      {
-        path: 'dashboard',
-        loadChildren: () =>
-          import('@features/dashboard/dashboard.module').then(
-            (x) => x.DashboardModule
-          ),
-      },
+      // {
+      //   path: 'dashboard',
+      //   loadChildren: () =>
+      //     import('@features/dashboard/dashboard.module').then(
+      //       (x) => x.DashboardModule
+      //     ),
+      // },
       {
         path: 'namespaces',
         loadChildren: () =>
@@ -28,13 +28,13 @@ const routes: Routes = [
             (x) => x.NamespacesModule
           ),
       },
-      {
-        path: 'settings',
-        loadChildren: () =>
-          import('@features/settings/settings.module').then(
-            (x) => x.SettingsModule
-          ),
-      },
+      // {
+      //   path: 'settings',
+      //   loadChildren: () =>
+      //     import('@features/settings/settings.module').then(
+      //       (x) => x.SettingsModule
+      //     ),
+      // },
       {
         path: '**',
         redirectTo: '/errors/not-found',
