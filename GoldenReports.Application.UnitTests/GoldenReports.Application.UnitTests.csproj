@@ -26,4 +26,9 @@
       <ProjectReference Include="..\GoldenReports.Application\GoldenReports.Application.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Assets" />
+      <Folder Include="Reports" />
+    </ItemGroup>
+
 </Project>
