@@ -22,21 +22,21 @@ const routes: Routes = [
             (x) => x.DataSourcesModule
           ),
       },
-      {
-        path: 'data-contexts',
-        loadChildren: () =>
-          import('@features/data-contexts/data-contexts.module').then(
-            (x) => x.DataContextsModule
-          ),
-      },
+      // {
+      //   path: 'data-contexts',
+      //   loadChildren: () =>
+      //     import('@features/data-contexts/data-contexts.module').then(
+      //       (x) => x.DataContextsModule
+      //     ),
+      // },
       // { path: 'assets', loadChildren: () => import('@features/assets/assets.module').then(x => x.AssetsModule) },
-      {
-        path: 'reports',
-        loadChildren: () =>
-          import('@features/reports/reports.module').then(
-            (x) => x.ReportsModule
-          ),
-      },
+      // {
+      //   path: 'reports',
+      //   loadChildren: () =>
+      //     import('@features/reports/reports.module').then(
+      //       (x) => x.ReportsModule
+      //     ),
+      // },
       // { path: 'permissions', component: PermissionListComponent },
     ],
   },

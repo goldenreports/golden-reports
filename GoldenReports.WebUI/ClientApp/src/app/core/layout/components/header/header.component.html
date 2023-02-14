@@ -5,7 +5,7 @@
 
   <div class="header-menu">
     <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
-      <li nz-menu-item nzMatchRouter routerLink="/dashboard">Dashboard</li>
+      <li nz-menu-item nzMatchRouter nzDisabled>Dashboard</li>
       <li nz-menu-item nzMatchRouter routerLink="/namespaces">Content</li>
     </ul>
   </div>
@@ -23,7 +23,7 @@
     </a>
     <nz-dropdown-menu #menu="nzDropdownMenu">
       <ul nz-menu>
-        <li nz-menu-item routerLink="/settings">Settings</li>
+        <li nz-menu-item nzDisabled>Settings</li>
         <li nz-menu-item (click)="logout()">Logout</li>
         <li nz-menu-divider></li>
         <li nz-menu-item nzDisabled>About</li>
