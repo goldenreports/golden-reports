@@ -1,4 +1,5 @@
 ﻿using GoldenReports.Application.Abstractions.Persistence;
+using GoldenReports.Application.Exceptions;
 using GoldenReports.Application.Features.DataSources.Commands;
 using GoldenReports.Domain.Data;
 using Moq;
@@ -16,6 +17,17 @@ public class DeleteDataSourceHandlerTests
         this.dataSourceRepository = new Mock<IDataSourceRepository>();
         this.unitOfWork = new Mock<IUnitOfWork>();
         this.handler = new DeleteDataSourceHandler(this.dataSourceRepository.Object, this.unitOfWork.Object);
+    }
+
+    [Fact]
+    public async Task Handle_WhenDataSourceDoesNotExists_ShouldThrowNotFoundException()
+    {
+        var request = new DeleteDataSource(Guid.NewGuid());
+        this.dataSourceRepository
+            .Setup(x => x.Get(request.DataSourceId, CancellationToken.None))
+            .ReturnsAsync((DataSource?)null);
+
+        await Assert.ThrowsAsync<NotFoundException>(() => this.handler.Handle(request, CancellationToken.None));
     }
 
     [Fact]
