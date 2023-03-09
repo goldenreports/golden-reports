@@ -24,10 +24,8 @@
           <th>Code</th>
           <th>Name</th>
           <th>Description</th>
-          <th>Creation Date</th>
-          <th>Created By</th>
-          <th>Modification Date</th>
-          <th>Modified By</th>
+          <th>Created</th>
+          <th>Modified</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -36,10 +34,14 @@
           <td>{{ dataSource.code }}</td>
           <td>{{ dataSource.name }}</td>
           <td>{{ dataSource.description }}</td>
-          <td>{{ dataSource.creationDate | date : 'short' }}</td>
-          <td>{{ dataSource.createdBy }}</td>
-          <td>{{ dataSource.modificationDate | date : 'short' }}</td>
-          <td>{{ dataSource.modifiedBy }}</td>
+          <td>
+            {{ dataSource.creationDate | date : 'short' }} by
+            {{ dataSource.createdBy }}
+          </td>
+          <td>
+            {{ dataSource.modificationDate | date : 'short' }} by
+            {{ dataSource.modifiedBy }}
+          </td>
           <td>
             <a routerLink="./{{ dataSource.id }}">Edit</a>
             <nz-divider nzType="vertical"></nz-divider>

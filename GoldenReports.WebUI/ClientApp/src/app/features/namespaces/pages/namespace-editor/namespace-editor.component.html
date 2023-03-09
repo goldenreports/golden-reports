@@ -23,10 +23,8 @@
         <tr>
           <th>Name</th>
           <th>Description</th>
-          <th>Creation Date</th>
-          <th>Created By</th>
-          <th>Modification Date</th>
-          <th>Modified By</th>
+          <th>Created</th>
+          <th>Modified</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -38,10 +36,14 @@
             }}</a>
           </td>
           <td>{{ namespace.description }}</td>
-          <td>{{ namespace.creationDate | date : 'short' }}</td>
-          <td>{{ namespace.createdBy }}</td>
-          <td>{{ namespace.modificationDate | date : 'short' }}</td>
-          <td>{{ namespace.modifiedBy }}</td>
+          <td>
+            {{ namespace.creationDate | date : 'short' }} by
+            {{ namespace.createdBy }}
+          </td>
+          <td>
+            {{ namespace.modificationDate | date : 'short' }} by
+            {{ namespace.modifiedBy }}
+          </td>
           <td>
             <a routerLink="/namespaces/{{ namespace.id }}/metadata">Edit</a>
             <nz-divider nzType="vertical"></nz-divider>
