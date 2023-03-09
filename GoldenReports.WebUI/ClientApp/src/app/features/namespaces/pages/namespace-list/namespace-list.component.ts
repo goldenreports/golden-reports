@@ -11,10 +11,10 @@ import {
 } from '@features/namespaces/store/namespace-list-page';
 
 @Component({
-  templateUrl: 'namespace-editor.component.html',
-  styleUrls: ['namespace-editor.component.scss'],
+  templateUrl: 'namespace-list.component.html',
+  styleUrls: ['namespace-list.component.scss'],
 })
-export class NamespaceEditorComponent implements OnInit, OnDestroy {
+export class NamespaceListComponent implements OnInit, OnDestroy {
   public vm$!: Observable<NamespaceListVm>;
 
   constructor(private readonly store: Store<AppState>) {}

@@ -16,7 +16,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 
 import { SharedModule } from '@shared';
 import { NamespacesRoutingModule } from './namespaces-routing.module';
-import { NamespaceContextComponent, NamespaceEditorComponent } from './pages';
+import { NamespaceContextComponent, NamespaceListComponent } from './pages';
 import { BreadcrumbComponent, NamespaceSideNavComponent } from './components';
 import { namespaceFeatureReducer, namespaceFeatureStateKey } from './store';
 import { NamespaceEditorPageEffects } from './store/namespace-editor-page';
@@ -26,7 +26,7 @@ import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 @NgModule({
   declarations: [
     NamespaceContextComponent,
-    NamespaceEditorComponent,
+    NamespaceListComponent,
     BreadcrumbComponent,
     NamespaceSideNavComponent,
   ],
