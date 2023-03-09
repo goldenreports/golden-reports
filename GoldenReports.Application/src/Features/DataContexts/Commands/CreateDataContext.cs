@@ -11,7 +11,7 @@ namespace GoldenReports.Application.Features.DataContexts.Commands;
 
 public record CreateDataContext(CreateDataContextDto DataContext) : IRequest<DataContextDto>;
 
-internal class CreateDataContextHandler : IRequestHandler<CreateDataContext, DataContextDto>
+public class CreateDataContextHandler : IRequestHandler<CreateDataContext, DataContextDto>
 {
     private readonly INamespaceRepository namespaceRepository;
     private readonly IValidator<CreateDataContext> validator;

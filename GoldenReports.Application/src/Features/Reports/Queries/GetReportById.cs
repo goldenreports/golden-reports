@@ -7,9 +7,9 @@ using MediatR;
 
 namespace GoldenReports.Application.Features.Reports.Queries;
 
-public record GetReportById(Guid ReportId): IRequest<ReportDto>;
+public record GetReportById(Guid ReportId) : IRequest<ReportDto>;
 
-internal class GetReportByIdHandler : IRequestHandler<GetReportById, ReportDto>
+public class GetReportByIdHandler : IRequestHandler<GetReportById, ReportDto>
 {
     private readonly IReportDefinitionRepository reportDefinitionRepository;
     private readonly IMapper mapper;
@@ -19,7 +19,7 @@ internal class GetReportByIdHandler : IRequestHandler<GetReportById, ReportDto>
         this.reportDefinitionRepository = reportDefinitionRepository;
         this.mapper = mapper;
     }
-    
+
     public async Task<ReportDto> Handle(GetReportById request, CancellationToken cancellationToken)
     {
         var report = await this.reportDefinitionRepository.Get(request.ReportId, cancellationToken);

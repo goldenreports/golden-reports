@@ -11,7 +11,7 @@ namespace GoldenReports.Application.Features.Reports.Commands;
 
 public record CreateReport(CreateReportDto Report) : IRequest<ReportDto>;
 
-internal class CreateReportHandler : IRequestHandler<CreateReport, ReportDto>
+public class CreateReportHandler : IRequestHandler<CreateReport, ReportDto>
 {
     private readonly INamespaceRepository namespaceRepository;
     private readonly IValidator<CreateReport> validator;

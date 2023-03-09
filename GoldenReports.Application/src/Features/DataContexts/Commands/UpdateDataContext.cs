@@ -8,9 +8,9 @@ using MediatR;
 
 namespace GoldenReports.Application.Features.DataContexts.Commands;
 
-public record UpdateDataContext(Guid DataContextId, UpdateDataContextDto DataContext): IRequest<DataContextDto>;
+public record UpdateDataContext(Guid DataContextId, UpdateDataContextDto DataContext) : IRequest<DataContextDto>;
 
-internal class UpdateDataContextHandler : IRequestHandler<UpdateDataContext, DataContextDto>
+public class UpdateDataContextHandler : IRequestHandler<UpdateDataContext, DataContextDto>
 {
     private readonly IDataContextRepository dataContextRepository;
     private readonly IValidator<UpdateDataContext> validator;
@@ -28,7 +28,7 @@ internal class UpdateDataContextHandler : IRequestHandler<UpdateDataContext, Dat
         this.mapper = mapper;
         this.unitOfWork = unitOfWork;
     }
-    
+
     public async Task<DataContextDto> Handle(UpdateDataContext request, CancellationToken cancellationToken)
     {
         var validationResults = await this.validator.ValidateAsync(request, cancellationToken);
@@ -36,7 +36,7 @@ internal class UpdateDataContextHandler : IRequestHandler<UpdateDataContext, Dat
         {
             throw new BadRequestException(nameof(DataContext), validationResults.Errors);
         }
-        
+
         var dataContext = await this.dataContextRepository.Get(request.DataContextId, cancellationToken);
         if (dataContext == null)
         {

@@ -10,7 +10,7 @@ namespace GoldenReports.Application.Features.DataSources.Queries;
 
 public record GetDataSourceById(Guid DataSourceId) : IRequest<DataSourceDto>;
 
-internal class GetDataSourceByIdHandler : IRequestHandler<GetDataSourceById, DataSourceDto>
+public class GetDataSourceByIdHandler : IRequestHandler<GetDataSourceById, DataSourceDto>
 {
     private readonly IDataSourceRepository dataSourceRepository;
     private readonly IMapper mapper;

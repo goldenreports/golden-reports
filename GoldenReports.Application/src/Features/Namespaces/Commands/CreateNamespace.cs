@@ -10,7 +10,7 @@ namespace GoldenReports.Application.Features.Namespaces.Commands;
 
 public record CreateNamespace(CreateNamespaceDto Namespace) : IRequest<NamespaceDto>;
 
-internal class CreateNamespaceHandler : IRequestHandler<CreateNamespace, NamespaceDto>
+public class CreateNamespaceHandler : IRequestHandler<CreateNamespace, NamespaceDto>
 {
     private readonly INamespaceRepository namespaceRepository;
     private readonly IValidator<CreateNamespace> validator;
@@ -44,7 +44,7 @@ internal class CreateNamespaceHandler : IRequestHandler<CreateNamespace, Namespa
         {
             throw new NotFoundException(nameof(Namespace), $"Id = {request.Namespace.ParentId}");
         }
-            
+
         parent.Namespaces.Add(newNamespace);
 
         await this.unitOfWork.CommitChanges(cancellationToken);

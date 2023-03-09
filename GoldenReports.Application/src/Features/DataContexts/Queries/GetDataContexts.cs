@@ -5,9 +5,9 @@ using MediatR;
 
 namespace GoldenReports.Application.Features.DataContexts.Queries;
 
-public record GetDataContexts: IRequest<IEnumerable<DataContextDto>>;
+public record GetDataContexts : IRequest<IEnumerable<DataContextDto>>;
 
-internal class GetDataContextsHandler : IRequestHandler<GetDataContexts, IEnumerable<DataContextDto>>
+public class GetDataContextsHandler : IRequestHandler<GetDataContexts, IEnumerable<DataContextDto>>
 {
     private readonly IDataContextRepository dataContextRepository;
     private readonly IMapper mapper;
@@ -17,7 +17,7 @@ internal class GetDataContextsHandler : IRequestHandler<GetDataContexts, IEnumer
         this.dataContextRepository = dataContextRepository;
         this.mapper = mapper;
     }
-    
+
     public async Task<IEnumerable<DataContextDto>> Handle(GetDataContexts request, CancellationToken cancellationToken)
     {
         var contexts = await this.dataContextRepository.GetAllAsReadOnly().ToListAsync(cancellationToken);

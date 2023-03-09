@@ -5,9 +5,9 @@ using MediatR;
 
 namespace GoldenReports.Application.Features.DataSources.Queries;
 
-public record GetDataSources: IRequest<IEnumerable<DataSourceDto>>;
+public record GetDataSources : IRequest<IEnumerable<DataSourceDto>>;
 
-internal class GetDataSourcesHandler : IRequestHandler<GetDataSources, IEnumerable<DataSourceDto>>
+public class GetDataSourcesHandler : IRequestHandler<GetDataSources, IEnumerable<DataSourceDto>>
 {
     private readonly IDataSourceRepository dataSourceRepository;
     private readonly IMapper mapper;
@@ -17,7 +17,7 @@ internal class GetDataSourcesHandler : IRequestHandler<GetDataSources, IEnumerab
         this.dataSourceRepository = dataSourceRepository;
         this.mapper = mapper;
     }
-    
+
     public async Task<IEnumerable<DataSourceDto>> Handle(GetDataSources request, CancellationToken cancellationToken)
     {
         var dataSources = await this.dataSourceRepository.GetAllAsReadOnly().ToListAsync(cancellationToken);
