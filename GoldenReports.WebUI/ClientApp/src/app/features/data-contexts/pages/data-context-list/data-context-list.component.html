@@ -5,10 +5,8 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>Creation Date</th>
-        <th>Created By</th>
-        <th>Modification Date</th>
-        <th>Modified By</th>
+        <th>Created</th>
+        <th>Modified</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -17,10 +15,14 @@
         <td>
           <a routerLink="./{{ dataContext.id }}">{{ dataContext.name }}</a>
         </td>
-        <td>{{ dataContext.creationDate | date : 'short' }}</td>
-        <td>{{ dataContext.createdBy }}</td>
-        <td>{{ dataContext.modificationDate | date : 'short' }}</td>
-        <td>{{ dataContext.modifiedBy }}</td>
+        <td>
+          {{ dataContext.creationDate | date : 'short' }} by
+          {{ dataContext.createdBy }}
+        </td>
+        <td>
+          {{ dataContext.modificationDate | date : 'short' }} by
+          {{ dataContext.modifiedBy }}
+        </td>
         <td>
           <a>Delete</a>
         </td>
