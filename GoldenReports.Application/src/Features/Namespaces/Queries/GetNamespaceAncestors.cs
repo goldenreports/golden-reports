@@ -5,9 +5,9 @@ using MediatR;
 
 namespace GoldenReports.Application.Features.Namespaces.Queries;
 
-public record GetNamespaceAncestors(Guid NamespaceId): IRequest<IEnumerable<NamespaceDto>>;
+public record GetNamespaceAncestors(Guid NamespaceId) : IRequest<IEnumerable<NamespaceDto>>;
 
-internal class GetNamespaceAncestorsHandler : IRequestHandler<GetNamespaceAncestors, IEnumerable<NamespaceDto>>
+public class GetNamespaceAncestorsHandler : IRequestHandler<GetNamespaceAncestors, IEnumerable<NamespaceDto>>
 {
     private readonly INamespaceRepository namespaceRepository;
     private readonly IMapper mapper;
@@ -17,7 +17,7 @@ internal class GetNamespaceAncestorsHandler : IRequestHandler<GetNamespaceAncest
         this.namespaceRepository = namespaceRepository;
         this.mapper = mapper;
     }
-    
+
     public async Task<IEnumerable<NamespaceDto>> Handle(GetNamespaceAncestors request, CancellationToken cancellationToken)
     {
         var ancestors = await this.namespaceRepository.GetAncestors(request.NamespaceId).ToListAsync(cancellationToken);

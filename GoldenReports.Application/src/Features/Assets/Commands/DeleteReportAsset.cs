@@ -3,9 +3,9 @@ using MediatR;
 
 namespace GoldenReports.Application.Features.Assets.Commands;
 
-public record DeleteReportAsset(Guid AssetId): IRequest;
+public record DeleteReportAsset(Guid AssetId) : IRequest;
 
-internal class DeleteReportAssetHandler : IRequestHandler<DeleteReportAsset>
+public class DeleteReportAssetHandler : IRequestHandler<DeleteReportAsset>
 {
     private readonly IReportAssetRepository reportAssetRepository;
     private readonly IUnitOfWork unitOfWork;
@@ -17,7 +17,7 @@ internal class DeleteReportAssetHandler : IRequestHandler<DeleteReportAsset>
         this.reportAssetRepository = reportAssetRepository;
         this.unitOfWork = unitOfWork;
     }
-    
+
     public Task<Unit> Handle(DeleteReportAsset request, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();

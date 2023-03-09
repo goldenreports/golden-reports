@@ -5,9 +5,9 @@ using MediatR;
 
 namespace GoldenReports.Application.Features.DataContexts.Commands;
 
-public record DeleteDataContext(Guid DataContextId): IRequest;
+public record DeleteDataContext(Guid DataContextId) : IRequest;
 
-internal class DeleteDataContextHandler : IRequestHandler<DeleteDataContext>
+public class DeleteDataContextHandler : IRequestHandler<DeleteDataContext>
 {
     private readonly IDataContextRepository dataContextRepository;
     private readonly IUnitOfWork unitOfWork;
@@ -17,7 +17,7 @@ internal class DeleteDataContextHandler : IRequestHandler<DeleteDataContext>
         this.dataContextRepository = dataContextRepository;
         this.unitOfWork = unitOfWork;
     }
-    
+
     public async Task<Unit> Handle(DeleteDataContext request, CancellationToken cancellationToken)
     {
         var dataContext = await this.dataContextRepository.Get(request.DataContextId, cancellationToken);
@@ -25,7 +25,7 @@ internal class DeleteDataContextHandler : IRequestHandler<DeleteDataContext>
         {
             throw new NotFoundException(nameof(DataContext), $"Id = {request.DataContextId}");
         }
-        
+
         this.dataContextRepository.Remove(dataContext);
         await this.unitOfWork.CommitChanges(cancellationToken);
         return Unit.Value;

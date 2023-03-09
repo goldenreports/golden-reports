@@ -7,9 +7,9 @@ using MediatR;
 
 namespace GoldenReports.Application.Features.Namespaces.Queries;
 
-public record GetNamespaceById(Guid NamespaceId): IRequest<NamespaceDto>;
+public record GetNamespaceById(Guid NamespaceId) : IRequest<NamespaceDto>;
 
-internal class GetNamespaceByIdHandler : IRequestHandler<GetNamespaceById, NamespaceDto>
+public class GetNamespaceByIdHandler : IRequestHandler<GetNamespaceById, NamespaceDto>
 {
     private readonly INamespaceRepository namespaceRepository;
     private readonly IMapper mapper;
@@ -19,7 +19,7 @@ internal class GetNamespaceByIdHandler : IRequestHandler<GetNamespaceById, Names
         this.namespaceRepository = namespaceRepository;
         this.mapper = mapper;
     }
-    
+
     public async Task<NamespaceDto> Handle(GetNamespaceById request, CancellationToken cancellationToken)
     {
         var namespaceFound = await this.namespaceRepository.Get(request.NamespaceId, cancellationToken);

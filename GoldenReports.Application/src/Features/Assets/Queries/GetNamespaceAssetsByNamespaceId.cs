@@ -7,7 +7,7 @@ namespace GoldenReports.Application.Features.Assets.Queries;
 
 public record GetNamespaceAssetsByNamespaceId(Guid NamespaceId) : IRequest<IEnumerable<AssetDto>>;
 
-internal class GetNamespaceAssetsByNamespaceIdHandler :
+public class GetNamespaceAssetsByNamespaceIdHandler :
     IRequestHandler<GetNamespaceAssetsByNamespaceId, IEnumerable<AssetDto>>
 {
     private readonly INamespaceAssetRepository namespaceAssetRepository;

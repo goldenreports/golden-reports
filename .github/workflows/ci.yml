@@ -30,8 +30,9 @@ jobs:
         with:
           node-version: 18
       - name: Build
-        if: github.event_name == 'pull_request'
         run: dotnet build GoldenReports.sln -c Release
+      - name: Test dotnet code
+        run: dotnet test GoldenReports.sln
       - name: Install Semantic release
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         run: npm i -g semantic-release @semantic-release/exec

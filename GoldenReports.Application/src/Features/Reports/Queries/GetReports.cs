@@ -5,9 +5,9 @@ using MediatR;
 
 namespace GoldenReports.Application.Features.Reports.Queries;
 
-public record GetReports: IRequest<IEnumerable<ReportListItemDto>>;
+public record GetReports : IRequest<IEnumerable<ReportListItemDto>>;
 
-internal class GetReportsHandler : IRequestHandler<GetReports, IEnumerable<ReportListItemDto>>
+public class GetReportsHandler : IRequestHandler<GetReports, IEnumerable<ReportListItemDto>>
 {
     private readonly IReportDefinitionRepository reportDefinitionRepository;
     private readonly IMapper mapper;
@@ -17,7 +17,7 @@ internal class GetReportsHandler : IRequestHandler<GetReports, IEnumerable<Repor
         this.reportDefinitionRepository = reportDefinitionRepository;
         this.mapper = mapper;
     }
-    
+
     public async Task<IEnumerable<ReportListItemDto>> Handle(GetReports request, CancellationToken cancellationToken)
     {
         var reports = await this.reportDefinitionRepository.GetAllAsReadOnly().ToListAsync(cancellationToken);

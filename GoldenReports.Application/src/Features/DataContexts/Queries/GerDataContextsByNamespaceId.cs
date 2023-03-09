@@ -7,7 +7,7 @@ namespace GoldenReports.Application.Features.DataContexts.Queries;
 
 public record GetDataContextsByNamespaceId(Guid NamespaceId) : IRequest<IEnumerable<DataContextDto>>;
 
-internal class GetDataContextsByNamespaceIdHandler :
+public class GetDataContextsByNamespaceIdHandler :
     IRequestHandler<GetDataContextsByNamespaceId, IEnumerable<DataContextDto>>
 {
     private readonly IDataContextRepository dataContextRepository;

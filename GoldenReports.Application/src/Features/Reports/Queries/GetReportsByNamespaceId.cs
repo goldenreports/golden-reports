@@ -7,7 +7,7 @@ namespace GoldenReports.Application.Features.Reports.Queries;
 
 public record GetReportsByNamespaceId(Guid NamespaceId) : IRequest<IEnumerable<ReportListItemDto>>;
 
-internal class GetReportsByNamespaceIdHandler :
+public class GetReportsByNamespaceIdHandler :
     IRequestHandler<GetReportsByNamespaceId, IEnumerable<ReportListItemDto>>
 {
     private readonly IReportDefinitionRepository reportDefinitionRepository;

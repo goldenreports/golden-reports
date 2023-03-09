@@ -6,9 +6,9 @@ using MediatR;
 
 namespace GoldenReports.Application.Features.Assets.Commands;
 
-public record AddNamespaceAsset(Guid NamespaceId, UpsertAssetDto Asset): IRequest<AssetDto>;
+public record AddNamespaceAsset(Guid NamespaceId, UpsertAssetDto Asset) : IRequest<AssetDto>;
 
-internal class AddNamespaceAssetHandler : IRequestHandler<AddNamespaceAsset, AssetDto>
+public class AddNamespaceAssetHandler : IRequestHandler<AddNamespaceAsset, AssetDto>
 {
     private readonly INamespaceRepository namespaceRepository;
     private readonly IValidator<UpsertAssetDto> validator;
@@ -26,7 +26,7 @@ internal class AddNamespaceAssetHandler : IRequestHandler<AddNamespaceAsset, Ass
         this.mapper = mapper;
         this.unitOfWork = unitOfWork;
     }
-    
+
     public Task<AssetDto> Handle(AddNamespaceAsset request, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
