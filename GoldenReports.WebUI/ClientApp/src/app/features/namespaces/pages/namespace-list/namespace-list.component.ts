@@ -3,12 +3,12 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { AppState } from '@core/store';
-import { CreateNamespaceDto } from '@core/api';
 import { NamespaceListVm } from '@features/namespaces/models';
 import {
   namespaceListPageActions,
   NamespaceListPageSelectors,
 } from '@features/namespaces/store/namespace-list-page';
+import { NamespaceDto } from '@core/api';
 
 @Component({
   templateUrl: 'namespace-list.component.html',
@@ -28,17 +28,9 @@ export class NamespaceListComponent implements OnInit, OnDestroy {
     this.store.dispatch(namespaceListPageActions.closed());
   }
 
-  public beginNamespaceCreation(): void {
-    this.store.dispatch(namespaceListPageActions.creationStated());
-  }
-
-  public saveNamespace(newChild: CreateNamespaceDto): void {
+  public deleteNamespace(namespace: NamespaceDto): void {
     this.store.dispatch(
-      namespaceListPageActions.childNamespaceSubmitted({ namespace: newChild })
+      namespaceListPageActions.deleteSubmitted({ namespace })
     );
-  }
-
-  public cancelNamespaceCreation(): void {
-    this.store.dispatch(namespaceListPageActions.creationCancelled());
   }
 }

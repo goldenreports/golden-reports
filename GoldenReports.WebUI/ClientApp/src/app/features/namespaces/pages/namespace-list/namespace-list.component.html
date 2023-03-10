@@ -52,7 +52,13 @@
               >Edit</a
             >
             <nz-divider nzType="vertical"></nz-divider>
-            <a>Delete</a>
+            <a
+              nz-popconfirm
+              nzPopconfirmTitle="Are you sure delete this namespace?"
+              nzPopconfirmPlacement="top"
+              (nzOnConfirm)="deleteNamespace(namespace)"
+              >Delete</a
+            >
           </td>
         </tr>
       </tbody>

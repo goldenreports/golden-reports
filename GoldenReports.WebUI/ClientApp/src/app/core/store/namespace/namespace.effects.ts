@@ -127,15 +127,20 @@ export class NamespaceEffects {
       ofType(namespaceActions.removeRequested),
       mergeMap((payload) =>
         this.namespacesService
-          .deleteNamespace({ namespaceId: payload.namespaceId })
+          .deleteNamespace({ namespaceId: payload.namespace.id! })
           .pipe(
             map(() =>
               namespaceActions.namespaceRemoved({
-                namespaceId: payload.namespaceId,
+                namespaceId: payload.namespace.id!,
               })
             ),
             catchError((resp: HttpErrorResponse) =>
-              of(namespaceActions.removeFailed({ error: resp.error }))
+              of(
+                namespaceActions.removeFailed({
+                  namespace: payload.namespace,
+                  error: resp.error,
+                })
+              )
             )
           )
       )

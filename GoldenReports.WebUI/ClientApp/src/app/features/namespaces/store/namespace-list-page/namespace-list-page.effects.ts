@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { filter, map, withLatestFrom } from 'rxjs/operators';
-import { combineLatest } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+import { combineLatest, tap } from 'rxjs';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 import { AppState } from '@core/store';
 import { namespaceActions } from '@core/store/namespace';
@@ -14,7 +15,8 @@ import { NamespaceListPageSelectors } from './namespace-list-page.selectors';
 export class NamespaceListPageEffects {
   constructor(
     private readonly actions$: Actions,
-    private readonly store: Store<AppState>
+    private readonly store: Store<AppState>,
+    private readonly messageService: NzMessageService
   ) {}
 
   getChildren$ = createEffect(() =>
@@ -29,34 +31,23 @@ export class NamespaceListPageEffects {
     )
   );
 
-  createChildNamespace$ = createEffect(() =>
+  deleteChild$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(namespaceListPageActions.childNamespaceSubmitted),
-      withLatestFrom(
-        this.store.select(NamespaceContextPageSelectors.getNamespaceId)
+      ofType(namespaceListPageActions.deleteSubmitted),
+      map(({ namespace }) => namespaceActions.removeRequested({ namespace }))
+    )
+  );
+
+  showMessageOnError = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(namespaceActions.removeFailed),
+        tap(() =>
+          this.messageService.error(
+            'There was an error while trying to delete namespace.'
+          )
+        )
       ),
-      map(([payload, namespaceId]) =>
-        namespaceActions.creationRequested({
-          newNamespace: {
-            ...payload.namespace,
-            parentId: namespaceId,
-          },
-        })
-      )
-    )
-  );
-
-  childNamespaceCreated$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(namespaceActions.namespaceCreated),
-      map(() => namespaceListPageActions.childNamespaceCreated())
-    )
-  );
-
-  childNamespaceCreationFailed$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(namespaceActions.creationFailed),
-      map((x) => namespaceListPageActions.childNamespaceCreationFailed(x))
-    )
+    { dispatch: false }
   );
 }

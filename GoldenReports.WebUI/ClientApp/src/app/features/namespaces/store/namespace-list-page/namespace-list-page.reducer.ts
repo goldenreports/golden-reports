@@ -55,43 +55,5 @@ export const namespaceListPageReducer = createReducer(
       ...state,
       error,
     };
-  }),
-  on(namespaceListPageActions.creationStated, (state) => {
-    return {
-      ...state,
-      error: undefined,
-      showingNewNamespaceModal: true,
-    };
-  }),
-  on(namespaceListPageActions.creationCancelled, (state) => {
-    return {
-      ...state,
-      error: undefined,
-      showingNewNamespaceModal: false,
-    };
-  }),
-  on(namespaceListPageActions.childNamespaceSubmitted, (state) => {
-    return {
-      ...state,
-      saving: true,
-      error: undefined,
-    };
-  }),
-  on(namespaceListPageActions.childNamespaceCreated, (state) => {
-    return {
-      ...state,
-      showingNewNamespaceModal: false,
-      saving: false,
-    };
-  }),
-  on(
-    namespaceListPageActions.childNamespaceCreationFailed,
-    (state, { error }) => {
-      return {
-        ...state,
-        saving: false,
-        error,
-      };
-    }
-  )
+  })
 );

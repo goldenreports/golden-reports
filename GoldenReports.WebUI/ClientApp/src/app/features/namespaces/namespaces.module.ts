@@ -14,6 +14,8 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 import { SharedModule } from '@shared';
 import { NamespacesRoutingModule } from './namespaces-routing.module';
@@ -58,6 +60,8 @@ import { NamespaceEditorPageEffects } from './store/namespace-editor-page';
     NzFormModule,
     NzInputModule,
     NzPageHeaderModule,
+    NzPopconfirmModule,
+    NzMessageModule,
   ],
 })
 export class NamespacesModule {}
