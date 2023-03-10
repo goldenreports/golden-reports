@@ -6,7 +6,7 @@ import { combineLatest } from 'rxjs';
 
 import { AppState } from '@core/store';
 import { namespaceActions } from '@core/store/namespace';
-import { NamespaceEditorPageSelectors } from '@features/namespaces/store/namespace-editor-page';
+import { NamespaceContextPageSelectors } from '@features/namespaces/store/namespace-context-page';
 import { namespaceListPageActions } from './namespace-list-page.actions';
 import { NamespaceListPageSelectors } from './namespace-list-page.selectors';
 
@@ -19,7 +19,7 @@ export class NamespaceListPageEffects {
 
   getChildren$ = createEffect(() =>
     combineLatest([
-      this.store.select(NamespaceEditorPageSelectors.getNamespaceId),
+      this.store.select(NamespaceContextPageSelectors.getNamespaceId),
       this.store.select(NamespaceListPageSelectors.getIsOpenFlag),
     ]).pipe(
       filter(([namespaceId, isOpen]) => !!namespaceId && isOpen),
@@ -33,7 +33,7 @@ export class NamespaceListPageEffects {
     this.actions$.pipe(
       ofType(namespaceListPageActions.childNamespaceSubmitted),
       withLatestFrom(
-        this.store.select(NamespaceEditorPageSelectors.getNamespaceId)
+        this.store.select(NamespaceContextPageSelectors.getNamespaceId)
       ),
       map(([payload, namespaceId]) =>
         namespaceActions.creationRequested({

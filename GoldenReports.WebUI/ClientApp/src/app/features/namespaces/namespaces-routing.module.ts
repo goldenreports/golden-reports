@@ -2,7 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { RootNamespaceResolver } from './resolvers';
-import { NamespaceContextComponent, NamespaceListComponent } from './pages';
+import {
+  NamespaceContextComponent,
+  NamespaceEditorComponent,
+  NamespaceListComponent,
+} from './pages';
 import { NamespaceSideNavComponent } from './components';
 
 const routes: Routes = [
@@ -15,6 +19,10 @@ const routes: Routes = [
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'namespaces' },
       { path: 'namespaces', component: NamespaceListComponent },
+      {
+        path: 'namespaces/:childNamespace',
+        component: NamespaceEditorComponent,
+      },
       {
         path: 'data-sources',
         loadChildren: () =>

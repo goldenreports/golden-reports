@@ -1,10 +1,11 @@
 import { createSelector } from '@ngrx/store';
 
 import { NamespaceSelectors } from '@core/store/namespace';
-import { RouterSelectors } from '@core/store/router';
-import { NamespaceEditorVm } from '@features/namespaces/models';
 import { selectNamespaceFeature } from '@features/namespaces/store';
-import { NamespaceEditorPageStateKey } from './namespace-editor-page.reducer';
+import { RouterSelectors } from '@core/store/router';
+import { NamespaceEditorPageStateKey } from '@features/namespaces/store/namespace-editor-page';
+import { NamespaceEditorVm } from '@features/namespaces/models';
+import { NamespaceContextPageSelectors } from '@features/namespaces/store/namespace-context-page';
 
 export class NamespaceEditorPageSelectors {
   public static readonly getState = createSelector(
@@ -12,62 +13,32 @@ export class NamespaceEditorPageSelectors {
     (state) => state[NamespaceEditorPageStateKey]
   );
 
-  public static readonly getLoadedFlag = createSelector(
+  public static readonly getLoadingFlag = createSelector(
     NamespaceEditorPageSelectors.getState,
-    (state) => state.loaded
+    (state) => state?.loading
   );
 
-  public static readonly getLoadingPathFlag = createSelector(
-    NamespaceEditorPageSelectors.getState,
-    (state) => state.loadingPath
-  );
-
-  public static readonly getNamespaceId = createSelector(
-    RouterSelectors.getParams,
-    (params) => params?.['namespaceId'] as string
+  public static readonly getCombinedLoadingFlag = createSelector(
+    NamespaceEditorPageSelectors.getLoadingFlag,
+    NamespaceContextPageSelectors.getLoadingPathFlag,
+    (localLoading, parentLoading) => localLoading && parentLoading
   );
 
   public static readonly getNamespace = createSelector(
-    NamespaceEditorPageSelectors.getNamespaceId,
     NamespaceSelectors.getEntities,
-    (namespaceId, namespaces) => {
-      return namespaceId ? namespaces[namespaceId] : undefined;
-    }
+    RouterSelectors.getParam('childNamespaceId'),
+    (namespaces, selectedNamespaceId) =>
+      selectedNamespaceId ? namespaces[selectedNamespaceId] : null
   );
 
-  public static readonly getName = createSelector(
-    NamespaceEditorPageSelectors.getNamespace,
-    (namespace) => namespace?.name
+  public static readonly getIsNewNamespaceFlag = createSelector(
+    NamespaceEditorPageSelectors.getState,
+    (state) => state?.isNewNamespace
   );
 
-  public static readonly getDescription = createSelector(
-    NamespaceEditorPageSelectors.getNamespace,
-    (namespace) => namespace?.description
-  );
-
-  public static readonly getIsRootFlag = createSelector(
-    NamespaceEditorPageSelectors.getNamespace,
-    (namespace) => !namespace?.parentId
-  );
-
-  public static readonly getNamespaces = createSelector(
-    NamespaceEditorPageSelectors.getNamespace,
-    NamespaceSelectors.getEntities,
-    (namespace, allNamespaces) => {
-      if (!namespace) {
-        return [];
-      }
-
-      const namespaces = [];
-      let currentNamespaceId: string | null | undefined = namespace.id;
-
-      while (currentNamespaceId && allNamespaces[currentNamespaceId]) {
-        namespaces.unshift(allNamespaces[currentNamespaceId]);
-        currentNamespaceId = allNamespaces[currentNamespaceId]?.parentId;
-      }
-
-      return namespaces;
-    }
+  public static readonly getSavingFlag = createSelector(
+    NamespaceEditorPageSelectors.getState,
+    (state) => state?.saving
   );
 
   public static readonly getError = createSelector(
@@ -75,21 +46,33 @@ export class NamespaceEditorPageSelectors {
     (state) => state?.error
   );
 
+  public static readonly getHasValidDataFlag = createSelector(
+    NamespaceEditorPageSelectors.getState,
+    (state) => state?.hasValidData
+  );
+
+  public static readonly getCanSaveFlag = createSelector(
+    NamespaceEditorPageSelectors.getLoadingFlag,
+    NamespaceEditorPageSelectors.getSavingFlag,
+    NamespaceEditorPageSelectors.getHasValidDataFlag,
+    (loading, saving, hasValidData) => !loading && !saving && hasValidData
+  );
+
   public static readonly getViewModel = createSelector(
-    NamespaceEditorPageSelectors.getNamespaces,
+    NamespaceEditorPageSelectors.getLoadingFlag,
+    NamespaceEditorPageSelectors.getNamespace,
+    NamespaceEditorPageSelectors.getIsNewNamespaceFlag,
+    NamespaceEditorPageSelectors.getSavingFlag,
     NamespaceEditorPageSelectors.getError,
-    NamespaceEditorPageSelectors.getIsRootFlag,
-    NamespaceEditorPageSelectors.getLoadingPathFlag,
-    NamespaceEditorPageSelectors.getName,
-    NamespaceEditorPageSelectors.getDescription,
-    (namespaces, error, isRoot, loading, name, description) =>
+    NamespaceEditorPageSelectors.getCanSaveFlag,
+    (loading, namespace, isNewNamespace, saving, error, canSave) =>
       ({
         loading,
-        name,
-        description,
-        isRoot,
-        namespaces,
+        namespace,
+        isNewNamespace,
+        saving,
         error,
+        canSave,
       } as NamespaceEditorVm)
   );
 }

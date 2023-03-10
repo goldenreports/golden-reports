@@ -1,10 +1,10 @@
 import { ErrorDto, NamespaceDto } from '@core/api';
 
 export interface NamespaceEditorVm {
-  name: string;
-  description: string;
-  isRoot: boolean;
+  namespace?: NamespaceDto;
   loading: boolean;
-  namespaces: Array<NamespaceDto>;
-  error: ErrorDto;
+  isNewNamespace: boolean;
+  saving: boolean;
+  error?: ErrorDto;
+  canSave: boolean;
 }

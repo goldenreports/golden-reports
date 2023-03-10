@@ -13,20 +13,26 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 
 import { SharedModule } from '@shared';
 import { NamespacesRoutingModule } from './namespaces-routing.module';
-import { NamespaceContextComponent, NamespaceListComponent } from './pages';
+import {
+  NamespaceContextComponent,
+  NamespaceEditorComponent,
+  NamespaceListComponent,
+} from './pages';
 import { BreadcrumbComponent, NamespaceSideNavComponent } from './components';
 import { namespaceFeatureReducer, namespaceFeatureStateKey } from './store';
-import { NamespaceEditorPageEffects } from './store/namespace-editor-page';
+import { NamespaceContextPageEffects } from './store/namespace-context-page';
 import { NamespaceListPageEffects } from './store/namespace-list-page';
-import { NamespaceMetadataPageEffects } from './store/namespace-metadata-page';
-import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { NamespaceEditorPageEffects } from './store/namespace-editor-page';
+
 @NgModule({
   declarations: [
     NamespaceContextComponent,
     NamespaceListComponent,
+    NamespaceEditorComponent,
     BreadcrumbComponent,
     NamespaceSideNavComponent,
   ],
@@ -44,9 +50,9 @@ import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
     ReactiveFormsModule,
     StoreModule.forFeature(namespaceFeatureStateKey, namespaceFeatureReducer),
     EffectsModule.forFeature([
-      NamespaceEditorPageEffects,
+      NamespaceContextPageEffects,
       NamespaceListPageEffects,
-      NamespaceMetadataPageEffects,
+      NamespaceEditorPageEffects,
     ]),
     SharedModule,
     NzFormModule,
