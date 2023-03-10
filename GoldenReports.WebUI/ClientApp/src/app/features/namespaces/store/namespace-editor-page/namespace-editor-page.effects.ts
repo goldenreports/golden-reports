@@ -76,7 +76,7 @@ export class NamespaceEditorPageEffects {
       ofType(namespaceActions.namespaceFetched),
       map((x) =>
         formActions.formDataLoaded({
-          formId: 'dataSource',
+          formId: 'namespace',
           value: x.namespace,
         })
       )
