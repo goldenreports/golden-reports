@@ -49,13 +49,15 @@ export class NamespaceListPageSelectors {
   public static readonly getViewModel = createSelector(
     NamespaceListPageSelectors.getLoadingFlag,
     NamespaceListPageSelectors.getError,
+    NamespaceContextPageSelectors.getNamespaceId,
     NamespaceListPageSelectors.getChildren,
     NamespaceListPageSelectors.getShowingNewNamespaceModalFlag,
     NamespaceListPageSelectors.getSavingFlag,
-    (loading, error, children, showingNewNamespaceModal, saving) =>
+    (loading, error, parentId, children, showingNewNamespaceModal, saving) =>
       ({
         loading,
         error,
+        parentId,
         children,
         showingNewNamespaceModal,
         saving,

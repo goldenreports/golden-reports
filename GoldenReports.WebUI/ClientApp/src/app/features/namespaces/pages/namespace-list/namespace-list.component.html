@@ -45,7 +45,12 @@
             {{ namespace.modifiedBy }}
           </td>
           <td>
-            <a routerLink="/namespaces/{{ namespace.id }}/metadata">Edit</a>
+            <a
+              routerLink="/namespaces/{{ vm.parentId }}/namespaces/{{
+                namespace.id
+              }}"
+              >Edit</a
+            >
             <nz-divider nzType="vertical"></nz-divider>
             <a>Delete</a>
           </td>
