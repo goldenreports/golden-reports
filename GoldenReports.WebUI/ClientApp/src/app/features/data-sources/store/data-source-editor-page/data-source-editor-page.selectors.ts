@@ -5,7 +5,7 @@ import { DataSourceSelectors } from '@core/store/data-source';
 import { selectDataSourceFeature } from '@features/data-sources/store';
 import { DataSourceEditorVm } from '@features/data-sources/models';
 import { RouterSelectors } from '@core/store/router';
-import { NamespaceEditorPageSelectors } from '@features/namespaces/store/namespace-editor-page';
+import { NamespaceContextPageSelectors } from '@features/namespaces/store/namespace-context-page';
 
 export class DataSourceEditorPageSelectors {
   public static readonly getState = createSelector(
@@ -20,7 +20,7 @@ export class DataSourceEditorPageSelectors {
 
   public static readonly getCombinedLoadingFlag = createSelector(
     DataSourceEditorPageSelectors.getLoadingFlag,
-    NamespaceEditorPageSelectors.getLoadingPathFlag,
+    NamespaceContextPageSelectors.getLoadingPathFlag,
     (localLoading, parentLoading) => localLoading && parentLoading
   );
 

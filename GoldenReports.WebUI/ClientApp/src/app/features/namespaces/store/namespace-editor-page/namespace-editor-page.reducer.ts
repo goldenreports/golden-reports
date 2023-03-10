@@ -1,60 +1,94 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { ErrorDto } from '@core/api';
 import { namespaceActions } from '@core/store/namespace';
+import { ErrorDto } from '@core/api';
+import { formActions } from '@shared/store';
 import { namespaceEditorPageActions } from './namespace-editor-page.actions';
 
 export const NamespaceEditorPageStateKey = 'namespaceEditorPage';
 
 export interface NamespaceEditorPageState {
-  loaded: boolean;
-  loadingPath: boolean;
+  loading: boolean;
+  isNewNamespace: boolean;
+  saving: boolean;
   error?: ErrorDto;
+  hasValidData: boolean;
 }
 
-const initialState: NamespaceEditorPageState = {
-  loaded: false,
-  loadingPath: false,
+export const initialState: NamespaceEditorPageState = {
+  loading: false,
+  isNewNamespace: false,
+  saving: false,
+  hasValidData: false,
 };
 
 export const namespaceEditorPageReducer = createReducer(
   initialState,
-  on(namespaceEditorPageActions.loaded, (state) => {
+  on(namespaceEditorPageActions.opened, (state) => {
     return {
       ...state,
-      loaded: true,
       error: undefined,
+      loading: true,
+      isNewDataSource: false,
+      saving: false,
+    };
+  }),
+  on(namespaceEditorPageActions.creationStarted, (state) => {
+    return {
+      ...state,
+      loading: false,
+      isNewDataSource: true,
     };
   }),
   on(
-    namespaceEditorPageActions.namespaceSelectionChanged,
-    (state, { namespaceId }) => {
-      return {
-        ...state,
-        loadingPath: !!namespaceId,
-        error: undefined,
-      };
-    }
-  ),
-  on(
-    namespaceActions.rootNamespaceFetched,
-    namespaceActions.namespaceFetched,
+    namespaceEditorPageActions.newNamespaceSubmitted,
+    namespaceEditorPageActions.changesSubmitted,
     (state) => {
       return {
         ...state,
-        loadingPath: false,
+        error: undefined,
+        saving: true,
       };
     }
   ),
   on(
-    namespaceActions.rootNamespaceFetchFailed,
-    namespaceActions.namespaceFetchFailed,
+    namespaceEditorPageActions.creationFailed,
+    namespaceEditorPageActions.updateFailed,
     (state, { error }) => {
       return {
         ...state,
-        loadingPath: false,
         error,
+        saving: false,
       };
     }
-  )
+  ),
+  on(
+    namespaceActions.namespaceCreated,
+    namespaceActions.namespaceUpdated,
+    (state) => {
+      return {
+        ...state,
+        isNewNamespace: false,
+        saving: false,
+      };
+    }
+  ),
+  on(
+    namespaceActions.namespaceFetched,
+    namespaceActions.namespaceFetchFailed,
+    (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    }
+  ),
+  on(formActions.formValidityChanged, (state, { formId, valid }) => {
+    return formId === 'namespace'
+      ? {
+          ...state,
+          hasValidData: valid,
+        }
+      : state;
+  })
 );

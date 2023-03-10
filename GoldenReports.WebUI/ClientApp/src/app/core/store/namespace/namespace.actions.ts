@@ -34,8 +34,8 @@ export const namespaceActions = createActionGroup({
     }>(),
     'Namespace Updated': props<{ namespace: NamespaceDto }>(),
     'Update Failed': props<{ error: ErrorDto }>(),
-    'Remove Requested': props<{ namespaceId: string }>(),
+    'Remove Requested': props<{ namespace: NamespaceDto }>(),
     'Namespace Removed': props<{ namespaceId: string }>(),
-    'Remove Failed': props<{ error: ErrorDto }>(),
+    'Remove Failed': props<{ namespace: NamespaceDto; error: ErrorDto }>(),
   },
 });

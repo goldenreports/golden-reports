@@ -6,10 +6,10 @@ import {
   NamespaceListPageStateKey,
 } from './namespace-list-page/namespace-list-page.reducer';
 import {
-  namespaceMetadataPageReducer,
-  NamespaceMetadataPageState,
-  NamespaceMetadataPageStateKey,
-} from './namespace-metadata-page/namespace-metadata-page.reducer';
+  namespaceContextPageReducer,
+  NamespaceContextPageState,
+  NamespaceContextPageStateKey,
+} from './namespace-context-page/namespace-context-page.reducer';
 import {
   namespaceEditorPageReducer,
   NamespaceEditorPageState,
@@ -19,16 +19,16 @@ import {
 export const namespaceFeatureStateKey = 'namespacePages';
 
 export interface NamespaceFeatureState {
-  [NamespaceEditorPageStateKey]: NamespaceEditorPageState;
+  [NamespaceContextPageStateKey]: NamespaceContextPageState;
   [NamespaceListPageStateKey]: NamespaceListPageState;
-  [NamespaceMetadataPageStateKey]: NamespaceMetadataPageState;
+  [NamespaceEditorPageStateKey]: NamespaceEditorPageState;
 }
 
 export const namespaceFeatureReducer: ActionReducerMap<NamespaceFeatureState> =
   {
-    [NamespaceEditorPageStateKey]: namespaceEditorPageReducer,
+    [NamespaceContextPageStateKey]: namespaceContextPageReducer,
     [NamespaceListPageStateKey]: namespaceListPageReducer,
-    [NamespaceMetadataPageStateKey]: namespaceMetadataPageReducer,
+    [NamespaceEditorPageStateKey]: namespaceEditorPageReducer,
   };
 
 export const selectNamespaceFeature =

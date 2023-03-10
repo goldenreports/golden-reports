@@ -2,10 +2,9 @@ import { createSelector } from '@ngrx/store';
 
 import { selectNamespaceFeature } from '@features/namespaces/store';
 import { NamespaceListPageStateKey } from './namespace-list-page.reducer';
-import { RouterSelectors } from '@core/store/router';
 import { NamespaceListVm } from '@features/namespaces/models/namespace-list.vm';
-import { NamespaceEditorPageSelectors } from '@features/namespaces/store/namespace-editor-page';
 import { NamespaceSelectors } from '@core/store/namespace';
+import { NamespaceContextPageSelectors } from '@features/namespaces/store/namespace-context-page';
 
 export class NamespaceListPageSelectors {
   public static readonly getState = createSelector(
@@ -29,7 +28,7 @@ export class NamespaceListPageSelectors {
   );
 
   public static readonly getChildren = createSelector(
-    NamespaceEditorPageSelectors.getNamespaceId,
+    NamespaceContextPageSelectors.getNamespaceId,
     NamespaceSelectors.getAll,
     (namespaceId, allNamespaces) =>
       namespaceId
@@ -50,13 +49,15 @@ export class NamespaceListPageSelectors {
   public static readonly getViewModel = createSelector(
     NamespaceListPageSelectors.getLoadingFlag,
     NamespaceListPageSelectors.getError,
+    NamespaceContextPageSelectors.getNamespaceId,
     NamespaceListPageSelectors.getChildren,
     NamespaceListPageSelectors.getShowingNewNamespaceModalFlag,
     NamespaceListPageSelectors.getSavingFlag,
-    (loading, error, children, showingNewNamespaceModal, saving) =>
+    (loading, error, parentId, children, showingNewNamespaceModal, saving) =>
       ({
         loading,
         error,
+        parentId,
         children,
         showingNewNamespaceModal,
         saving,

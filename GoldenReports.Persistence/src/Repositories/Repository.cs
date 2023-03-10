@@ -1,11 +1,12 @@
 ﻿using System.Linq.Expressions;
 using GoldenReports.Application.Abstractions.Persistence;
 using GoldenReports.Domain.Common;
+using GoldenReports.Persistence.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace GoldenReports.Persistence.Repositories;
 
-public abstract class Repository<TEntity>: IRepository<TEntity> where TEntity : Entity
+public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
 {
     private readonly GoldenReportsDbContext dataContext;
 
@@ -16,24 +17,22 @@ public abstract class Repository<TEntity>: IRepository<TEntity> where TEntity : 
 
     public virtual ValueTask<TEntity?> Get(Guid id, CancellationToken cancellationToken = default)
     {
-        return this.dataContext.Set<TEntity>().FindAsync(new object[] {id}, cancellationToken);
+        return this.dataContext.Set<TEntity>().FindAsync(new object[] { id }, cancellationToken);
     }
 
     public virtual IAsyncEnumerable<TEntity> GetAll()
     {
         return this.dataContext.Set<TEntity>()
             .OrderByDescending(x => x.ModificationDate)
-            .Include(x => x.CreatedBy)
-            .Include(x => x.ModifiedBy)
+            .IncludeAuditInfo()
             .AsAsyncEnumerable();
     }
-    
+
     public virtual IAsyncEnumerable<TEntity> GetAllAsReadOnly()
     {
         return this.dataContext.Set<TEntity>()
             .OrderByDescending(x => x.ModificationDate)
-            .Include(x => x.CreatedBy)
-            .Include(x => x.ModifiedBy)
+            .IncludeAuditInfo()
             .AsNoTrackingWithIdentityResolution()
             .AsAsyncEnumerable();
     }
@@ -42,8 +41,7 @@ public abstract class Repository<TEntity>: IRepository<TEntity> where TEntity : 
     {
         return this.dataContext.Set<TEntity>()
             .Where(predicate)
-            .Include(x => x.CreatedBy)
-            .Include(x => x.ModifiedBy)
+            .IncludeAuditInfo()
             .OrderByDescending(x => x.ModificationDate)
             .AsAsyncEnumerable();
     }
@@ -52,8 +50,7 @@ public abstract class Repository<TEntity>: IRepository<TEntity> where TEntity : 
     {
         return this.dataContext.Set<TEntity>()
             .Where(predicate)
-            .Include(x => x.CreatedBy)
-            .Include(x => x.ModifiedBy)
+            .IncludeAuditInfo()
             .OrderByDescending(x => x.ModificationDate)
             .AsNoTrackingWithIdentityResolution()
             .AsAsyncEnumerable();

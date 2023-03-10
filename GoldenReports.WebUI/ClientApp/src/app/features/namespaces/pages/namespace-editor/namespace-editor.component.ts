@@ -1,44 +1,57 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-
 import { AppState } from '@core/store';
-import { CreateNamespaceDto } from '@core/api';
-import { NamespaceListVm } from '@features/namespaces/models';
+import { CreateNamespaceDto, UpdateNamespaceDto } from '@core/api';
+import { NamespaceEditorVm } from '@features/namespaces/models';
 import {
-  namespaceListPageActions,
-  NamespaceListPageSelectors,
-} from '@features/namespaces/store/namespace-list-page';
+  namespaceEditorPageActions,
+  NamespaceEditorPageSelectors,
+} from '@features/namespaces/store/namespace-editor-page';
 
 @Component({
   templateUrl: 'namespace-editor.component.html',
-  styleUrls: ['namespace-editor.component.scss'],
 })
-export class NamespaceEditorComponent implements OnInit, OnDestroy {
-  public vm$!: Observable<NamespaceListVm>;
+export class NamespaceEditorComponent implements OnInit {
+  public vm$!: Observable<NamespaceEditorVm>;
+  public namespaceForm!: FormGroup;
 
-  constructor(private readonly store: Store<AppState>) {}
+  constructor(
+    private readonly store: Store<AppState>,
+    private readonly formBuilder: FormBuilder
+  ) {}
 
   public ngOnInit(): void {
-    this.vm$ = this.store.select(NamespaceListPageSelectors.getViewModel);
-    this.store.dispatch(namespaceListPageActions.opened());
+    this.vm$ = this.store.select(NamespaceEditorPageSelectors.getViewModel);
+    this.namespaceForm = this.createNamespaceForm();
+    this.store.dispatch(namespaceEditorPageActions.opened());
   }
 
-  public ngOnDestroy(): void {
-    this.store.dispatch(namespaceListPageActions.closed());
+  public saveNamespace(
+    namespaceId: string | undefined,
+    namespace: CreateNamespaceDto | UpdateNamespaceDto
+  ): void {
+    if (namespaceId) {
+      this.store.dispatch(
+        namespaceEditorPageActions.changesSubmitted({
+          namespaceId: namespaceId,
+          namespace: namespace,
+        })
+      );
+    } else {
+      this.store.dispatch(
+        namespaceEditorPageActions.newNamespaceSubmitted({
+          newNamespace: namespace,
+        })
+      );
+    }
   }
 
-  public beginNamespaceCreation(): void {
-    this.store.dispatch(namespaceListPageActions.creationStated());
-  }
-
-  public saveNamespace(newChild: CreateNamespaceDto): void {
-    this.store.dispatch(
-      namespaceListPageActions.childNamespaceSubmitted({ namespace: newChild })
-    );
-  }
-
-  public cancelNamespaceCreation(): void {
-    this.store.dispatch(namespaceListPageActions.creationCancelled());
+  private createNamespaceForm(): FormGroup {
+    return this.formBuilder.group({
+      name: [null, [Validators.required, Validators.max(200)]],
+      description: [null, [Validators.max(750)]],
+    });
   }
 }

@@ -1,0 +1,67 @@
+<ng-container *ngIf="vm$ | async as vm">
+  <nz-space nzDirection="vertical" nzSize="middle">
+    <ng-container *ngIf="vm.error">
+      <app-error-message *nzSpaceItem [error]="vm.error"></app-error-message>
+    </ng-container>
+    <button
+      *nzSpaceItem
+      class="add-button"
+      nz-button
+      nzGhost
+      nzType="primary"
+      routerLink="./new"
+    >
+      Add Namespace
+    </button>
+    <nz-table
+      *nzSpaceItem
+      [nzData]="vm.children"
+      [nzLoading]="vm.loading"
+      nzSize="middle"
+    >
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Created</th>
+          <th>Modified</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let namespace of vm.children">
+          <td>
+            <a routerLink="/namespaces/{{ namespace.id }}">{{
+              namespace.name
+            }}</a>
+          </td>
+          <td>{{ namespace.description }}</td>
+          <td>
+            {{ namespace.creationDate | date : 'short' }} by
+            {{ namespace.createdBy }}
+          </td>
+          <td>
+            {{ namespace.modificationDate | date : 'short' }} by
+            {{ namespace.modifiedBy }}
+          </td>
+          <td>
+            <a
+              routerLink="/namespaces/{{ vm.parentId }}/namespaces/{{
+                namespace.id
+              }}"
+              >Edit</a
+            >
+            <nz-divider nzType="vertical"></nz-divider>
+            <a
+              nz-popconfirm
+              nzPopconfirmTitle="Are you sure delete this namespace?"
+              nzPopconfirmPlacement="top"
+              (nzOnConfirm)="deleteNamespace(namespace)"
+              >Delete</a
+            >
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-space>
+</ng-container>

@@ -1,5 +1,6 @@
 ﻿using GoldenReports.Application.Abstractions.Persistence;
 using GoldenReports.Domain.Namespaces;
+using GoldenReports.Persistence.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace GoldenReports.Persistence.Repositories;
@@ -45,26 +46,34 @@ public class NamespaceRepository : Repository<Namespace>, INamespaceRepository
     public Task<Namespace?> GetNamespaceWithInnerNamespaces(Guid namespaceId,
         CancellationToken cancellationToken = default)
     {
-        return this.dataContext.Namespaces.Include(x => x.Namespaces)
+        return this.dataContext.Namespaces
+            .IncludeWithAuditInfo(x => x.Namespaces)
+            .IncludeAuditInfo()
             .SingleOrDefaultAsync(x => x.Id == namespaceId, cancellationToken);
     }
 
     public Task<Namespace?> GetNamespaceWithDataSources(Guid namespaceId, CancellationToken cancellationToken = default)
     {
-        return this.dataContext.Namespaces.Include(x => x.DataSources)
+        return this.dataContext.Namespaces
+            .IncludeWithAuditInfo(x => x.DataSources)
+            .IncludeAuditInfo()
             .SingleOrDefaultAsync(x => x.Id == namespaceId, cancellationToken);
     }
 
     public Task<Namespace?> GetNamespaceWithDataContexts(Guid namespaceId,
         CancellationToken cancellationToken = default)
     {
-        return this.dataContext.Namespaces.Include(x => x.DataContexts)
+        return this.dataContext.Namespaces
+            .IncludeWithAuditInfo(x => x.DataContexts)
+            .IncludeAuditInfo()
             .SingleOrDefaultAsync(x => x.Id == namespaceId, cancellationToken);
     }
 
     public Task<Namespace?> GetNamespaceWithReports(Guid namespaceId, CancellationToken cancellationToken = default)
     {
-        return this.dataContext.Namespaces.Include(x => x.Reports)
+        return this.dataContext.Namespaces
+            .IncludeWithAuditInfo(x => x.Reports)
+            .IncludeAuditInfo()
             .SingleOrDefaultAsync(x => x.Id == namespaceId, cancellationToken);
     }
 
