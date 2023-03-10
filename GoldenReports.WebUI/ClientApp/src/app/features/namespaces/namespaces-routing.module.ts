@@ -20,7 +20,7 @@ const routes: Routes = [
       { path: '', pathMatch: 'full', redirectTo: 'namespaces' },
       { path: 'namespaces', component: NamespaceListComponent },
       {
-        path: 'namespaces/:childNamespace',
+        path: 'namespaces/:childNamespaceId',
         component: NamespaceEditorComponent,
       },
       {
