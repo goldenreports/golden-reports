@@ -15,11 +15,11 @@ public class AuditMiddleware : IDbContextMiddleware
     {
         this.authContext = authContext;
     }
-    
+
     public async Task ProcessModifiedEntries(GoldenReportsDbContext dbContext, IEnumerable<EntityEntry<Entity>> modifiedEntries)
     {
         var currentUser = await this.GetOrCreateCurrentUser(dbContext);
-        foreach (var entry in modifiedEntries)
+        foreach (var entry in modifiedEntries.Where(x => x.State is EntityState.Added or EntityState.Modified))
         {
             if (entry.State == EntityState.Added)
             {
@@ -31,7 +31,7 @@ public class AuditMiddleware : IDbContextMiddleware
             entry.Entity.ModifiedBy = currentUser;
         }
     }
-    
+
     private async Task<User> GetOrCreateCurrentUser(GoldenReportsDbContext dbContext)
     {
         if (this.authContext.CurrentUser == null)
@@ -48,9 +48,9 @@ public class AuditMiddleware : IDbContextMiddleware
 
         if (dbContext.Entry(SecurityConstants.SystemUser).State == EntityState.Detached)
         {
-            dbContext.Users.Attach(SecurityConstants.SystemUser);   
+            dbContext.Users.Attach(SecurityConstants.SystemUser);
         }
-        
+
         user = new User
         {
             AuthContextKey = this.authContext.CurrentUser.AuthContextKey,
